@@ -3,6 +3,7 @@ Platformer Game
 """
 import arcade
 import tkinter
+import sys
 
 # Constants
 SCREEN_WIDTH = tkinter.Tk().winfo_screenwidth()
@@ -37,6 +38,9 @@ class GameWindow(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         self.set_fullscreen(True)
+    def close(self):
+        """ Close the Window. """
+        super().close()
 
 
 class MenuView(arcade.View):
@@ -73,14 +77,19 @@ class GameOverView(arcade.View):
     def on_draw(self):
         """ Draw this view """
         arcade.start_render()
-        arcade.draw_text("You Died", SCREEN_WIDTH / 2.45, SCREEN_HEIGHT / 2,
-                         arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("Press SPACE to suffer again.", SCREEN_WIDTH / 2.45, SCREEN_HEIGHT / 2 - 75,
-                         arcade.color.WHITE, font_size=20, anchor_x="center")
+        arcade.draw_text("You Died", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y +140,
+                         arcade.color.WHITE, font_size=100, anchor_x="center")
+        arcade.draw_text("Press SPACE to suffer again or ESC to exit.", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 70,
+                         arcade.color.WHITE, font_size=30, anchor_x="center")
 
     def on_key_press(self, key, modifiers):
-        arcade.set_background_color(self.color)
-        self.window.show_view(self.game_view)
+        if key != arcade.key.ESCAPE:
+            game = GameView()
+            game.setup()
+            self.window.show_view(game)
+        else:
+            self.window.close()
+            sys.exit()
 
 
 class PauseView(arcade.View):
@@ -96,36 +105,55 @@ class PauseView(arcade.View):
         arcade.set_background_color(arcade.csscolor.GREY)
         arcade.start_render()
 
-        # Draw player, for effect, on pause screen.
-        # The previous View (GameView) was passed in
-        # and saved in self.game_view.
-        player_sprite = self.game_view.player_sprite
-        player_sprite.draw()
+        #player_sprite = self.game_view.player_sprite
+        #player_sprite.draw()
+        self.game_view.golden_key_list.draw()
+        self.game_view.golden_door_list.draw()
+        self.game_view.wall_list.draw()
+        self.game_view.moving_traps_list.draw()
+        self.game_view.enemy_list.draw()
+        self.game_view.background_list.draw()
+        self.game_view.wall_list.draw()
+        self.game_view.coin_list.draw()
+        self.game_view.dont_touch_list.draw()
+        self.game_view.player_list.draw()
+        self.game_view.foreground_list.draw()
+        self.game_view.ladder_list.draw()
 
-        arcade.draw_text("PAUSED", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50,
-                         arcade.color.BLACK, font_size=50, anchor_x="center")
+        arcade.draw_text("PAUSED", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 170,
+                         arcade.color.BLACK, font_size=100, anchor_x="center")
 
         # Show tip to return or reset
         arcade.draw_text("Press Esc. to return",
-                         SCREEN_WIDTH / 2,
-                         SCREEN_HEIGHT / 2,
+                         self.game_view.player_sprite.center_x,
+                         self.game_view.player_sprite.center_y + 90,
                          arcade.color.BLACK,
-                         font_size=20,
+                         font_size=30,
                          anchor_x="center")
         arcade.draw_text("Press Enter to reset",
-                         SCREEN_WIDTH / 2,
-                         SCREEN_HEIGHT / 2 - 30,
+                         self.game_view.player_sprite.center_x,
+                         self.game_view.player_sprite.center_y + 125,
                          arcade.color.BLACK,
-                         font_size=20,
+                         font_size=30,
+                         anchor_x="center")
+        arcade.draw_text("Or BACKSPACE to exit",
+                         self.game_view.player_sprite.center_x,
+                         self.game_view.player_sprite.center_y + 60,
+                         arcade.color.BLACK,
+                         font_size=30,
                          anchor_x="center")
 
     def on_key_press(self, key, _modifiers):
         arcade.set_background_color(self.color)
         if key == arcade.key.ESCAPE:  # resume game
             self.window.show_view(self.game_view)
-        # elif key == arcade.key.ENTER:  # reset game
-        #    game = GameView()
-        #    self.window.show_view(game)
+        elif key == arcade.key.ENTER:  # reset game
+            game = GameView()
+            game.setup()
+            self.window.show_view(game)
+        elif key == arcade.key.BACKSPACE:
+            self.window.close()
+            sys.exit()
 
 
 class GameView(arcade.View):
@@ -190,7 +218,7 @@ class GameView(arcade.View):
         self.has_golden_key = False
         # arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
-    def setup(self, level):
+    def setup(self, level=0):
         """ Set up the game here. Call this function to restart the game. """
         # Used to keep track of our scrolling
         self.view_bottom = 0

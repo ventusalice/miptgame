@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="128" tileheight="128" infinite="0" backgroundcolor="#6ca5c8" nextlayerid="20" nextobjectid="16">
+ <tileset firstgid="1" name="Platforms" tilewidth="128" tileheight="128" tilecount="14" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="128" height="128" source="images/tiles/grassMid.png"/>
+  </tile>
+  <tile id="1">
+   <image width="128" height="128" source="images/tiles/stoneLeft.png"/>
+  </tile>
+  <tile id="2">
+   <image width="128" height="128" source="images/tiles/stoneMid.png"/>
+  </tile>
+  <tile id="3">
+   <image width="128" height="128" source="images/tiles/stoneRight.png"/>
+  </tile>
+  <tile id="4">
+   <image width="128" height="128" source="images/tiles/stoneHalf_mid.png"/>
+  </tile>
+  <tile id="5">
+   <image width="128" height="128" source="images/tiles/spikes.png"/>
+  </tile>
+  <tile id="6">
+   <image width="128" height="128" source="images/tiles/grassCenter.png"/>
+  </tile>
+  <tile id="7">
+   <image width="128" height="128" source="images/tiles/grassCliff_left.png"/>
+  </tile>
+  <tile id="8">
+   <image width="128" height="128" source="images/tiles/stoneCenter.png"/>
+  </tile>
+  <tile id="9">
+   <image width="128" height="128" source="images/tiles/spikes_right.png"/>
+  </tile>
+  <tile id="10">
+   <image width="128" height="128" source="images/tiles/spikes_down.png"/>
+  </tile>
+  <tile id="11">
+   <image width="128" height="128" source="images/tiles/spikes_left.png"/>
+  </tile>
+  <tile id="12">
+   <image width="128" height="128" source="images/tiles/doorClosed_mid.png"/>
+  </tile>
+  <tile id="13">
+   <image width="128" height="128" source="images/tiles/doorClosed_top.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="15" name="ladders+coins" tilewidth="128" tileheight="128" tilecount="12" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="128" height="128" source="images/tiles/ladderMid.png"/>
+  </tile>
+  <tile id="1">
+   <image width="128" height="128" source="images/tiles/ladderTop.png"/>
+  </tile>
+  <tile id="2">
+   <image width="128" height="128" source="images/items/coinGold.png"/>
+  </tile>
+  <tile id="3">
+   <image width="128" height="128" source="images/items/keyYellow.png"/>
+  </tile>
+  <tile id="4">
+   <image width="128" height="128" source="images/items/star.png"/>
+  </tile>
+  <tile id="5">
+   <image width="128" height="128" source="images/tiles/bush.png"/>
+  </tile>
+  <tile id="6">
+   <image width="128" height="128" source="images/tiles/cactus.png"/>
+  </tile>
+  <tile id="7">
+   <image width="128" height="128" source="images/tiles/grass_sprout.png"/>
+  </tile>
+  <tile id="8">
+   <image width="128" height="128" source="images/tiles/signExit.png"/>
+  </tile>
+  <tile id="9">
+   <image width="128" height="128" source="images/tiles/signLeft.png"/>
+  </tile>
+  <tile id="10">
+   <image width="128" height="128" source="images/tiles/signRight.png"/>
+  </tile>
+  <tile id="11">
+   <image width="128" height="128" source="images/items/flagRed1.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="27" name="Enemy" tilewidth="128" tileheight="128" tilecount="2" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="128" height="128" source="images/enemies/sawHalf.png"/>
+  </tile>
+  <tile id="1">
+   <image width="128" height="128" source="images/enemies/saw.png"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="Platforms" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2NsKgzAQBUCthdL//+G+tCASNRgT12YGAlIKrntcb8MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP2aEqvlvlrtO6eO92Ll1Ftj7dWbezylvW55jD/LDI6slq48j8+0VvPd8vh3pf2XR7mS+ZbHeWpcZ+VxXI3eyeO4vd7lPKOlnpGpI+c+rv/tyCMWecQij3jkcS/yiEUebT2G7XcQebSl37HIIxZ5xJLKY8rYpg7zEcs8D+d/G1vXH/MRj7mAfeaEXsy/QT2/vy2/Vc3/CwBrxqsL6NiYWK9LK+rbB1XGBaQ=
+  </data>
+ </layer>
+ <layer id="16" name="Exit" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztziENAAAIADA8AejflAI4BGP7EzwCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH6q6wAAAAAAAAAAAAAAwCCvAwDAWgOvXwAj
+  </data>
+ </layer>
+ <objectgroup id="8" name="Moving traps">
+  <object id="9" gid="27" x="644" y="8576" width="128" height="128">
+   <properties>
+    <property name="boundary_left" type="float" value="192"/>
+    <property name="boundary_right" type="float" value="448"/>
+    <property name="change_x" type="float" value="5"/>
+   </properties>
+  </object>
+  <object id="11" gid="28" x="639" y="12545" width="128" height="128">
+   <properties>
+    <property name="change_y" type="float" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="18" name="Golden door" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIA6AXsH9dY3w6SEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwEfTDgAAAAAAAAActRsOAA4=
+  </data>
+ </layer>
+ <layer id="17" name="Golden key" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBAAAIA6BlsH9YE+zVBxKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdPMdAAAAAACAYws8VgAT
+  </data>
+ </layer>
+ <objectgroup id="2" name="moving_platforms">
+  <object id="1" gid="5" x="0" y="12160" width="128" height="128">
+   <properties>
+    <property name="boundary_bottom" type="float" value="384"/>
+    <property name="boundary_top" type="float" value="640"/>
+    <property name="change_y" type="float" value="2"/>
+   </properties>
+  </object>
+  <object id="7" gid="9" x="2432" y="9464" width="128" height="128">
+   <properties>
+    <property name="boundary_left" type="float" value="128"/>
+    <property name="boundary_right" type="float" value="1408"/>
+    <property name="change_x" type="float" value="15"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="3" name="Background" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzqENACAQBMGvAIWA/hvFoj8kh5hRK7cKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4I2RHgAAAAAAItbVO3YBAHTN9AB86ACg1ABU
+  </data>
+ </layer>
+ <objectgroup id="19" name="Enemies"/>
+ <layer id="4" name="Foreground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer id="5" name="Don't Touch" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2TEKwCAMAMBMDtr/v7dDp4KllKZo8Q4EcQhihpAYAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAKG30BQBulM5Ze7jIVSPvXbekOCuribHk473MfAAA89FfzEcvCADwLTNDOPT+qwBmZjbCikqca/bVHgAA/mYHuikBZA==
+  </data>
+ </layer>
+ <layer id="6" name="Coins" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt10sOABEUBEBXkLn/Xe1NBgvjW7WyEonXLUIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgH/FxfeD0cwwtJGVszyzDwAT1HpMzwEAAL34XwDQU/xYw03y2ZeFMfTPXtwR1MkJvMkFACXeCWBFCUMYATU=
+  </data>
+ </layer>
+ <layer id="7" name="Ladders" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2cENwCAMADE2aPeflmfFAuUE9gRR7hVlDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC427t7ABbP7gFY6NGiR4seLXq06NGix7/su0WPFj1a9GjRo0UPAABO4Rfe4tZo0aNFjxY94DMBcXkBIA==
+  </data>
+ </layer>
+ <layer id="13" name="Checkpoints" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2EENAAAIAkBz2D+oFfw4N3aXgB+DKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD40d8BAAAAAAAgiN8dgEt6BgAA2LAdAABIMnGMAGk=
+  </data>
+ </layer>
+</map>

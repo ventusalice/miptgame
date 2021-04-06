@@ -18,8 +18,10 @@ GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 10
-PLAYER_START_X = 32
-PLAYER_START_Y = 64
+#PLAYER_START_X = 768
+#PLAYER_START_Y = 1216
+PLAYER_START_X = 32 #center of player
+PLAYER_START_Y = 64 #bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
 
@@ -136,6 +138,9 @@ class GameView(arcade.View):
         super().__init__()
         # These are 'lists' that keep track of our sprites. Each sprite should
         # go into a list.
+        self.golden_door_list = None
+        self.golden_key_list = None
+        self.exit_list = None
         self.coin_list = None
         self.wall_list = None
         self.player_list = None
@@ -143,7 +148,8 @@ class GameView(arcade.View):
         self.background_list = None
         self.dont_touch_list = None
         self.ladder_list = None
-        self.enemy_list = None
+        self.moving_traps_list = None
+        self.checkpoint_list = None
 
         # Separate variable that holds the player sprite
         self.player_sprite = None
@@ -168,15 +174,19 @@ class GameView(arcade.View):
         # Where is the right edge of the map?
         self.end_of_map = 0
         # Level
-        self.level = 1
+        self.level = 0
 
-        #game_over
-        self.game_over = False
+        # checkpoint data
+        self.checkpoint_x = PLAYER_START_X
+        self.checkpoint_y = PLAYER_START_Y
+
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
         self.jump_sound = arcade.load_sound("sounds/jump2.wav")
         self.game_over_sound = arcade.load_sound("sounds/gameover1.wav")
 
+        # keys and doors
+        self.has_golden_key = False
         #arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def setup(self, level):
@@ -190,7 +200,11 @@ class GameView(arcade.View):
         self.lifes = 20
 
         # Create the Sprite lists
-        self.enemy_list = arcade.SpriteList()
+        self.golden_door_list = arcade.SpriteList(use_spatial_hash=True)
+        self.golden_key_list = arcade.SpriteList(use_spatial_hash=True)
+        self.exit_list = arcade.SpriteList(use_spatial_hash=True)
+        self.checkpoint_list = arcade.SpriteList(use_spatial_hash=True)
+        self.moving_traps_list = arcade.SpriteList()
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList(use_spatial_hash=True)
         self.coin_list = arcade.SpriteList(use_spatial_hash=True)
@@ -218,25 +232,35 @@ class GameView(arcade.View):
         background_layer_name = 'Background'
         # Name of the layer that has items we shouldn't touch
         dont_touch_layer_name = "Don't Touch"
-        #enemy
-        enemy_layer_name = 'Enemy'
+        # moving_traps
+        moving_traps_layer_name = 'Moving traps'
+        # checkpoints
+        checkpoints_layer_name = 'Checkpoints'
+        # exit
+        exit_layer_name = 'Exit'
+        # keys and doors
+        golden_key_layer_name = 'Golden key'
+        golden_door_layer_name = 'Golden door'
         # Map name
         map_name = f"map_level_{level}.tmx"
 
         # Read in the tiled map
         my_map = arcade.tilemap.read_tmx(map_name)
 
-        # Calculate the right edge of the my_map in pixels
-        self.end_of_map = my_map.map_size.width * GRID_PIXEL_SIZE
-
         # -- Background
         self.background_list = arcade.tilemap.process_layer(my_map,
                                                             background_layer_name,
                                                             TILE_SCALING)
-        #Enemies
-        self.enemy_list = arcade.tilemap.process_layer(my_map,
-                                                        enemy_layer_name,
-                                                        TILE_SCALING)
+        # exit
+        self.exit_list = arcade.tilemap.process_layer(my_map,
+                                                      exit_layer_name,
+                                                      TILE_SCALING)
+        for sprite in self.exit_list:
+            self.background_list.append(sprite)
+        # moving_traps
+        self.moving_traps_list = arcade.tilemap.process_layer(my_map,
+                                                              moving_traps_layer_name,
+                                                              TILE_SCALING)
         # -- Ladder objects
         self.ladder_list = arcade.tilemap.process_layer(my_map,
                                                         ladders_layer_name,
@@ -257,6 +281,11 @@ class GameView(arcade.View):
         moving_platforms_list = arcade.tilemap.process_layer(my_map, moving_platforms_layer_name, TILE_SCALING)
         for sprite in moving_platforms_list:
             self.wall_list.append(sprite)
+        # checkpoints
+        self.checkpoint_list = arcade.tilemap.process_layer(my_map, checkpoints_layer_name, TILE_SCALING,
+                                                            use_spatial_hash=True)
+        for sprite in self.checkpoint_list:
+            self.background_list.append(sprite)
 
         # -- Coins
         self.coin_list = arcade.tilemap.process_layer(my_map,
@@ -270,6 +299,16 @@ class GameView(arcade.View):
                                                             TILE_SCALING,
                                                             use_spatial_hash=True)
 
+        # doors and keys
+        self.golden_key_list = arcade.tilemap.process_layer(my_map,
+                                                            golden_key_layer_name,
+                                                            TILE_SCALING,
+                                                            use_spatial_hash=True)
+        self.golden_door_list = arcade.tilemap.process_layer(my_map,
+                                                             golden_door_layer_name,
+                                                             TILE_SCALING,
+                                                             use_spatial_hash=True)
+
         # --- Other stuff
         # Set the background color
         if my_map.background_color:
@@ -281,7 +320,6 @@ class GameView(arcade.View):
                                                              self.wall_list,
                                                              gravity_constant=GRAVITY,
                                                              ladders=self.ladder_list)
-
     def on_draw(self):
         """ Render the screen. """
 
@@ -289,8 +327,10 @@ class GameView(arcade.View):
         arcade.start_render()
 
         # Draw our sprites
+        self.golden_key_list.draw()
+        self.golden_door_list.draw()
         self.wall_list.draw()
-        self.enemy_list.draw()
+        self.moving_traps_list.draw()
         self.background_list.draw()
         self.wall_list.draw()
         self.coin_list.draw()
@@ -300,14 +340,19 @@ class GameView(arcade.View):
         self.ladder_list.draw()
 
         # Draw our score on the screen, scrolling it with the viewport
-        arcade.draw_text(f"Lifes: {self.lifes}", 20 + self.view_left, SCREEN_HEIGHT-30 + self.view_bottom,
-                         arcade.csscolor.BLACK, 18)
+
         score_text = f"Score: {self.score}"
-        arcade.draw_text(score_text, 20 + self.view_left, SCREEN_HEIGHT-50 + self.view_bottom,
+        arcade.draw_text(score_text, 20 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
-        arcade.draw_text(f'Level {self.level}', 20 + self.view_left, SCREEN_HEIGHT - 70 + self.view_bottom,
+        arcade.draw_text(f'Level {self.level}', 20 + self.view_left, SCREEN_HEIGHT - 50 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
-        arcade.draw_text('Pasha +PLUS+', self.player_sprite.left-32, self.player_sprite.top, arcade.csscolor.WHITE, 18)
+        arcade.draw_text('Pasha +PLUS+', self.player_sprite.left - 32, self.player_sprite.top, arcade.csscolor.WHITE,
+                         18)
+        arcade.draw_text(f"Lifes: {self.lifes}", 20 + self.view_left, SCREEN_HEIGHT - 70 + self.view_bottom,
+                         arcade.csscolor.BLACK, 18)
+        if self.has_golden_key:
+            arcade.draw_text('Золотой ключ', 20 + self.view_left, SCREEN_HEIGHT - 90 + self.view_bottom,
+                             arcade.csscolor.BLACK, 18)
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
@@ -356,18 +401,17 @@ class GameView(arcade.View):
         def death():
             self.player_sprite.change_x = 0
             self.player_sprite.change_y = 0
-            self.player_sprite.center_x = PLAYER_START_X
-            self.player_sprite.center_y = PLAYER_START_Y
-            
+            self.player_sprite.center_x = self.checkpoint_x
+            self.player_sprite.bottom = self.checkpoint_y
+
             # Set the camera to the start
             self.view_left = 0
             self.view_bottom = 0
-            #global changed_viewport
             changed_viewport = True
             arcade.play_sound(self.game_over_sound)
-            if self.score:
-                self.score-=1
-            self.game_over = False
+            self.score -= 1
+           # if self.score:
+            #    self.score-=1
             if self.lifes:
                 self.lifes-=1
             else:
@@ -388,11 +432,11 @@ class GameView(arcade.View):
         # Update walls, used with moving platforms
         self.wall_list.update()
         #update enemies
-        self.enemy_list.update()
+        self.moving_traps_list.update()
 
-        # Check each enemy
-        for enemy in self.enemy_list:
-            # If the enemy hit a wall, reverse
+        # Check each moving trap
+        for enemy in self.moving_traps_list:
+            # If the trap hits a wall, reverse
             if arcade.check_for_collision_with_list(enemy, self.wall_list):
                 enemy.change_x *= -1
                 enemy.change_y *= -1
@@ -432,27 +476,53 @@ class GameView(arcade.View):
             # Add one to the score
             self.score +=10
 
+        #checkpoints
+        for save in arcade.check_for_collision_with_list(self.player_sprite,
+                                                 self.checkpoint_list):
+            self.checkpoint_x = save.center_x
+            self.checkpoint_y = save.bottom
+
+        # See if we hit any keys
+        # Loop through each coin we hit (if any) and remove it
+        for key in arcade.check_for_collision_with_list(self.player_sprite,
+                                                             self.golden_key_list):
+            # Remove the key
+            key.remove_from_sprite_lists()
+            # Play a sound
+            arcade.play_sound(self.collect_coin_sound)
+            # Add one to the score
+            self.has_golden_key = True
+        #check door
+        for door in arcade.check_for_collision_with_list(self.player_sprite,
+                                                             self.golden_door_list):
+            if self.has_golden_key:
+                self.has_golden_key = False
+                # Remove the door
+                door.remove_from_sprite_lists()
+                self.background_list.append(door)
+                # Play a sound
+                #arcade.play_sound(self.collect_coin_sound)
+            else:
+                self.player_sprite.center_x -= self.player_sprite.change_x
+                self.player_sprite.center_y -= self.player_sprite.change_y
 # Track if we need to change the viewport
         changed_viewport = False
 
-        # See if the player hit an enemy. If so, game over.
-        if arcade.check_for_collision_with_list(self.player_sprite, self.enemy_list):
-            self.game_over = True
+        # See if the player hit an trap. If so, game over.
+        if arcade.check_for_collision_with_list(self.player_sprite, self.moving_traps_list):
+            death()
         # Did the player fall off the map?
         if self.player_sprite.center_y < -100:
-            self.game_over = True
+            death()
 
         # Did the player touch something they should not?
         if arcade.check_for_collision_with_list(self.player_sprite,
                                                 self.dont_touch_list):
-            self.game_over = True
-
-        if self.game_over:
             death()
 
-
-        # See if the user got to the end of the level
-        if self.player_sprite.center_x >= self.end_of_map:
+ # See if the user got to the end of the level
+        if arcade.check_for_collision_with_list(self.player_sprite,
+                                             self.exit_list):
             # Advance to the next level
             self.level += 1
 
@@ -501,6 +571,8 @@ class GameView(arcade.View):
                                 SCREEN_WIDTH + self.view_left,
                                 self.view_bottom,
                                 SCREEN_HEIGHT + self.view_bottom)
+
+
 
 
 def main():

@@ -18,52 +18,54 @@ GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 10
-#PLAYER_START_X = 768
-#PLAYER_START_Y = 1216
-PLAYER_START_X = 32 #center of player
-PLAYER_START_Y = 64 #bottom of the player
+# PLAYER_START_X = 768
+# PLAYER_START_Y = 1216
+PLAYER_START_X = 32  # center of player
+PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
-LEFT_VIEWPORT_MARGIN = int(SCREEN_WIDTH/2)
-RIGHT_VIEWPORT_MARGIN = int(SCREEN_WIDTH/2)
-BOTTOM_VIEWPORT_MARGIN = int(SCREEN_HEIGHT/2)
-TOP_VIEWPORT_MARGIN = int(SCREEN_HEIGHT/2)
+LEFT_VIEWPORT_MARGIN = int(SCREEN_WIDTH / 2)
+RIGHT_VIEWPORT_MARGIN = int(SCREEN_WIDTH / 2)
+BOTTOM_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
+TOP_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
 
 
 class GameWindow(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         self.set_fullscreen(True)
-        
+
+
 class MenuView(arcade.View):
     def on_show(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.csscolor.PURPLE)
         # ниже для отмены результатов скроллинга
         arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
-        
+
     def on_draw(self):
         """ Draw this view """
         arcade.start_render()
         arcade.draw_text("Opening Screen", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
                          arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("Press SPACE to advance.", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2-75,
+        arcade.draw_text("Press SPACE to advance.", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 75,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
-        
+
     def on_key_press(self, key, modifiers):
         game_view = GameView()
         game_view.setup(game_view.level)
         self.window.show_view(game_view)
-        
+
+
 class GameOverView(arcade.View):
 
     def __init__(self, game_view, color):
         super().__init__()
-        self.game_view=game_view
-        self.color=color
+        self.game_view = game_view
+        self.color = color
         arcade.set_background_color(arcade.csscolor.SLATE_GRAY)
         # ниже для отмены результатов скроллинга
         arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
@@ -73,22 +75,23 @@ class GameOverView(arcade.View):
         arcade.start_render()
         arcade.draw_text("You Died", SCREEN_WIDTH / 2.45, SCREEN_HEIGHT / 2,
                          arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("Press SPACE to suffer again.", SCREEN_WIDTH / 2.45, SCREEN_HEIGHT / 2-75,
+        arcade.draw_text("Press SPACE to suffer again.", SCREEN_WIDTH / 2.45, SCREEN_HEIGHT / 2 - 75,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
 
     def on_key_press(self, key, modifiers):
         arcade.set_background_color(self.color)
         self.window.show_view(self.game_view)
-        
+
+
 class PauseView(arcade.View):
     def __init__(self, game_view, color):
         super().__init__()
         self.game_view = game_view
-        self.color=color
+        self.color = color
 
     def on_show(self):
         pass
-    
+
     def on_draw(self):
         arcade.set_background_color(arcade.csscolor.GREY)
         arcade.start_render()
@@ -99,33 +102,30 @@ class PauseView(arcade.View):
         player_sprite = self.game_view.player_sprite
         player_sprite.draw()
 
-        
-        arcade.draw_text("PAUSED", SCREEN_WIDTH/2, SCREEN_HEIGHT/2+50,
+        arcade.draw_text("PAUSED", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50,
                          arcade.color.BLACK, font_size=50, anchor_x="center")
 
         # Show tip to return or reset
         arcade.draw_text("Press Esc. to return",
-                         SCREEN_WIDTH/2,
-                         SCREEN_HEIGHT/2,
+                         SCREEN_WIDTH / 2,
+                         SCREEN_HEIGHT / 2,
                          arcade.color.BLACK,
                          font_size=20,
                          anchor_x="center")
         arcade.draw_text("Press Enter to reset",
-                         SCREEN_WIDTH/2,
-                         SCREEN_HEIGHT/2-30,
+                         SCREEN_WIDTH / 2,
+                         SCREEN_HEIGHT / 2 - 30,
                          arcade.color.BLACK,
                          font_size=20,
                          anchor_x="center")
 
     def on_key_press(self, key, _modifiers):
         arcade.set_background_color(self.color)
-        if key == arcade.key.ESCAPE:   # resume game
+        if key == arcade.key.ESCAPE:  # resume game
             self.window.show_view(self.game_view)
-        #elif key == arcade.key.ENTER:  # reset game
+        # elif key == arcade.key.ENTER:  # reset game
         #    game = GameView()
         #    self.window.show_view(game)
-
-
 
 
 class GameView(arcade.View):
@@ -187,7 +187,7 @@ class GameView(arcade.View):
 
         # keys and doors
         self.has_golden_key = False
-        #arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
+        # arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def setup(self, level):
         """ Set up the game here. Call this function to restart the game. """
@@ -214,8 +214,8 @@ class GameView(arcade.View):
         # Set up the player, specifically placing it at these coordinates.
         image_source = "images/player_2/player_stand.png"
         self.player_sprite = arcade.Sprite(image_source, CHARACTER_SCALING)
-        self.player_sprite.center_x = PLAYER_START_X
-        self.player_sprite.center_y = PLAYER_START_Y
+        self.player_sprite.center_x = self.checkpoint_x
+        self.player_sprite.center_y = self.checkpoint_y
         self.player_list.append(self.player_sprite)
 
         # --- Load in a map from the tiled editor ---
@@ -313,13 +313,14 @@ class GameView(arcade.View):
         # Set the background color
         if my_map.background_color:
             arcade.set_background_color(my_map.background_color)
-            self.background_color=my_map.background_color
+            self.background_color = my_map.background_color
 
         # Create the 'physics engine'
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
                                                              self.wall_list,
                                                              gravity_constant=GRAVITY,
                                                              ladders=self.ladder_list)
+
     def on_draw(self):
         """ Render the screen. """
 
@@ -353,6 +354,7 @@ class GameView(arcade.View):
         if self.has_golden_key:
             arcade.draw_text('Золотой ключ', 20 + self.view_left, SCREEN_HEIGHT - 90 + self.view_bottom,
                              arcade.csscolor.BLACK, 18)
+
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
@@ -371,16 +373,16 @@ class GameView(arcade.View):
             self.left_pressed = True
         elif key == arcade.key.D:
             self.right_pressed = True
-        
+
         if key == arcade.key.ESCAPE:
             gpause = PauseView(self, self.background_color)
             self.window.show_view(gpause)
-        #if key == arcade.key.F:
-            # User hits f. Flip between full and not full screen.
+        # if key == arcade.key.F:
+        # User hits f. Flip between full and not full screen.
         #    self.window.set_fullscreen(not self.window.fullscreen)
 
-            # Get the window coordinates. Match viewport to window coordinates
-            # so there is a one-to-one mapping.
+        # Get the window coordinates. Match viewport to window coordinates
+        # so there is a one-to-one mapping.
         #    width, height = self.window.get_size()
         #    arcade.set_viewport(0, width, 0, height)
 
@@ -397,7 +399,7 @@ class GameView(arcade.View):
             self.right_pressed = False
 
     def on_update(self, delta_time):
-        
+
         def death():
             self.player_sprite.change_x = 0
             self.player_sprite.change_y = 0
@@ -410,14 +412,14 @@ class GameView(arcade.View):
             changed_viewport = True
             arcade.play_sound(self.game_over_sound)
             self.score -= 1
-           # if self.score:
+            # if self.score:
             #    self.score-=1
             if self.lifes:
-                self.lifes-=1
+                self.lifes -= 1
             else:
                 over_view = GameOverView(self, self.background_color)
                 self.window.show_view(over_view)
-        
+
         """ Movement and game logic """
         # Calculate speed based on the keys pressed
         self.player_sprite.change_x = 0
@@ -431,7 +433,7 @@ class GameView(arcade.View):
 
         # Update walls, used with moving platforms
         self.wall_list.update()
-        #update enemies
+        # update enemies
         self.moving_traps_list.update()
 
         # Check each moving trap
@@ -474,38 +476,38 @@ class GameView(arcade.View):
             # Play a sound
             arcade.play_sound(self.collect_coin_sound)
             # Add one to the score
-            self.score +=10
+            self.score += 10
 
-        #checkpoints
+        # checkpoints
         for save in arcade.check_for_collision_with_list(self.player_sprite,
-                                                 self.checkpoint_list):
+                                                         self.checkpoint_list):
             self.checkpoint_x = save.center_x
             self.checkpoint_y = save.bottom
 
         # See if we hit any keys
         # Loop through each coin we hit (if any) and remove it
         for key in arcade.check_for_collision_with_list(self.player_sprite,
-                                                             self.golden_key_list):
+                                                        self.golden_key_list):
             # Remove the key
             key.remove_from_sprite_lists()
             # Play a sound
             arcade.play_sound(self.collect_coin_sound)
             # Add one to the score
             self.has_golden_key = True
-        #check door
+        # check door
         for door in arcade.check_for_collision_with_list(self.player_sprite,
-                                                             self.golden_door_list):
+                                                         self.golden_door_list):
             if self.has_golden_key:
                 self.has_golden_key = False
                 # Remove the door
                 door.remove_from_sprite_lists()
                 self.background_list.append(door)
                 # Play a sound
-                #arcade.play_sound(self.collect_coin_sound)
+                # arcade.play_sound(self.collect_coin_sound)
             else:
                 self.player_sprite.center_x -= self.player_sprite.change_x
                 self.player_sprite.center_y -= self.player_sprite.change_y
-# Track if we need to change the viewport
+        # Track if we need to change the viewport
         changed_viewport = False
 
         # See if the player hit an trap. If so, game over.
@@ -520,9 +522,9 @@ class GameView(arcade.View):
                                                 self.dont_touch_list):
             death()
 
- # See if the user got to the end of the level
+        # See if the user got to the end of the level
         if arcade.check_for_collision_with_list(self.player_sprite,
-                                             self.exit_list):
+                                                self.exit_list):
             # Advance to the next level
             self.level += 1
 
@@ -573,14 +575,12 @@ class GameView(arcade.View):
                                 SCREEN_HEIGHT + self.view_bottom)
 
 
-
-
 def main():
     """ Main method """
     window = GameWindow()
-    #game = GameView()
+    # game = GameView()
     view = MenuView()
-    #game.setup(game.level)
+    # game.setup(game.level)
     window.show_view(view)
     arcade.run()
 

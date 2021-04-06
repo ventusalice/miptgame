@@ -4,6 +4,7 @@ Platformer Game
 import arcade
 import tkinter
 
+#сасат
 # Constants
 SCREEN_WIDTH = tkinter.Tk().winfo_screenwidth()
 SCREEN_HEIGHT = tkinter.Tk().winfo_screenheight()

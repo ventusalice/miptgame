@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="128" tileheight="128" infinite="0" backgroundcolor="#6ca5c8" nextlayerid="20" nextobjectid="16">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="128" tileheight="128" infinite="0" backgroundcolor="#6ca5c8" nextlayerid="21" nextobjectid="17">
  <tileset firstgid="1" name="Platforms" tilewidth="128" tileheight="128" tilecount="14" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
@@ -84,13 +84,16 @@
    <image width="128" height="128" source="images/items/flagRed1.png"/>
   </tile>
  </tileset>
- <tileset firstgid="27" name="Enemy" tilewidth="128" tileheight="128" tilecount="2" columns="0">
+ <tileset firstgid="27" name="Enemy" tilewidth="128" tileheight="128" tilecount="3" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="128" height="128" source="images/enemies/sawHalf.png"/>
   </tile>
   <tile id="1">
    <image width="128" height="128" source="images/enemies/saw.png"/>
+  </tile>
+  <tile id="2">
+   <image width="128" height="128" source="images/enemies/slimeGreen.png"/>
   </tile>
  </tileset>
  <layer id="1" name="Platforms" width="100" height="100">
@@ -145,10 +148,9 @@
  </objectgroup>
  <layer id="3" name="Background" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJztzqENACAQBMGvAIWA/hvFoj8kh5hRK7cKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4I2RHgAAAAAAItbVO3YBAHTN9AB86ACg1ABU
+   eJztzjENADAMA7Ai2LWn/IkOQ6VJ6WEjcBUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAHycdAAAAAADiOh0AAMZuOgALPZtlADw=
   </data>
  </layer>
- <objectgroup id="19" name="Enemies"/>
  <layer id="4" name="Foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
@@ -171,7 +173,15 @@
  </layer>
  <layer id="13" name="Checkpoints" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt2EENAAAIAkBz2D+oFfw4N3aXgB+DKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD40d8BAAAAAAAgiN8dgEt6BgAA2LAdAABIMnGMAGk=
+   eJzt2EEJAAAIA0Bz2D+oGQRBGHcJ9htbFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD86O8AAAAAAAAQxO8OwDXdAgAAbNgQAACkGXMsAGk=
   </data>
  </layer>
+ <objectgroup id="20" name="Enemies">
+  <object id="16" gid="29" x="385" y="12668" width="128" height="128">
+   <properties>
+    <property name="boundary_left" type="int" value="128"/>
+    <property name="change_x" type="float" value="-0.5"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

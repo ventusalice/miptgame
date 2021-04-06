@@ -4,7 +4,6 @@ Platformer Game
 import arcade
 import tkinter
 
-#сасат
 # Constants
 SCREEN_WIDTH = tkinter.Tk().winfo_screenwidth()
 SCREEN_HEIGHT = tkinter.Tk().winfo_screenheight()
@@ -150,6 +149,7 @@ class GameView(arcade.View):
         self.dont_touch_list = None
         self.ladder_list = None
         self.moving_traps_list = None
+        self.enemy_list = None
         self.checkpoint_list = None
 
         # Separate variable that holds the player sprite
@@ -206,6 +206,7 @@ class GameView(arcade.View):
         self.exit_list = arcade.SpriteList(use_spatial_hash=True)
         self.checkpoint_list = arcade.SpriteList(use_spatial_hash=True)
         self.moving_traps_list = arcade.SpriteList()
+        self.enemy_list = arcade.SpriteList()
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList(use_spatial_hash=True)
         self.coin_list = arcade.SpriteList(use_spatial_hash=True)
@@ -215,8 +216,8 @@ class GameView(arcade.View):
         # Set up the player, specifically placing it at these coordinates.
         image_source = "images/player_2/player_stand.png"
         self.player_sprite = arcade.Sprite(image_source, CHARACTER_SCALING)
-        self.player_sprite.center_x = self.checkpoint_x
-        self.player_sprite.center_y = self.checkpoint_y
+        self.player_sprite.center_x = PLAYER_START_X
+        self.player_sprite.center_y = PLAYER_START_Y
         self.player_list.append(self.player_sprite)
 
         # --- Load in a map from the tiled editor ---
@@ -235,6 +236,10 @@ class GameView(arcade.View):
         dont_touch_layer_name = "Don't Touch"
         # moving_traps
         moving_traps_layer_name = 'Moving traps'
+
+        #Enemies
+        enemy_layer_name = 'Enemies'
+
         # checkpoints
         checkpoints_layer_name = 'Checkpoints'
         # exit
@@ -262,6 +267,11 @@ class GameView(arcade.View):
         self.moving_traps_list = arcade.tilemap.process_layer(my_map,
                                                               moving_traps_layer_name,
                                                               TILE_SCALING)
+        #Enemies
+        self.enemy_list = arcade.tilemap.process_layer(my_map,
+                                                              enemy_layer_name,
+                                                              TILE_SCALING)
+
         # -- Ladder objects
         self.ladder_list = arcade.tilemap.process_layer(my_map,
                                                         ladders_layer_name,
@@ -333,6 +343,7 @@ class GameView(arcade.View):
         self.golden_door_list.draw()
         self.wall_list.draw()
         self.moving_traps_list.draw()
+        self.enemy_list.draw()
         self.background_list.draw()
         self.wall_list.draw()
         self.coin_list.draw()
@@ -436,10 +447,28 @@ class GameView(arcade.View):
         self.wall_list.update()
         # update enemies
         self.moving_traps_list.update()
+        self.enemy_list.update()
 
         # Check each moving trap
         for enemy in self.moving_traps_list:
             # If the trap hits a wall, reverse
+            if arcade.check_for_collision_with_list(enemy, self.wall_list):
+                enemy.change_x *= -1
+                enemy.change_y *= -1
+            # If the enemy hit the left boundary, reverse
+            elif enemy.boundary_left and enemy.left < enemy.boundary_left and enemy.change_x < 0:
+                enemy.change_x *= -1
+            # If the trap hit the right boundary, reverse
+            elif enemy.boundary_right and enemy.right > enemy.boundary_right and enemy.change_x > 0:
+                enemy.change_x *= -1
+            elif enemy.boundary_top and enemy.top > enemy.boundary_top and enemy.change_y > 0:
+                enemy.change_y *= -1
+            elif enemy.boundary_bottom and enemy.bottom < enemy.boundary_bottom and enemy.change_y < 0:
+                enemy.change_y *= -1
+
+        # Check each enemy
+        for enemy in self.enemy_list:
+            # If the enemy hits a wall, reverse
             if arcade.check_for_collision_with_list(enemy, self.wall_list):
                 enemy.change_x *= -1
                 enemy.change_y *= -1
@@ -453,6 +482,7 @@ class GameView(arcade.View):
                 enemy.change_y *= -1
             elif enemy.boundary_bottom and enemy.bottom < enemy.boundary_bottom and enemy.change_y < 0:
                 enemy.change_y *= -1
+
 
         # See if the wall hit a boundary and needs to reverse direction.
         for wall in self.wall_list:
@@ -513,6 +543,9 @@ class GameView(arcade.View):
 
         # See if the player hit an trap. If so, game over.
         if arcade.check_for_collision_with_list(self.player_sprite, self.moving_traps_list):
+            death()
+        # See if the player hit an enemy. If so, game over.
+        if arcade.check_for_collision_with_list(self.player_sprite, self.enemy_list):
             death()
         # Did the player fall off the map?
         if self.player_sprite.center_y < -100:

@@ -3,6 +3,7 @@ Platformer Game
 """
 import arcade
 import nonmain
+import time
 
 
 # Constants of the window
@@ -25,7 +26,7 @@ PLAYER_START_X = 32  # center of player
 PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
-MAX_LIFES = 5
+IMMUNITY_TIME = 0.5
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
@@ -83,31 +84,23 @@ class GameView(arcade.View):
 
         # Keep track of the score
         self.score = 0
-        self.lifes = 5
+        self.max_lifes=6
+        self.lifes = self.max_lifes
 
         # Level
         self.level = 0
-
-        # checkpoint data
-        self.current_checkpoint = None
-        self.checkpoint_x = PLAYER_START_X
-        self.checkpoint_y = PLAYER_START_Y
-
-        # keys and doors
-        self.has_golden_key = False
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
         self.jump_sound = arcade.load_sound("sounds/jump2.wav")
         self.game_over_sound = arcade.load_sound("sounds/gameover1.wav")
 
+        # keys and doors
+        self.has_golden_key = False
         # arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
 
     def setup(self, level=0):
         """ Set up the game here. Call this function to restart the game. """
-        # keys and doors
-        self.has_golden_key = False
-
         # Used to keep track of our scrolling
         self.view_bottom = 0
         self.view_left = 0
@@ -116,10 +109,12 @@ class GameView(arcade.View):
         self.current_checkpoint = None
         self.checkpoint_x = PLAYER_START_X
         self.checkpoint_y = PLAYER_START_Y
+        self.not_immune = True
 
         # Keep track of the score
         self.score = 0
-        self.lifes = 5
+        self.max_lifes=6
+        self.lifes = self.max_lifes
 
         # Create the Sprite lists
         self.golden_door_list = arcade.SpriteList(use_spatial_hash=True)
@@ -343,14 +338,18 @@ class GameView(arcade.View):
             self.view_left = 0
             self.view_bottom = 0
             arcade.play_sound(self.game_over_sound)
-            self.score -= 1
-            # if self.score:
-            #    self.score-=1
-            if self.lifes:
-                self.lifes -= 1
-            else:
-                over_view = GameOverView(self, self.background_color)
-                self.window.show_view(over_view)
+            if self.not_immune:
+                if self.score:
+                    self.score-=1
+                if self.lifes:
+                    self.lifes -= 1
+                else:
+                    over_view = GameOverView(self, self.background_color)
+                    self.window.show_view(over_view)
+                self.not_immune = False
+                time.sleep(IMMUNITY_TIME)
+                self.not_immune = True
+
 
         """ Movement and game logic """
         # Calculate speed based on the keys pressed
@@ -434,7 +433,7 @@ class GameView(arcade.View):
                                                          self.checkpoint_list):
             if self.current_checkpoint != save:
                 self.current_checkpoint = save
-                self.lifes = MAX_LIFES
+                self.lifes = self.max_lifes
                 self.checkpoint_x = save.center_x
                 self.checkpoint_y = save.bottom
 

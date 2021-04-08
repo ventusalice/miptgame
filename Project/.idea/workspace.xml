@@ -82,7 +82,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="GAME" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="GAME" type="PythonConfigurationType" factoryName="Python">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -103,7 +103,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Test" type="PythonConfigurationType" factoryName="Python">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -147,8 +147,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.GAME" />
-        <item itemvalue="Python.Test" />
         <item itemvalue="Python.enemies" />
         <item itemvalue="Python.10_LADDERS_AND_MOVING_PLATFORM" />
         <item itemvalue="Python.09_multylvl" />

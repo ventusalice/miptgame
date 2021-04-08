@@ -3,6 +3,7 @@ Platformer Game
 """
 import arcade
 import nonmain
+import time
 
 
 # Constants of the window
@@ -25,6 +26,7 @@ PLAYER_START_X = 32  # center of player
 PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
+IMMUNITY_TIME = 0.1
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
@@ -66,6 +68,7 @@ class GameView(arcade.View):
 
         # Separate variable that holds the player sprite
         self.player_sprite = None
+        self.timing_of_death = time.time()
 
         # Our physics engine
         self.physics_engine = None
@@ -82,7 +85,7 @@ class GameView(arcade.View):
 
         # Keep track of the score
         self.score = 0
-        self.max_lifes=5
+        self.max_lifes=6
         self.lifes = self.max_lifes
 
         # Level
@@ -107,10 +110,11 @@ class GameView(arcade.View):
         self.current_checkpoint = None
         self.checkpoint_x = PLAYER_START_X
         self.checkpoint_y = PLAYER_START_Y
+        self.not_immune = True
 
         # Keep track of the score
         self.score = 0
-        self.max_lifes=5
+        self.max_lifes=6
         self.lifes = self.max_lifes
 
         # Create the Sprite lists
@@ -132,6 +136,7 @@ class GameView(arcade.View):
         self.player_sprite.center_x = PLAYER_START_X
         self.player_sprite.center_y = PLAYER_START_Y
         self.player_list.append(self.player_sprite)
+        self.timing_of_death = time.time()
 
         # --- Load in a map from the tiled editor ---
 
@@ -326,6 +331,9 @@ class GameView(arcade.View):
     def on_update(self, delta_time):
 
         def death():
+            if time.time() - self.timing_of_death > 0.5:
+                self.not_immune = True
+            self.timing_of_death = time.time()
             self.player_sprite.change_x = 0
             self.player_sprite.change_y = 0
             self.player_sprite.center_x = self.checkpoint_x
@@ -334,15 +342,16 @@ class GameView(arcade.View):
             # Set the camera to the start
             self.view_left = 0
             self.view_bottom = 0
-            arcade.play_sound(self.game_over_sound)
-            self.score -= 1
-            # if self.score:
-            #    self.score-=1
-            if self.lifes:
-                self.lifes -= 1
-            else:
-                over_view = GameOverView(self, self.background_color)
-                self.window.show_view(over_view)
+            if self.not_immune:
+                arcade.play_sound(self.game_over_sound)
+                if self.score:
+                    self.score-=1
+                if self.lifes:
+                    self.lifes -= 1
+                else:
+                    over_view = GameOverView(self, self.background_color)
+                    self.window.show_view(over_view)
+                self.not_immune = False
 
         """ Movement and game logic """
         # Calculate speed based on the keys pressed

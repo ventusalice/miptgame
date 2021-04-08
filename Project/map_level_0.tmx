@@ -176,12 +176,5 @@
    eJzt2EEJAAAIA0Bz2D+oGQRBGHcJ9htbFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD86O8AAAAAAAAQxO8OwDXdAgAAbNgQAACkGXMsAGk=
   </data>
  </layer>
- <objectgroup id="20" name="Enemies">
-  <object id="16" gid="29" x="385" y="12668" width="128" height="128">
-   <properties>
-    <property name="boundary_left" type="int" value="128"/>
-    <property name="change_x" type="float" value="-0.5"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup id="20" name="Enemies"/>
 </map>

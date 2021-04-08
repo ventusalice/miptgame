@@ -89,10 +89,6 @@ class GameView(arcade.View):
         # Level
         self.level = 0
 
-        # checkpoint data
-        self.checkpoint_x = PLAYER_START_X
-        self.checkpoint_y = PLAYER_START_Y
-
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
         self.jump_sound = arcade.load_sound("sounds/jump2.wav")
@@ -107,6 +103,10 @@ class GameView(arcade.View):
         # Used to keep track of our scrolling
         self.view_bottom = 0
         self.view_left = 0
+
+        # checkpoint data
+        self.checkpoint_x = PLAYER_START_X
+        self.checkpoint_y = PLAYER_START_Y
 
         # Keep track of the score
         self.score = 0

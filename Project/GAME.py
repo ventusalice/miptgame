@@ -82,10 +82,9 @@ class GameView(arcade.View):
 
         # Keep track of the score
         self.score = 0
-        self.lifes = 20
+        self.max_lifes=5
+        self.lifes = self.max_lifes
 
-        # Where is the right edge of the map?
-        self.end_of_map = 0
         # Level
         self.level = 0
 
@@ -105,12 +104,14 @@ class GameView(arcade.View):
         self.view_left = 0
 
         # checkpoint data
+        self.current_checkpoint = None
         self.checkpoint_x = PLAYER_START_X
         self.checkpoint_y = PLAYER_START_Y
 
         # Keep track of the score
         self.score = 0
-        self.lifes = 20
+        self.max_lifes=5
+        self.lifes = self.max_lifes
 
         # Create the Sprite lists
         self.golden_door_list = arcade.SpriteList(use_spatial_hash=True)
@@ -423,8 +424,11 @@ class GameView(arcade.View):
         # checkpoints
         for save in arcade.check_for_collision_with_list(self.player_sprite,
                                                          self.checkpoint_list):
-            self.checkpoint_x = save.center_x
-            self.checkpoint_y = save.bottom
+            if self.current_checkpoint != save:
+                self.current_checkpoint = save
+                self.lifes = self.max_lifes
+                self.checkpoint_x = save.center_x
+                self.checkpoint_y = save.bottom
 
         # See if we hit any keys
         # Loop through each coin we hit (if any) and remove it

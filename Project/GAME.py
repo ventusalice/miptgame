@@ -78,6 +78,7 @@ class GameView(arcade.View):
         self.right_pressed = False
         self.up_pressed = False
         self.down_pressed = False
+        self.jump_needs_reset = False
 
         # Used to keep track of our scrolling
         self.view_bottom = 0
@@ -85,7 +86,7 @@ class GameView(arcade.View):
 
         # Keep track of the score
         self.score = 0
-        self.max_lifes=6
+        self.max_lifes=3
         self.lifes = self.max_lifes
 
         # Level
@@ -114,7 +115,7 @@ class GameView(arcade.View):
 
         # Keep track of the score
         self.score = 0
-        self.max_lifes=6
+        self.max_lifes=3
         self.lifes = self.max_lifes
 
         # Create the Sprite lists
@@ -285,24 +286,51 @@ class GameView(arcade.View):
             arcade.draw_text('Золотой ключ', 20 + self.view_left, SCREEN_HEIGHT - 90 + self.view_bottom,
                              arcade.csscolor.BLACK, 18)
 
+    def process_keychange(self):
+        """
+        Called when we change a key up/down or we move on/off a ladder.
+        """
+        # Process up/down
+        if self.up_pressed and not self.down_pressed:
+            if self.physics_engine.is_on_ladder():
+                self.player_sprite.change_y = PLAYER_MOVEMENT_SPEED
+            elif self.physics_engine.can_jump() and not self.jump_needs_reset:
+                self.player_sprite.change_y = PLAYER_JUMP_SPEED
+                self.jump_needs_reset = True
+                arcade.play_sound(self.jump_sound)
+        elif self.down_pressed and not self.up_pressed:
+            if self.physics_engine.is_on_ladder():
+                self.player_sprite.change_y = -PLAYER_MOVEMENT_SPEED
+
+
+        # Process up/down when on a ladder and no movement
+        if self.physics_engine.is_on_ladder():
+            if not self.up_pressed and not self.down_pressed:
+                self.player_sprite.change_y = 0
+            elif self.up_pressed and self.down_pressed:
+                self.player_sprite.change_y = 0
+
+        # Process left/right
+        if self.right_pressed and not self.left_pressed:
+            self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
+        elif self.left_pressed and not self.right_pressed:
+            self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+        else:
+            self.player_sprite.change_x = 0
+
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
         if key == arcade.key.W or key == arcade.key.SPACE:
-            if self.physics_engine.is_on_ladder():
-                self.player_sprite.change_y = PLAYER_MOVEMENT_SPEED
-            elif self.physics_engine.can_jump():
-                self.player_sprite.change_y = PLAYER_JUMP_SPEED
-                arcade.play_sound(self.jump_sound)
-        elif key == arcade.key.S:
-            if self.physics_engine.is_on_ladder():
-                self.player_sprite.change_y = -PLAYER_MOVEMENT_SPEED
+            self.up_pressed = True
         elif key == arcade.key.S:
             self.down_pressed = True
         elif key == arcade.key.A:
             self.left_pressed = True
         elif key == arcade.key.D:
             self.right_pressed = True
+
+        self.process_keychange()
 
         if key == arcade.key.ESCAPE:
             gpause = PauseView(self, self.background_color)
@@ -321,46 +349,60 @@ class GameView(arcade.View):
 
         if key == arcade.key.W or key == arcade.key.SPACE:
             self.player_sprite.change_y = 0
+            self.jump_needs_reset = False
+            self.up_pressed = False
         elif key == arcade.key.S:
-            self.player_sprite.change_y = 0
+            self.down_pressed = False
         elif key == arcade.key.A:
             self.left_pressed = False
         elif key == arcade.key.D:
             self.right_pressed = False
 
+        self.process_keychange()
+
     def on_update(self, delta_time):
 
         def death():
-            if time.time() - self.timing_of_death > 0.5:
-                self.not_immune = True
-            self.timing_of_death = time.time()
+            # if time.time() - self.timing_of_death > 0.5:
+            #     self.not_immune = True
+            #self.timing_of_death = time.time()
+            arcade.play_sound(self.game_over_sound)
+            if self.score:
+                self.score -= 1
+            if self.lifes:
+                self.lifes -= 1
+            else:
+                over_view = GameOverView(self, self.background_color)
+                self.window.show_view(over_view)
             self.player_sprite.change_x = 0
             self.player_sprite.change_y = 0
             self.player_sprite.center_x = self.checkpoint_x
             self.player_sprite.bottom = self.checkpoint_y
 
+            self.left_pressed = False
+            self.right_pressed = False
+            self.up_pressed = False
+            self.down_pressed = False
+            self.jump_needs_reset = False
+
             # Set the camera to the start
             self.view_left = 0
             self.view_bottom = 0
-            if self.not_immune:
-                arcade.play_sound(self.game_over_sound)
-                if self.score:
-                    self.score-=1
-                if self.lifes:
-                    self.lifes -= 1
-                else:
-                    over_view = GameOverView(self, self.background_color)
-                    self.window.show_view(over_view)
-                self.not_immune = False
+            # if self.not_immune:
+            #     arcade.play_sound(self.game_over_sound)
+            #     if self.score:
+            #         self.score-=1
+            #     if self.lifes:
+            #         self.lifes -= 1
+            #     else:
+            #         over_view = GameOverView(self, self.background_color)
+            #         self.window.show_view(over_view)
+            #     self.not_immune = False
 
         """ Movement and game logic """
         # Calculate speed based on the keys pressed
-        self.player_sprite.change_x = 0
 
-        if self.left_pressed and not self.right_pressed:
-            self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
-        elif self.right_pressed and not self.left_pressed:
-            self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
+
         # Move the player with the physics engine
         self.physics_engine.update()
 

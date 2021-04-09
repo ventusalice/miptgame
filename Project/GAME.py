@@ -244,6 +244,8 @@ class GameView(arcade.View):
         if my_map.background_color:
             arcade.set_background_color(my_map.background_color)
             self.background_color = my_map.background_color
+        else:
+            self.background_color = arcade.csscolor.PURPLE
 
         # Create the 'physics engine'
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,

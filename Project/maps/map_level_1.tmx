@@ -3,97 +3,97 @@
  <tileset firstgid="1" name="Platforms" tilewidth="128" tileheight="128" tilecount="14" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image width="128" height="128" source="images/tiles/grassMid.png"/>
+   <image width="128" height="128" source="../images/tiles/grassMid.png"/>
   </tile>
   <tile id="1">
-   <image width="128" height="128" source="images/tiles/stoneLeft.png"/>
+   <image width="128" height="128" source="../images/tiles/stoneLeft.png"/>
   </tile>
   <tile id="2">
-   <image width="128" height="128" source="images/tiles/stoneMid.png"/>
+   <image width="128" height="128" source="../images/tiles/stoneMid.png"/>
   </tile>
   <tile id="3">
-   <image width="128" height="128" source="images/tiles/stoneRight.png"/>
+   <image width="128" height="128" source="../images/tiles/stoneRight.png"/>
   </tile>
   <tile id="4">
-   <image width="128" height="128" source="images/tiles/stoneHalf_mid.png"/>
+   <image width="128" height="128" source="../images/tiles/stoneHalf_mid.png"/>
   </tile>
   <tile id="5">
-   <image width="128" height="128" source="images/tiles/spikes.png"/>
+   <image width="128" height="128" source="../images/tiles/spikes.png"/>
   </tile>
   <tile id="6">
-   <image width="128" height="128" source="images/tiles/grassCenter.png"/>
+   <image width="128" height="128" source="../images/tiles/grassCenter.png"/>
   </tile>
   <tile id="7">
-   <image width="128" height="128" source="images/tiles/grassCliff_left.png"/>
+   <image width="128" height="128" source="../images/tiles/grassCliff_left.png"/>
   </tile>
   <tile id="8">
-   <image width="128" height="128" source="images/tiles/stoneCenter.png"/>
+   <image width="128" height="128" source="../images/tiles/stoneCenter.png"/>
   </tile>
   <tile id="9">
-   <image width="128" height="128" source="images/tiles/spikes_right.png"/>
+   <image width="128" height="128" source="../images/tiles/spikes_right.png"/>
   </tile>
   <tile id="10">
-   <image width="128" height="128" source="images/tiles/spikes_down.png"/>
+   <image width="128" height="128" source="../images/tiles/spikes_down.png"/>
   </tile>
   <tile id="11">
-   <image width="128" height="128" source="images/tiles/spikes_left.png"/>
+   <image width="128" height="128" source="../images/tiles/spikes_left.png"/>
   </tile>
   <tile id="12">
-   <image width="128" height="128" source="images/tiles/doorClosed_mid.png"/>
+   <image width="128" height="128" source="../images/tiles/doorClosed_mid.png"/>
   </tile>
   <tile id="13">
-   <image width="128" height="128" source="images/tiles/doorClosed_top.png"/>
+   <image width="128" height="128" source="../images/tiles/doorClosed_top.png"/>
   </tile>
  </tileset>
  <tileset firstgid="15" name="ladders+coins" tilewidth="128" tileheight="128" tilecount="12" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image width="128" height="128" source="images/tiles/ladderMid.png"/>
+   <image width="128" height="128" source="../images/tiles/ladderMid.png"/>
   </tile>
   <tile id="1">
-   <image width="128" height="128" source="images/tiles/ladderTop.png"/>
+   <image width="128" height="128" source="../images/tiles/ladderTop.png"/>
   </tile>
   <tile id="2">
-   <image width="128" height="128" source="images/items/coinGold.png"/>
+   <image width="128" height="128" source="../images/items/coinGold.png"/>
   </tile>
   <tile id="3">
-   <image width="128" height="128" source="images/items/keyYellow.png"/>
+   <image width="128" height="128" source="../images/items/keyYellow.png"/>
   </tile>
   <tile id="4">
-   <image width="128" height="128" source="images/items/star.png"/>
+   <image width="128" height="128" source="../images/items/star.png"/>
   </tile>
   <tile id="5">
-   <image width="128" height="128" source="images/tiles/bush.png"/>
+   <image width="128" height="128" source="../images/tiles/bush.png"/>
   </tile>
   <tile id="6">
-   <image width="128" height="128" source="images/tiles/cactus.png"/>
+   <image width="128" height="128" source="../images/tiles/cactus.png"/>
   </tile>
   <tile id="7">
-   <image width="128" height="128" source="images/tiles/grass_sprout.png"/>
+   <image width="128" height="128" source="../images/tiles/grass_sprout.png"/>
   </tile>
   <tile id="8">
-   <image width="128" height="128" source="images/tiles/signExit.png"/>
+   <image width="128" height="128" source="../images/tiles/signExit.png"/>
   </tile>
   <tile id="9">
-   <image width="128" height="128" source="images/tiles/signLeft.png"/>
+   <image width="128" height="128" source="../images/tiles/signLeft.png"/>
   </tile>
   <tile id="10">
-   <image width="128" height="128" source="images/tiles/signRight.png"/>
+   <image width="128" height="128" source="../images/tiles/signRight.png"/>
   </tile>
   <tile id="11">
-   <image width="128" height="128" source="images/items/flagRed1.png"/>
+   <image width="128" height="128" source="../images/items/flagRed1.png"/>
   </tile>
  </tileset>
  <tileset firstgid="27" name="Enemy" tilewidth="128" tileheight="128" tilecount="3" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image width="128" height="128" source="images/enemies/sawHalf.png"/>
+   <image width="128" height="128" source="../images/enemies/sawHalf.png"/>
   </tile>
   <tile id="1">
-   <image width="128" height="128" source="images/enemies/saw.png"/>
+   <image width="128" height="128" source="../images/enemies/saw.png"/>
   </tile>
   <tile id="2">
-   <image width="128" height="128" source="images/enemies/slimeGreen.png"/>
+   <image width="128" height="128" source="../images/enemies/slimeGreen.png"/>
   </tile>
  </tileset>
  <layer id="1" name="Platforms" width="100" height="100">
@@ -130,7 +130,7 @@
    eJztzjEBAAAIA6BlsH9YE+zVBxKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdPMdAAAAAACAYws8VgAT
   </data>
  </layer>
- <objectgroup id="2" name="moving_platforms">
+ <objectgroup id="2" name="Moving platforms">
   <object id="1" gid="5" x="0" y="12160" width="128" height="128">
    <properties>
     <property name="boundary_bottom" type="float" value="384"/>

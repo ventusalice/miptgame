@@ -143,7 +143,7 @@ class GameView(arcade.View):
 
         # Name of the layer in the file that has our platforms/walls
         platforms_layer_name = 'Platforms'
-        moving_platforms_layer_name = 'moving_platforms'
+        moving_platforms_layer_name = 'Moving platforms'
         ladders_layer_name = 'Ladders'
         # Name of the layer that has items for pick-up
         coins_layer_name = 'Coins'
@@ -167,7 +167,7 @@ class GameView(arcade.View):
         golden_key_layer_name = 'Golden key'
         golden_door_layer_name = 'Golden door'
         # Map name
-        map_name = f"map_level_{level}.tmx"
+        map_name = f"maps/map_level_{level}.tmx"
 
         # Read in the tiled map
         my_map = arcade.tilemap.read_tmx(map_name)
@@ -498,7 +498,7 @@ class GameView(arcade.View):
                 self.has_golden_key = False
                 # Remove the door
                 door.remove_from_sprite_lists()
-                self.background_list.append(door)
+                self.foreground_list.append(door)
                 # Play a sound
                 # arcade.play_sound(self.collect_coin_sound)
             else:

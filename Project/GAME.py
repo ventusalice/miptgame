@@ -100,13 +100,13 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 2
+        self.level = 0
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
         self.jump_sound = arcade.load_sound("sounds/jump2.wav")
         self.game_over_sound = arcade.load_sound("sounds/gameover1.wav")
-
+        self.dash_sound = arcade.load_sound("sounds/hurt5.wav")
         # keys and doors
         self.has_golden_key = False
         # arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
@@ -375,6 +375,7 @@ class GameView(arcade.View):
             self.player_face_right = True
             self.right_pressed = True
         if (key == arcade.key.L) and (time.time() - self.dash_start_time >= DASH_COOLDOWN):
+            arcade.play_sound(self.dash_sound)
             self.dash_start_time = time.time()
             self.dash_pressed = True
             self.dash_start = self.player_sprite.center_x

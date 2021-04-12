@@ -26,6 +26,9 @@ PLAYER_START_X = 32  # center of player
 PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
+DASH_BUFF = 5
+DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*3 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
+DASH_COOLDOWN = 5
 IMMUNITY_TIME = 0.1
 
 # How many pixels to keep as a minimum margin between the character
@@ -68,7 +71,12 @@ class GameView(arcade.View):
 
         # Separate variable that holds the player sprite
         self.player_sprite = None
-        self.timing_of_death = time.time()
+        self.player_face_right = True
+        self.player_face_right = False
+        #self.timing_of_death = time.time()
+        #Dash info
+        self.dash_start = 0
+        self.dash_start_time = 0
 
         # Our physics engine
         self.physics_engine = None
@@ -79,18 +87,20 @@ class GameView(arcade.View):
         self.up_pressed = False
         self.down_pressed = False
         self.jump_needs_reset = False
+        self.dash_pressed = False
+        self.dash_is_ready =True
 
         # Used to keep track of our scrolling
         self.view_bottom = 0
         self.view_left = 0
 
-        # Keep track of the score
+        # Keep track of the score AND LIFES
         self.score = 0
         self.max_lifes=3
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 0
+        self.level = 2
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -111,11 +121,19 @@ class GameView(arcade.View):
         self.current_checkpoint = None
         self.checkpoint_x = PLAYER_START_X
         self.checkpoint_y = PLAYER_START_Y
-        self.not_immune = True
+        #self.not_immune = True
+
+        # Track the current state of what key is pressed
+        self.left_pressed = False
+        self.right_pressed = False
+        self.up_pressed = False
+        self.down_pressed = False
+        self.jump_needs_reset = False
+        self.dash_pressed = False
+        self.dash_is_ready = True
 
         # Keep track of the score
         self.score = 0
-        self.max_lifes=3
         self.lifes = self.max_lifes
 
         # Create the Sprite lists
@@ -137,7 +155,13 @@ class GameView(arcade.View):
         self.player_sprite.center_x = PLAYER_START_X
         self.player_sprite.center_y = PLAYER_START_Y
         self.player_list.append(self.player_sprite)
-        self.timing_of_death = time.time()
+        self.player_face_right = True
+        self.player_face_left = False
+        #self.timing_of_death = time.time()
+
+        # Dash info
+        self.dash_start = 0
+        self.dash_start_time = 0
 
         # --- Load in a map from the tiled editor ---
 
@@ -280,12 +304,21 @@ class GameView(arcade.View):
                          arcade.csscolor.BLACK, 18)
         arcade.draw_text(f'Level {self.level}', 20 + self.view_left, SCREEN_HEIGHT - 50 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
+        #player_name
         arcade.draw_text('Pasha +PLUS+', self.player_sprite.left - 32, self.player_sprite.top, arcade.csscolor.WHITE,
                          18)
         arcade.draw_text(f"Lifes: {self.lifes}", 20 + self.view_left, SCREEN_HEIGHT - 70 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
+        #keys
         if self.has_golden_key:
             arcade.draw_text('Золотой ключ', 20 + self.view_left, SCREEN_HEIGHT - 90 + self.view_bottom,
+                             arcade.csscolor.BLACK, 18)
+        #dash_cooldown
+        if time.time() - self.dash_start_time >= DASH_COOLDOWN:
+            arcade.draw_text('Dash: ready', 120 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
+                             arcade.csscolor.BLACK, 18)
+        else:
+            arcade.draw_text(f"Dash: {round(DASH_COOLDOWN-time.time() + self.dash_start_time)}", 120 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
                              arcade.csscolor.BLACK, 18)
 
     def process_keychange(self):
@@ -313,11 +346,17 @@ class GameView(arcade.View):
                 self.player_sprite.change_y = 0
 
         # Process left/right
-        if self.right_pressed and not self.left_pressed:
-            self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
+        if self.dash_pressed:
+            if self.player_face_right:
+                self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED * DASH_BUFF
+            elif self.player_face_left:
+                self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED * DASH_BUFF
         elif self.left_pressed and not self.right_pressed:
-            self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+                self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+        elif self.right_pressed and not self.left_pressed:
+            self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
         else:
+            self.dash_pressed = False
             self.player_sprite.change_x = 0
 
     def on_key_press(self, key, modifiers):
@@ -328,9 +367,17 @@ class GameView(arcade.View):
         elif key == arcade.key.S:
             self.down_pressed = True
         elif key == arcade.key.A:
+            self.player_face_left = True
+            self.player_face_right = False
             self.left_pressed = True
         elif key == arcade.key.D:
+            self.player_face_left = False
+            self.player_face_right = True
             self.right_pressed = True
+        if (key == arcade.key.L) and (time.time() - self.dash_start_time >= DASH_COOLDOWN):
+            self.dash_start_time = time.time()
+            self.dash_pressed = True
+            self.dash_start = self.player_sprite.center_x
 
         self.process_keychange()
 
@@ -363,7 +410,6 @@ class GameView(arcade.View):
         self.process_keychange()
 
     def on_update(self, delta_time):
-
         def death():
             # if time.time() - self.timing_of_death > 0.5:
             #     self.not_immune = True
@@ -403,8 +449,13 @@ class GameView(arcade.View):
 
         """ Movement and game logic """
         # Calculate speed based on the keys pressed
-
-
+        if abs(self.player_sprite.center_x - self.dash_start) > DASH_DISTANCE:
+            self.dash_pressed = False
+            self.process_keychange()
+        # if time.time() - self.dash_start_time >= DASH_COOLDOWN:
+        #     self.dash_is_ready = True
+        # else:
+        #     self.dash_is_ready = False
         # Move the player with the physics engine
         self.physics_engine.update()
 

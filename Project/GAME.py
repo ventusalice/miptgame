@@ -26,6 +26,9 @@ PLAYER_START_X = 32  # center of player
 PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
+DASH_BUFF = 5
+DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*3 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
+DASH_COOLDOWN = 5
 IMMUNITY_TIME = 0.1
 
 # How many pixels to keep as a minimum margin between the character
@@ -68,7 +71,12 @@ class GameView(arcade.View):
 
         # Separate variable that holds the player sprite
         self.player_sprite = None
-        self.timing_of_death = time.time()
+        self.player_face_right = True
+        self.player_face_right = False
+        #self.timing_of_death = time.time()
+        #Dash info
+        self.dash_start = 0
+        self.dash_start_time = 0
 
         # Our physics engine
         self.physics_engine = None
@@ -79,12 +87,14 @@ class GameView(arcade.View):
         self.up_pressed = False
         self.down_pressed = False
         self.jump_needs_reset = False
+        self.dash_pressed = False
+        self.dash_is_ready =True
 
         # Used to keep track of our scrolling
         self.view_bottom = 0
         self.view_left = 0
 
-        # Keep track of the score
+        # Keep track of the score AND LIFES
         self.score = 0
         self.max_lifes=3
         self.lifes = self.max_lifes
@@ -96,7 +106,14 @@ class GameView(arcade.View):
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
         self.jump_sound = arcade.load_sound("sounds/jump2.wav")
         self.game_over_sound = arcade.load_sound("sounds/gameover1.wav")
-
+        self.dash_sound = arcade.load_sound("sounds/dash_1.mp3")
+        self.death_sound = arcade.load_sound("sounds/death_1.mp3")
+        self.error_sound = arcade.load_sound("sounds/error2.wav")
+        self.door_sound = arcade.load_sound("sounds/door_1.wav")
+        self.key_sound = arcade.load_sound("sounds/key_1.mp3")
+        self.level_completed_sound = arcade.load_sound("sounds/level_completed_1.wav")
+        self.teleport_sound =  arcade.load_sound("sounds/upgrade1.wav")
+        self.checkpoint_sound = arcade.load_sound("sounds/checkpoint_1.wav")
         # keys and doors
         self.has_golden_key = False
         # arcade.set_background_color(arcade.csscolor.CORNFLOWER_BLUE)
@@ -111,11 +128,19 @@ class GameView(arcade.View):
         self.current_checkpoint = None
         self.checkpoint_x = PLAYER_START_X
         self.checkpoint_y = PLAYER_START_Y
-        self.not_immune = True
+        #self.not_immune = True
+
+        # Track the current state of what key is pressed
+        self.left_pressed = False
+        self.right_pressed = False
+        self.up_pressed = False
+        self.down_pressed = False
+        self.jump_needs_reset = False
+        self.dash_pressed = False
+        self.dash_is_ready = True
 
         # Keep track of the score
         self.score = 0
-        self.max_lifes=3
         self.lifes = self.max_lifes
 
         # Create the Sprite lists
@@ -137,7 +162,13 @@ class GameView(arcade.View):
         self.player_sprite.center_x = PLAYER_START_X
         self.player_sprite.center_y = PLAYER_START_Y
         self.player_list.append(self.player_sprite)
-        self.timing_of_death = time.time()
+        self.player_face_right = True
+        self.player_face_left = False
+        #self.timing_of_death = time.time()
+
+        # Dash info
+        self.dash_start = 0
+        self.dash_start_time = 0
 
         # --- Load in a map from the tiled editor ---
 
@@ -284,12 +315,21 @@ class GameView(arcade.View):
                          arcade.csscolor.BLACK, 18)
         arcade.draw_text(f'Level {self.level}', 20 + self.view_left, SCREEN_HEIGHT - 50 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
+        #player_name
         arcade.draw_text('Pasha +PLUS+', self.player_sprite.left - 32, self.player_sprite.top, arcade.csscolor.WHITE,
                          18)
         arcade.draw_text(f"Lifes: {self.lifes}", 20 + self.view_left, SCREEN_HEIGHT - 70 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
+        #keys
         if self.has_golden_key:
             arcade.draw_text('Золотой ключ', 20 + self.view_left, SCREEN_HEIGHT - 90 + self.view_bottom,
+                             arcade.csscolor.BLACK, 18)
+        #dash_cooldown
+        if time.time() - self.dash_start_time >= DASH_COOLDOWN:
+            arcade.draw_text('Dash: ready', 120 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
+                             arcade.csscolor.BLACK, 18)
+        else:
+            arcade.draw_text(f"Dash: {round(DASH_COOLDOWN-time.time() + self.dash_start_time)}", 120 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
                              arcade.csscolor.BLACK, 18)
 
     def process_keychange(self):
@@ -317,12 +357,28 @@ class GameView(arcade.View):
                 self.player_sprite.change_y = 0
 
         # Process left/right
-        if self.right_pressed and not self.left_pressed:
-            self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
+        if self.dash_pressed:
+            if self.player_face_right:
+                self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED * DASH_BUFF
+            elif self.player_face_left:
+                self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED * DASH_BUFF
         elif self.left_pressed and not self.right_pressed:
-            self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+                self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+        elif self.right_pressed and not self.left_pressed:
+            self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
         else:
+            self.dash_pressed = False
             self.player_sprite.change_x = 0
+
+    def key_discard(self):#просто функция для сброса любого движения
+        self.left_pressed = False
+        self.right_pressed = False
+        self.up_pressed = False
+        self.down_pressed = False
+        self.jump_needs_reset = False
+        self.dash_pressed = False
+        self.player_sprite.change_y = 0
+        self.process_keychange()
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -332,9 +388,18 @@ class GameView(arcade.View):
         elif key == arcade.key.S:
             self.down_pressed = True
         elif key == arcade.key.A:
+            self.player_face_left = True
+            self.player_face_right = False
             self.left_pressed = True
         elif key == arcade.key.D:
+            self.player_face_left = False
+            self.player_face_right = True
             self.right_pressed = True
+        if (key == arcade.key.L) and (time.time() - self.dash_start_time >= DASH_COOLDOWN):
+            arcade.play_sound(self.dash_sound)
+            self.dash_start_time = time.time()
+            self.dash_pressed = True
+            self.dash_start = self.player_sprite.center_x
 
         self.process_keychange()
 
@@ -367,48 +432,28 @@ class GameView(arcade.View):
         self.process_keychange()
 
     def on_update(self, delta_time):
-
         def death():
-            # if time.time() - self.timing_of_death > 0.5:
-            #     self.not_immune = True
-            #self.timing_of_death = time.time()
-            arcade.play_sound(self.game_over_sound)
-            if self.score:
-                self.score -= 1
-            if self.lifes:
+            if self.lifes>1:
+                arcade.play_sound(self.death_sound)
                 self.lifes -= 1
             else:
+                arcade.play_sound(self.game_over_sound)
                 over_view = GameOverView(self, self.background_color)
                 self.window.show_view(over_view)
-            self.player_sprite.change_x = 0
-            self.player_sprite.change_y = 0
             self.player_sprite.center_x = self.checkpoint_x
             self.player_sprite.bottom = self.checkpoint_y
 
-            self.left_pressed = False
-            self.right_pressed = False
-            self.up_pressed = False
-            self.down_pressed = False
-            self.jump_needs_reset = False
+            self.key_discard()
 
             # Set the camera to the start
             self.view_left = 0
             self.view_bottom = 0
-            # if self.not_immune:
-            #     arcade.play_sound(self.game_over_sound)
-            #     if self.score:
-            #         self.score-=1
-            #     if self.lifes:
-            #         self.lifes -= 1
-            #     else:
-            #         over_view = GameOverView(self, self.background_color)
-            #         self.window.show_view(over_view)
-            #     self.not_immune = False
 
         """ Movement and game logic """
         # Calculate speed based on the keys pressed
-
-
+        if abs(self.player_sprite.center_x - self.dash_start) > DASH_DISTANCE or self.player_sprite.change_x == 0:
+            self.dash_pressed = False
+            self.process_keychange()
         # Move the player with the physics engine
         self.physics_engine.update()
 
@@ -482,8 +527,9 @@ class GameView(arcade.View):
         for save in arcade.check_for_collision_with_list(self.player_sprite,
                                                          self.checkpoint_list):
             if self.current_checkpoint != save:
+                arcade.play_sound(self.checkpoint_sound)
                 self.current_checkpoint = save
-                self.lifes = self.max_lifes
+                self.lifes = self.max_lifes #Чекпоинт восполняет жизни
                 self.checkpoint_x = save.center_x
                 self.checkpoint_y = save.bottom
 
@@ -494,13 +540,14 @@ class GameView(arcade.View):
             # Remove the key
             key.remove_from_sprite_lists()
             # Play a sound
-            arcade.play_sound(self.collect_coin_sound)
+            arcade.play_sound(self.key_sound)
             # Add one to the score
             self.has_golden_key = True
         # check door
         for door in arcade.check_for_collision_with_list(self.player_sprite,
                                                          self.golden_door_list):
             if self.has_golden_key:
+                arcade.play_sound(self.door_sound)
                 self.has_golden_key = False
                 # Remove the door
                 door.remove_from_sprite_lists()
@@ -508,8 +555,17 @@ class GameView(arcade.View):
                 # Play a sound
                 # arcade.play_sound(self.collect_coin_sound)
             else:
-                self.player_sprite.center_x -= self.player_sprite.change_x
-                self.player_sprite.center_y -= self.player_sprite.change_y
+                if self.player_sprite.change_x<0 and self.player_sprite.left < door.right:
+                    self.player_sprite.left=door.right
+                    arcade.play_sound(self.error_sound)
+                elif self.player_sprite.change_x>0 and self.player_sprite.right > door.left:
+                    self.player_sprite.right=door.left
+                    arcade.play_sound(self.error_sound)
+                # if self.player_sprite.change_y<0 and self.player_sprite.bottom < door.top:
+                #     self.player_sprite.bottom=door.top
+                # elif self.player_sprite.change_y>0 and self.player_sprite.top > door.bottom:
+                #     self.player_sprite.top=door.bottom
+                self.key_discard()
         # Track if we need to change the viewport
         changed_viewport = False
 
@@ -531,6 +587,8 @@ class GameView(arcade.View):
         # See if the user got to the end of the level
         if arcade.check_for_collision_with_list(self.player_sprite,
                                                 self.exit_list):
+            #play sound
+            arcade.play_sound(self.level_completed_sound)
             # Advance to the next level
             self.level += 1
 

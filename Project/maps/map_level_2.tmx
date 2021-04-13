@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="25" height="10" tilewidth="128" tileheight="128" infinite="0" nextlayerid="5" nextobjectid="1">
+ <tileset firstgid="1" name="Platforms" tilewidth="128" tileheight="128" tilecount="5" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="128" height="128" source="../images/tiles/dirtCenter.png"/>
+  </tile>
+  <tile id="1">
+   <image width="128" height="128" source="../images/items/coinGold.png"/>
+  </tile>
+  <tile id="2">
+   <image width="128" height="128" source="../images/tiles/doorClosed_mid.png"/>
+  </tile>
+  <tile id="3">
+   <image width="128" height="128" source="../images/tiles/ladderTop.png"/>
+  </tile>
+  <tile id="4">
+   <image width="128" height="128" source="../images/tiles/ladderMid.png"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="Platforms" width="25" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDCRgpAImBAAIbAAS
+  </data>
+ </layer>
+ <layer id="3" name="Golden door" width="25" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFgxEwD7QDRgFWMFTjBQANAAAH
+  </data>
+ </layer>
+ <layer id="4" name="Ladders" width="25" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFgxmw0sHsUTuIt2OoAgBAiAAp
+  </data>
+ </layer>
+ <layer id="2" name="Coins" width="25" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDHcAAAPoAAE=
+  </data>
+ </layer>
+</map>

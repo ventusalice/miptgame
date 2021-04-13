@@ -31,7 +31,7 @@ PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
 DASH_BUFF = 5
-DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*3 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
+DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*10 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
 DASH_COOLDOWN = 5
 IMMUNITY_TIME = 0.1
 
@@ -79,7 +79,7 @@ class PlayerCharacter(arcade.Sprite):
         self.jumping = False
         self.climbing = False
         self.is_on_ladder = False
-
+        self.dashing = False
         # --- Load Textures ---
 
 
@@ -136,11 +136,15 @@ class PlayerCharacter(arcade.Sprite):
             return
 
         # Walking animation
-        self.cur_texture += 1
-        if self.cur_texture > 13:
-            self.cur_texture = 0
-        self.texture = self.walk_textures[self.cur_texture//7][self.character_face_direction]
+        if abs(self.change_x)>0 and not self.dashing:
+            self.cur_texture += 1
+            if self.cur_texture > 13:
+                self.cur_texture = 0
+            self.texture = self.walk_textures[self.cur_texture//7][self.character_face_direction]
 
+        #Dash animation
+        if self.dashing:
+            self.texture = self.jump_texture_pair[self.character_face_direction]
 
 class GameView(arcade.View):
     """
@@ -197,7 +201,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 0
+        self.level = 2
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -454,17 +458,13 @@ class GameView(arcade.View):
 
         # Process left/right
         if self.dash_pressed:
-            if self.player_face_right:
+            if self.player_sprite.character_face_direction == RIGHT_FACING:
                 self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED * DASH_BUFF
-            elif self.player_face_left:
+            elif self.player_sprite.character_face_direction == LEFT_FACING:
                 self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED * DASH_BUFF
         elif self.left_pressed and not self.right_pressed:
-                self.player_face_left = True
-                self.player_face_right = False
                 self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
         elif self.right_pressed and not self.left_pressed:
-            self.player_face_left = False
-            self.player_face_right = True
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
         else:
             self.dash_pressed = False
@@ -546,7 +546,7 @@ class GameView(arcade.View):
             self.view_bottom = 0
 
         """ Movement and game logic """
-        # Calculate speed based on the keys pressed
+        # Dashing
         if abs(self.player_sprite.center_x - self.dash_start) > DASH_DISTANCE or self.player_sprite.change_x == 0:
             self.dash_pressed = False
             self.process_keychange()
@@ -565,6 +565,11 @@ class GameView(arcade.View):
         else:
             self.player_sprite.is_on_ladder = False
             self.process_keychange()
+
+        if self.dash_pressed:
+            self.player_sprite.dashing = True
+        else:
+            self.player_sprite.dashing = False
 
         self.player_list.update_animation(delta_time)
 

@@ -57,15 +57,42 @@ class GameOverView(arcade.View):
         arcade.start_render()
         arcade.draw_text("You Died", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y +140,
                          arcade.color.WHITE, font_size=100, anchor_x="center")
-        arcade.draw_text("Press SPACE to suffer again or ESC to exit.", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 70,
+        arcade.draw_text("Press SPACE to suffer again or BACKSPACE to exit.", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 70,
                          arcade.color.WHITE, font_size=30, anchor_x="center")
 
     def on_key_press(self, key, modifiers):
-        if key != arcade.key.ESCAPE:
+        if key != arcade.key.BACKSPACE:
             from GAME import GameView
             game = GameView()
             game.setup()
             self.window.show_view(game)
+        else:
+            self.window.close()
+            sys.exit()
+
+
+class LevelCompletedView(arcade.View):
+
+    def __init__(self, game_view, color):
+        super().__init__()
+        self.game_view = game_view
+        self.color = color
+        arcade.set_background_color(color)
+        # ниже для отмены результатов скроллинга
+        arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
+
+    def on_draw(self):
+        """ Draw this view """
+        arcade.start_render()
+        arcade.draw_text(f"Congratulations! You just completed level {self.game_view.level}", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y +140,
+                         arcade.color.WHITE, font_size=50, anchor_x="center")
+        arcade.draw_text(f"Press SPACE to advance to level {self.game_view.level + 1} or BACKSPACE to exit.", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 70,
+                         arcade.color.WHITE, font_size=30, anchor_x="center")
+
+    def on_key_press(self, key, modifiers):
+        if key != arcade.key.BACKSPACE:
+            self.game_view.setup(level=self.game_view.level +1)
+            self.window.show_view(self.game_view)
         else:
             self.window.close()
             sys.exit()

@@ -43,6 +43,7 @@ GameOverView = nonmain.MenuView
 PauseView = nonmain.PauseView
 MenuView = nonmain.MenuView
 GameWindow = nonmain.GameWindow
+LevelCompletedView = nonmain.LevelCompletedView
 
 
 class GameView(arcade.View):
@@ -589,11 +590,11 @@ class GameView(arcade.View):
                                                 self.exit_list):
             #play sound
             arcade.play_sound(self.level_completed_sound)
-            # Advance to the next level
-            self.level += 1
 
             # Load the next level
-            self.setup(self.level)
+            self.window.show_view(LevelCompletedView(self, self.background_color))
+            
+
 
             # Set the camera to the start
             self.view_left = 0

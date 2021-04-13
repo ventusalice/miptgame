@@ -31,7 +31,7 @@ PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
 DASH_BUFF = 5
-DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*10 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
+DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*3 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
 DASH_COOLDOWN = 5
 IMMUNITY_TIME = 0.1
 
@@ -201,7 +201,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 2
+        self.level = 0
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")

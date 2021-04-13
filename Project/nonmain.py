@@ -19,11 +19,13 @@ class GameWindow(arcade.Window):
 
 
 class MenuView(arcade.View):
+    def __init__(self, a=0, b=0):
+        arcade.View.__init__(self)
     def on_show(self):
         """ This is run once when we switch to this view """
-        arcade.set_background_color(arcade.csscolor.PURPLE)
+        arcade.set_background_color(arcade.csscolor.GREEN)
         # ниже для отмены результатов скроллинга
-        arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
+        #arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
 
     def on_draw(self):
         """ Draw this view """

@@ -36,7 +36,7 @@ BOTTOM_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
 TOP_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
 
 #Classes from nonmain
-GameOverView = nonmain.GameOverView
+GameOverView = nonmain.MenuView
 PauseView = nonmain.PauseView
 MenuView = nonmain.MenuView
 GameWindow = nonmain.GameWindow
@@ -168,10 +168,14 @@ class GameView(arcade.View):
         golden_door_layer_name = 'Golden door'
         # Map name
         map_name = f"maps/map_level_{level}.tmx"
-
+        
+            
         # Read in the tiled map
-        my_map = arcade.tilemap.read_tmx(map_name)
-
+        try:
+            my_map = arcade.tilemap.read_tmx(map_name)
+        except:
+            self.window.show_view(MenuView())
+            return
         # -- Background
         self.background_list = arcade.tilemap.process_layer(my_map,
                                                             background_layer_name,

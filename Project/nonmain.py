@@ -84,14 +84,14 @@ class LevelCompletedView(arcade.View):
     def on_draw(self):
         """ Draw this view """
         arcade.start_render()
-        arcade.draw_text(f"Congratulations! You just completed level {self.game_view.level}", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y +140,
+        arcade.draw_text(f"Congratulations! You just completed level {self.game_view.level-1}", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y +140,
                          arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text(f"Press SPACE to advance to level {self.game_view.level + 1} or BACKSPACE to exit.", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 70,
+        arcade.draw_text(f"Press SPACE to advance to level {self.game_view.level} or BACKSPACE to exit.", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 70,
                          arcade.color.WHITE, font_size=30, anchor_x="center")
 
     def on_key_press(self, key, modifiers):
         if key != arcade.key.BACKSPACE:
-            self.game_view.setup(level=self.game_view.level +1)
+            self.game_view.setup(level=self.game_view.level)
             self.window.show_view(self.game_view)
         else:
             self.window.close()

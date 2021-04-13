@@ -43,7 +43,7 @@ BOTTOM_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
 TOP_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
 
 #Classes from nonmain
-GameOverView = nonmain.MenuView
+GameOverView = nonmain.GameOverView
 PauseView = nonmain.PauseView
 MenuView = nonmain.MenuView
 GameWindow = nonmain.GameWindow

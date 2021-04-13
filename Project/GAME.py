@@ -48,7 +48,6 @@ PauseView = nonmain.PauseView
 MenuView = nonmain.MenuView
 GameWindow = nonmain.GameWindow
 LevelCompletedView = nonmain.LevelCompletedView
-<<<<<<< HEAD
 
 
 
@@ -141,9 +140,6 @@ class PlayerCharacter(arcade.Sprite):
         if self.cur_texture > 1:
             self.cur_texture = 0
         self.texture = self.walk_textures[self.cur_texture][self.character_face_direction]
-
-=======
->>>>>>> 73a2ccecbfde5888319854166cd1a17ab7caff2a
 
 
 class GameView(arcade.View):
@@ -704,18 +700,14 @@ class GameView(arcade.View):
                                                 self.exit_list):
             #play sound
             arcade.play_sound(self.level_completed_sound)
-<<<<<<< HEAD
+
             # Advance to the next level
             # Load the next level
             self.window.show_view(LevelCompletedView(self, self.background_color))
             self.level += 1
-=======
 
             # Load the next level
             self.window.show_view(LevelCompletedView(self, self.background_color))
-            
-
->>>>>>> 73a2ccecbfde5888319854166cd1a17ab7caff2a
 
             # Set the camera to the start
             self.view_left = 0

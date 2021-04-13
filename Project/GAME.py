@@ -137,9 +137,9 @@ class PlayerCharacter(arcade.Sprite):
 
         # Walking animation
         self.cur_texture += 1
-        if self.cur_texture > 1:
+        if self.cur_texture > 13:
             self.cur_texture = 0
-        self.texture = self.walk_textures[self.cur_texture][self.character_face_direction]
+        self.texture = self.walk_textures[self.cur_texture//7][self.character_face_direction]
 
 
 class GameView(arcade.View):

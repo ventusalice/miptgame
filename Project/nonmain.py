@@ -57,7 +57,11 @@ class GameOverView(arcade.View):
         arcade.start_render()
         arcade.draw_text("You Died", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y +140,
                          arcade.color.WHITE, font_size=100, anchor_x="center")
-        arcade.draw_text("Press SPACE to suffer again or ENTER to reset or BACKSPACE to exit.", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 70,
+        arcade.draw_text("Press SPACE to suffer again", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 60,
+                         arcade.color.WHITE, font_size=30, anchor_x="center")
+        arcade.draw_text("Press ENTER to reset", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 20,
+                         arcade.color.WHITE, font_size=30, anchor_x="center")
+        arcade.draw_text("Press BACKSPACE to exit", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y - 20,
                          arcade.color.WHITE, font_size=30, anchor_x="center")
 
     def on_key_press(self, key, modifiers):

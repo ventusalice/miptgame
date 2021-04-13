@@ -12,9 +12,9 @@ class RayView(GAME.GameView):
             self.ray_array.append(math.tan(2*math.pi / 12 * i))
         self.ray_result = []
         
-    def on_draw():
+    def on_draw(self):
         super.on_draw()
-        arcade.draw_line(0, 500, 0, 600, arcade.color.BLACK, 2)
+        arcade.draw_line(self.player_sprite.center_x, 500, 0, 600, arcade.color.BLACK, 2)
         
         
     def on_update():

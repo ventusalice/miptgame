@@ -51,7 +51,7 @@
    <image width="128" height="128" source="../images/tiles/grassCenter.png"/>
   </tile>
  </tileset>
- <tileset firstgid="18" name="Items" tilewidth="128" tileheight="128" tilecount="4" columns="0">
+ <tileset firstgid="18" name="Items" tilewidth="128" tileheight="128" tilecount="5" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="128" height="128" source="../images/tiles/signExit.png"/>
@@ -61,12 +61,19 @@
   </tile>
   <tile id="4">
    <image width="128" height="128" source="../images/items/flagRed1.png"/>
+   <animation>
+    <frame tileid="4" duration="100"/>
+    <frame tileid="6" duration="100"/>
+   </animation>
   </tile>
   <tile id="5">
    <image width="128" height="128" source="../images/items/keyYellow.png"/>
   </tile>
+  <tile id="6">
+   <image width="128" height="128" source="../../../Rogue like/Project/images/items/flagRed2.png"/>
+  </tile>
  </tileset>
- <tileset firstgid="24" name="Danger" tilewidth="128" tileheight="128" tilecount="3" columns="0">
+ <tileset firstgid="25" name="Danger" tilewidth="128" tileheight="128" tilecount="3" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="128" height="128" source="../images/enemies/saw.png"/>
@@ -84,27 +91,27 @@
   </data>
  </layer>
  <objectgroup id="2" name="Enemies">
-  <object id="3" gid="25" x="1796" y="512" width="128" height="128">
+  <object id="3" gid="26" x="1796" y="512" width="128" height="128">
    <properties>
     <property name="change_x" type="float" value="10"/>
    </properties>
   </object>
-  <object id="5" gid="24" x="1792" y="768" width="128" height="128">
+  <object id="5" gid="25" x="1792" y="768" width="128" height="128">
    <properties>
     <property name="change_y" type="float" value="-7"/>
    </properties>
   </object>
-  <object id="6" gid="24" x="2304" y="1152" width="128" height="128">
+  <object id="6" gid="25" x="2304" y="1152" width="128" height="128">
    <properties>
     <property name="change_y" type="float" value="7"/>
    </properties>
   </object>
-  <object id="7" gid="24" x="2816" y="768" width="128" height="128">
+  <object id="7" gid="25" x="2816" y="768" width="128" height="128">
    <properties>
     <property name="change_y" type="float" value="-7"/>
    </properties>
   </object>
-  <object id="8" gid="25" x="2816" y="512" width="128" height="128">
+  <object id="8" gid="26" x="2816" y="512" width="128" height="128">
    <properties>
     <property name="change_x" type="float" value="-10"/>
    </properties>
@@ -127,7 +134,7 @@
  </layer>
  <layer id="6" name="Don't Touch" width="25" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUDFYghYQpAQAYoABP
+   eJxjYBgFo2AUDFYgjYQpAQAZbABS
   </data>
  </layer>
  <layer id="7" name="Foreground" width="25" height="10">

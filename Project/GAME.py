@@ -12,7 +12,7 @@ SCREEN_HEIGHT = nonmain.SCREEN_HEIGHT
 SCREEN_TITLE = nonmain.SCREEN_TITLE
 
 # Constants used to scale our sprites from their original size
-CHARACTER_SCALING = 0.9
+CHARACTER_SCALING = 2
 TILE_SCALING = 0.5
 COIN_SCALING = 0.5
 SPRITE_PIXEL_SIZE = 128
@@ -24,6 +24,7 @@ LEFT_FACING = 1
 
 # Movement speed of player, in pixels per frame
 PLAYER_MOVEMENT_SPEED = 10
+PLAYER_LADDER_MOVEMENT_SPEED = 5
 # PLAYER_START_X = 768
 # PLAYER_START_Y = 1216
 PLAYER_START_X = 32  # center of player
@@ -32,7 +33,7 @@ GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
 DASH_BUFF = 5
 DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*3 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
-DASH_COOLDOWN = 5
+DASH_COOLDOWN = 0
 IMMUNITY_TIME = 0.1
 
 # How many pixels to keep as a minimum margin between the character
@@ -50,7 +51,6 @@ GameWindow = nonmain.GameWindow
 LevelCompletedView = nonmain.LevelCompletedView
 
 
-
 def load_texture_pair(filename):
     """
     Load a texture pair, with the second being a mirror image.
@@ -63,6 +63,7 @@ def load_texture_pair(filename):
 
 class PlayerCharacter(arcade.Sprite):
     """ Player Sprite"""
+
     def __init__(self):
 
         # Set up parent class
@@ -76,36 +77,79 @@ class PlayerCharacter(arcade.Sprite):
         self.scale = CHARACTER_SCALING
 
         # Track our state
-        self.jumping = False
+        self.can_jump = False
         self.climbing = False
         self.is_on_ladder = False
         self.dashing = False
+        self.dashing_end = False
+        self.attack = False
+        self.hurt = False
+        self.dead = False
         # --- Load Textures ---
 
+        main_path = "images/Warrior/Individual Sprite/"
 
-        main_path = "images/player_2/player"
+        # Текстуры для стойки
+        self.idle_textures = []
+        for i in range(1, 7):
+            texture = load_texture_pair(f"{main_path}idle/Warrior_Idle_{i}.png")
+            self.idle_textures.append(texture)
 
-        # Load textures for idle standing
-        self.idle_texture_pair = load_texture_pair(f"{main_path}_idle.png")
-        self.jump_texture_pair = load_texture_pair(f"{main_path}_jump.png")
-        self.fall_texture_pair = load_texture_pair(f"{main_path}_jump.png")
+        # Текстуры для прыжка
+        self.jump_textures = []
+        for i in range(1, 4):
+            texture = load_texture_pair(f"{main_path}Jump/Warrior_Jump_{i}.png")
+            self.jump_textures.append(texture)
 
-        # Load textures for walking
-        self.walk_textures = []
-        for i in range(2):
-            texture = load_texture_pair(f"{main_path}_walk{i}.png")
-            self.walk_textures.append(texture)
+        # Текстуры перехода в верхней точке
+        self.up_to_fall_textures = []
+        for i in range(1, 3):
+            texture = load_texture_pair(f"{main_path}UptoFall/Warrior_UptoFall_{i}.png")
+            self.up_to_fall_textures.append(texture)
 
-        # Load textures for climbing
-        self.climbing_texture = arcade.load_texture(f"{main_path}_back.png")
+        # Текстуры падения
+        self.fall_textures = []
+        for i in range(1, 4):
+            texture = load_texture_pair(f"{main_path}Fall/Warrior_Fall_{i}.png")
+            self.fall_textures.append(texture)
+
+        # Текстуры бега
+        self.run_textures = []
+        for i in range(1, 9):
+            texture = load_texture_pair(f"{main_path}Run/Warrior_Run_{i}.png")
+            self.run_textures.append(texture)
+
+        # Текстуры для лестницы
+        self.ladder_grab_textures = []
+        for i in range(1, 9):
+            texture = arcade.load_texture(f"{main_path}Ladder-Grab/Warrior-Ladder-Grab_{i}.png")
+            self.ladder_grab_textures.append(texture)
+
+        # Текстуры дэша
+        self.dash_textures = []
+        for i in range(1, 8):
+            texture = load_texture_pair(f"{main_path}Dash/Warrior_Dash_{i}.png")
+            self.dash_textures.append(texture)
+
+        # Текстуры получения урона
+        self.hurt_textures = []
+        for i in range(1, 5):
+            texture = load_texture_pair(f"{main_path}Hurt-Effect/Warrior_hurt_{i}.png")
+            self.hurt_textures.append(texture)
+
+        # Текстуры смерти
+        self.death_textures = []
+        for i in range(1, 12):
+            texture = load_texture_pair(f"{main_path}Death-Effect/Warrior_Death_{i}.png")
+            self.death_textures.append(texture)
 
         # Set the initial texture
-        self.texture = self.idle_texture_pair[0]
+        self.texture = self.idle_textures[0][0]
 
         # Hit box will be set based on the first image used
         self.set_hit_box(self.texture.hit_box_points)
 
-    def update_animation(self, delta_time: float = 1/60):
+    def update_animation(self, delta_time: float = 1 / 60):
 
         # Figure out if we need to flip face left or right
         if self.change_x < 0 and self.character_face_direction == RIGHT_FACING:
@@ -113,38 +157,92 @@ class PlayerCharacter(arcade.Sprite):
         elif self.change_x > 0 and self.character_face_direction == LEFT_FACING:
             self.character_face_direction = RIGHT_FACING
 
-        # Climbing animation
+        # Смэрть
+        if self.dead:
+            self.cur_texture += 1
+            if self.cur_texture > 32:
+                self.dead = False
+                return
+            self.texture = self.death_textures[self.cur_texture // 3][self.character_face_direction]
+            return
+
+        # Получение урона
+        if self.hurt:
+            self.cur_texture += 1
+            if self.cur_texture > 19:
+                self.hurt = False
+                return
+            self.texture = self.hurt_textures[self.cur_texture // 5][self.character_face_direction]
+            return
+
+        # Анимация на лестнице
         if self.is_on_ladder:
             self.climbing = True
         else:
             self.climbing = False
         if self.climbing:
-            self.texture = self.climbing_texture
+            if (abs(self.change_y) > 0 or abs(self.change_x) > 0):
+                self.cur_texture += 1
+                if self.cur_texture > 63:
+                    self.cur_texture = 0
+                self.texture = self.ladder_grab_textures[self.cur_texture // 8]
+                return
+
+
+        # Dash animation. перед падением, чтобы срабатывать раньше
+        if self.dashing:
+            self.cur_texture += 1
+            if self.cur_texture > 11:
+                self.cur_texture = 0
+            self.texture = self.dash_textures[self.cur_texture // 3][self.character_face_direction]
             return
 
         # Jumping animation
         if self.change_y > 0 and not self.is_on_ladder:
-            self.texture = self.jump_texture_pair[self.character_face_direction]
+            self.cur_texture += 1
+            if self.cur_texture > 20:
+                self.cur_texture = 0
+            self.texture = self.jump_textures[self.cur_texture // 7][self.character_face_direction]
             return
         elif self.change_y < 0 and not self.is_on_ladder:
-            self.texture = self.fall_texture_pair[self.character_face_direction]
+            self.cur_texture += 1
+            if self.cur_texture > 20:
+                self.cur_texture = 0
+            self.texture = self.fall_textures[self.cur_texture // 7][self.character_face_direction]
+            return
+        elif self.change_y == 0 and not self.can_jump and not self.is_on_ladder:
+            self.cur_texture += 1
+            if self.cur_texture > 9:
+                self.cur_texture = 0
+            self.texture = self.up_to_fall_textures[self.cur_texture // 5][self.character_face_direction]
+            return
+
+        # Окончание дэша
+        # Должно быть перед Idle и бегом, чтобы срабатывать раньше
+        if self.dashing_end:
+            self.cur_texture += 1
+            if self.cur_texture > 17:
+                self.cur_texture = 0
+                self.dashing_end = False
+                return
+            self.texture = self.dash_textures[4 + self.cur_texture // 6][self.character_face_direction]
             return
 
         # Idle animation
-        if self.change_x == 0:
-            self.texture = self.idle_texture_pair[self.character_face_direction]
+        if self.change_x == 0 and self.can_jump:
+            self.cur_texture += 1
+            if self.cur_texture > 41:
+                self.cur_texture = 0
+            self.texture = self.idle_textures[self.cur_texture // 7][self.character_face_direction]
             return
 
-        # Walking animation
-        if abs(self.change_x)>0 and not self.dashing:
+        # Анимация бега
+        if abs(self.change_x) > 0 and self.can_jump and not self.dashing:
             self.cur_texture += 1
-            if self.cur_texture > 13:
+            if self.cur_texture > 31:
                 self.cur_texture = 0
-            self.texture = self.walk_textures[self.cur_texture//7][self.character_face_direction]
-
-        #Dash animation
-        if self.dashing:
-            self.texture = self.jump_texture_pair[self.character_face_direction]
+            self.texture = self.run_textures[self.cur_texture // 4][self.character_face_direction]
+            return
 
 class GameView(arcade.View):
     """
@@ -201,7 +299,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 0
+        self.level = 3
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -439,14 +537,14 @@ class GameView(arcade.View):
         # Process up/down
         if self.up_pressed and not self.down_pressed:
             if self.physics_engine.is_on_ladder():
-                self.player_sprite.change_y = PLAYER_MOVEMENT_SPEED
+                self.player_sprite.change_y = PLAYER_LADDER_MOVEMENT_SPEED
             elif self.physics_engine.can_jump() and not self.jump_needs_reset:
                 self.player_sprite.change_y = PLAYER_JUMP_SPEED
                 self.jump_needs_reset = True
                 arcade.play_sound(self.jump_sound)
         elif self.down_pressed and not self.up_pressed:
             if self.physics_engine.is_on_ladder():
-                self.player_sprite.change_y = -PLAYER_MOVEMENT_SPEED
+                self.player_sprite.change_y = -PLAYER_LADDER_MOVEMENT_SPEED
 
 
         # Process up/down when on a ladder and no movement
@@ -458,6 +556,8 @@ class GameView(arcade.View):
 
         # Process left/right
         if self.dash_pressed:
+            self.player_sprite.dashing = True
+            self.player_sprite.change_y = 0
             if self.player_sprite.character_face_direction == RIGHT_FACING:
                 self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED * DASH_BUFF
             elif self.player_sprite.character_face_direction == LEFT_FACING:
@@ -467,7 +567,6 @@ class GameView(arcade.View):
         elif self.right_pressed and not self.left_pressed:
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
         else:
-            self.dash_pressed = False
             self.player_sprite.change_x = 0
 
     def key_discard(self):#просто функция для сброса любого движения
@@ -491,7 +590,7 @@ class GameView(arcade.View):
             self.left_pressed = True
         elif key == arcade.key.D:
             self.right_pressed = True
-        if (key == arcade.key.L) and (time.time() - self.dash_start_time >= DASH_COOLDOWN):
+        if (key == arcade.key.LSHIFT) and (time.time() - self.dash_start_time >= DASH_COOLDOWN):
             arcade.play_sound(self.dash_sound)
             self.dash_start_time = time.time()
             self.dash_pressed = True
@@ -547,7 +646,12 @@ class GameView(arcade.View):
 
         """ Movement and game logic """
         # Dashing
-        if abs(self.player_sprite.center_x - self.dash_start) > DASH_DISTANCE or self.player_sprite.change_x == 0:
+        if (abs(self.player_sprite.center_x - self.dash_start)> DASH_DISTANCE
+            or (time.time() - self.dash_start_time > DASH_DISTANCE/(60*PLAYER_MOVEMENT_SPEED * DASH_BUFF)))\
+                and self.dash_pressed:
+            self.score+=1
+            if self.physics_engine.can_jump():
+                self.player_sprite.dashing_end = True
             self.dash_pressed = False
             self.process_keychange()
         # Move the player with the physics engine
@@ -555,9 +659,9 @@ class GameView(arcade.View):
 
         # Update animations
         if self.physics_engine.can_jump():
-            self.player_sprite.can_jump = False
-        else:
             self.player_sprite.can_jump = True
+        else:
+            self.player_sprite.can_jump = False
 
         if self.physics_engine.is_on_ladder() and not self.physics_engine.can_jump():
             self.player_sprite.is_on_ladder = True
@@ -572,7 +676,7 @@ class GameView(arcade.View):
             self.player_sprite.dashing = False
 
         self.player_list.update_animation(delta_time)
-
+        self.background_list.update_animation(delta_time)
         # Update walls, used with moving platforms
         self.wall_list.update()
         # update enemies
@@ -613,7 +717,8 @@ class GameView(arcade.View):
             elif enemy.boundary_bottom and enemy.bottom < enemy.boundary_bottom and enemy.change_y < 0:
                 enemy.change_y *= -1
 
-
+        if arcade.check_for_collision_with_list(self.player_sprite, self.wall_list):
+            self.score+=1
         # See if the wall hit a boundary and needs to reverse direction.
         for wall in self.wall_list:
 

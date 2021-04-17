@@ -2,11 +2,43 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64a8c2a2-8439-44dd-ae6a-c4b6097ac97d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GAME.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAME.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/bee.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/fishGreen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/fishPink.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/fly.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/frog.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/frog_move.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/ladybug.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/mouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/saw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/sawHalf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/slimeBlock.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/slimeBlue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/slimeBlue_move.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/slimeGreen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/slimePurple.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/wormGreen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/wormGreen_dead.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/wormGreen_move.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/enemies/wormPink.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_1/female_back.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_1/female_jump.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_1/female_walk1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_1/female_walk2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_1/player_stand.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_2/player_back.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_2/player_idle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_2/player_jump.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_2/player_stand.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_2/player_walk0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_2/player_walk1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/player_2/player_walk2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/maps/map_level_0.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/maps/map_level_0.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maps/map_level_1.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maps/map_level_2.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maps/map_level_3.tmx" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

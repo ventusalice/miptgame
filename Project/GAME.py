@@ -13,11 +13,13 @@ SCREEN_TITLE = nonmain.SCREEN_TITLE
 
 # Constants used to scale our sprites from their original size
 CHARACTER_SCALING = 2
-TILE_SCALING = 0.5
+TILE_SCALING = 2
 COIN_SCALING = 0.5
-SPRITE_PIXEL_SIZE = 128
+SPRITE_PIXEL_SIZE = 16
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
+NBG=7 #Число слоёв бэк и форграунда
+NFG = 2
 # Constants used to track if the player is facing left or right
 RIGHT_FACING = 0
 LEFT_FACING = 1
@@ -40,8 +42,8 @@ IMMUNITY_TIME = 0.1
 # and the edge of the screen.
 LEFT_VIEWPORT_MARGIN = int(SCREEN_WIDTH / 2)
 RIGHT_VIEWPORT_MARGIN = int(SCREEN_WIDTH / 2)
-BOTTOM_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
-TOP_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
+BOTTOM_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 5)
+TOP_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 5*4)
 
 #Classes from nonmain
 GameOverView = nonmain.GameOverView
@@ -260,13 +262,20 @@ class GameView(arcade.View):
         self.coin_list = None
         self.wall_list = None
         self.player_list = None
-        self.foreground_list = None
-        self.background_list = None
+        self.background=[]
+        for i in range(NBG):
+            list = None
+            self.background.append(list)
+        self.foreground=[]
+        for i in range(NFG):
+            list = None
+            self.foreground.append(list)
         self.dont_touch_list = None
         self.ladder_list = None
         self.moving_traps_list = None
         self.enemy_list = None
         self.checkpoint_list = None
+        self.spawn_list = None
 
         # Separate variable that holds the player sprite
         self.player_sprite = None
@@ -299,7 +308,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 3
+        self.level = 0
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -352,17 +361,12 @@ class GameView(arcade.View):
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList(use_spatial_hash=True)
         self.coin_list = arcade.SpriteList(use_spatial_hash=True)
-        self.foreground_list = arcade.SpriteList()
-        self.background_list = arcade.SpriteList()
+        for i in range(NBG):
+            self.background[i] = arcade.SpriteList()
+        for i in range(NFG):
+            self.foreground[i] = arcade.SpriteList()
+        self.spawn_list = arcade.SpriteList()
 
-        # Set up the player, specifically placing it at these coordinates.
-        self.player_sprite = PlayerCharacter()
-        self.player_sprite.center_x = PLAYER_START_X
-        self.player_sprite.center_y = PLAYER_START_Y
-        self.player_list.append(self.player_sprite)
-        self.player_face_right = True
-        self.player_face_left = False
-        #self.timing_of_death = time.time()
 
         # Dash info
         self.dash_start = 0
@@ -370,31 +374,6 @@ class GameView(arcade.View):
 
         # --- Load in a map from the tiled editor ---
 
-        # Name of the layer in the file that has our platforms/walls
-        platforms_layer_name = 'Platforms'
-        moving_platforms_layer_name = 'Moving platforms'
-        ladders_layer_name = 'Ladders'
-        # Name of the layer that has items for pick-up
-        coins_layer_name = 'Coins'
-        # Name of the layer that has items for foreground
-        foreground_layer_name = 'Foreground'
-        # Name of the layer that has items for background
-        background_layer_name = 'Background'
-        # Name of the layer that has items we shouldn't touch
-        dont_touch_layer_name = "Don't Touch"
-        # moving_traps
-        moving_traps_layer_name = 'Moving traps'
-
-        #Enemies
-        enemy_layer_name = 'Enemies'
-
-        # checkpoints
-        checkpoints_layer_name = 'Checkpoints'
-        # exit
-        exit_layer_name = 'Exit'
-        # keys and doors
-        golden_key_layer_name = 'Golden key'
-        golden_door_layer_name = 'Golden door'
         # Map name
         map_name = f"maps/map_level_{level}.tmx"
         
@@ -405,72 +384,76 @@ class GameView(arcade.View):
         except:
             self.window.show_view(MenuView())
             return
-        # -- Background
-        self.background_list = arcade.tilemap.process_layer(my_map,
-                                                            background_layer_name,
-                                                            TILE_SCALING)
+
+        # # -- Background
+
+        for i in range(NBG):
+            self.background[i] =arcade.tilemap.process_layer(my_map, f"Background {NBG-i}", TILE_SCALING)
+
         # exit
         self.exit_list = arcade.tilemap.process_layer(my_map,
-                                                      exit_layer_name,
+                                                      'Exit',
                                                       TILE_SCALING)
-        for sprite in self.exit_list:
-            self.background_list.append(sprite)
+
         # moving_traps
         self.moving_traps_list = arcade.tilemap.process_layer(my_map,
-                                                              moving_traps_layer_name,
+                                                              'Moving traps',
                                                               TILE_SCALING)
         #Enemies
         self.enemy_list = arcade.tilemap.process_layer(my_map,
-                                                              enemy_layer_name,
+                                                              'Enemies',
                                                               TILE_SCALING)
 
         # -- Ladder objects
         self.ladder_list = arcade.tilemap.process_layer(my_map,
-                                                        ladders_layer_name,
+                                                        'Ladders',
                                                         scaling=TILE_SCALING,
                                                         use_spatial_hash=True)
 
         # -- Foreground
-        self.foreground_list = arcade.tilemap.process_layer(my_map,
-                                                            foreground_layer_name,
-                                                            TILE_SCALING)
+        for i in range(NFG):
+            self.foreground[i] = arcade.tilemap.process_layer(my_map, f"Foreground {NFG - i}", TILE_SCALING)
 
         # -- Platforms
         self.wall_list = arcade.tilemap.process_layer(map_object=my_map,
-                                                      layer_name=platforms_layer_name,
+                                                      layer_name='Platforms',
                                                       scaling=TILE_SCALING,
                                                       use_spatial_hash=True)
         # -- Moving Platforms
-        moving_platforms_list = arcade.tilemap.process_layer(my_map, moving_platforms_layer_name, TILE_SCALING)
+        moving_platforms_list = arcade.tilemap.process_layer(my_map, 'Moving platforms', TILE_SCALING)
         for sprite in moving_platforms_list:
             self.wall_list.append(sprite)
         # checkpoints
-        self.checkpoint_list = arcade.tilemap.process_layer(my_map, checkpoints_layer_name, TILE_SCALING,
+        self.checkpoint_list = arcade.tilemap.process_layer(my_map, 'Checkpoints', TILE_SCALING,
                                                             use_spatial_hash=True)
-        for sprite in self.checkpoint_list:
-            self.background_list.append(sprite)
+
 
         # -- Coins
         self.coin_list = arcade.tilemap.process_layer(my_map,
-                                                      coins_layer_name,
+                                                      'Coins',
                                                       TILE_SCALING,
                                                       use_spatial_hash=True)
 
         # -- Don't Touch Layer
         self.dont_touch_list = arcade.tilemap.process_layer(my_map,
-                                                            dont_touch_layer_name,
+                                                            "Don't Touch",
                                                             TILE_SCALING,
                                                             use_spatial_hash=True)
 
         # doors and keys
         self.golden_key_list = arcade.tilemap.process_layer(my_map,
-                                                            golden_key_layer_name,
+                                                            'Golden key',
                                                             TILE_SCALING,
                                                             use_spatial_hash=True)
         self.golden_door_list = arcade.tilemap.process_layer(my_map,
-                                                             golden_door_layer_name,
+                                                             'Golden door',
                                                              TILE_SCALING,
                                                              use_spatial_hash=True)
+
+        #Спавн
+        self.spawn_list=arcade.tilemap.process_layer(my_map,
+                                                      'Spawn',
+                                                      TILE_SCALING)
 
         # --- Other stuff
         # Set the background color
@@ -479,6 +462,13 @@ class GameView(arcade.View):
             self.background_color = my_map.background_color
         else:
             self.background_color = arcade.csscolor.PURPLE
+
+
+        # Set up the player, specifically placing it at spawn
+        self.player_sprite = PlayerCharacter()
+        self.player_sprite.center_x = self.spawn_list[0].center_x
+        self.player_sprite.bottom = self.spawn_list[0].bottom
+        self.player_list.append(self.player_sprite)
 
         # Create the 'physics engine'
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
@@ -493,18 +483,19 @@ class GameView(arcade.View):
         arcade.start_render()
 
         # Draw our sprites
+        for i in self.background:
+            i.draw()
+        self.wall_list.draw()
         self.golden_key_list.draw()
         self.golden_door_list.draw()
-        self.wall_list.draw()
-        self.moving_traps_list.draw()
-        self.enemy_list.draw()
-        self.background_list.draw()
-        self.wall_list.draw()
         self.coin_list.draw()
         self.dont_touch_list.draw()
-        self.player_list.draw()
-        self.foreground_list.draw()
+        self.moving_traps_list.draw()
+        self.enemy_list.draw()
         self.ladder_list.draw()
+        self.player_list.draw()
+        for i in self.foreground:
+            i.draw()
 
         # Draw our score on the screen, scrolling it with the viewport
 
@@ -675,8 +666,10 @@ class GameView(arcade.View):
         else:
             self.player_sprite.dashing = False
 
+        self.coin_list.update_animation(delta_time)
         self.player_list.update_animation(delta_time)
-        self.background_list.update_animation(delta_time)
+        # self.enemy_list.update_animation(delta_time)
+
         # Update walls, used with moving platforms
         self.wall_list.update()
         # update enemies

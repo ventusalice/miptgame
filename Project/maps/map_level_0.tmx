@@ -1,167 +1,242 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="25" height="10" tilewidth="128" tileheight="128" infinite="0" backgroundcolor="#59b6c8" nextlayerid="14" nextobjectid="9">
- <tileset firstgid="1" name="blocks" tilewidth="128" tileheight="128" tilecount="16" columns="0">
-  <grid orientation="orthogonal" width="1" height="1"/>
-  <tile id="0">
-   <image width="128" height="128" source="../images/tiles/bridgeA.png"/>
-  </tile>
-  <tile id="1">
-   <image width="128" height="128" source="../images/tiles/bush.png"/>
-  </tile>
-  <tile id="2">
-   <image width="128" height="128" source="../images/tiles/grass.png"/>
-  </tile>
-  <tile id="3">
-   <image width="128" height="128" source="../images/tiles/grassLeft.png"/>
-  </tile>
-  <tile id="4">
-   <image width="128" height="128" source="../images/tiles/grassMid.png"/>
-  </tile>
-  <tile id="5">
-   <image width="128" height="128" source="../images/tiles/grassRight.png"/>
-  </tile>
-  <tile id="6">
-   <image width="128" height="128" source="../images/tiles/ladderMid.png"/>
-  </tile>
-  <tile id="7">
-   <image width="128" height="128" source="../images/tiles/ladderTop.png"/>
-  </tile>
-  <tile id="9">
-   <image width="128" height="128" source="../images/tiles/stone.png"/>
-  </tile>
-  <tile id="10">
-   <image width="128" height="128" source="../images/tiles/stoneCenter.png"/>
-  </tile>
-  <tile id="11">
-   <image width="128" height="128" source="../images/tiles/stoneLeft.png"/>
-  </tile>
-  <tile id="12">
-   <image width="128" height="128" source="../images/tiles/stoneMid.png"/>
-  </tile>
-  <tile id="13">
-   <image width="128" height="128" source="../images/tiles/stoneRight.png"/>
-  </tile>
-  <tile id="14">
-   <image width="128" height="128" source="../images/tiles/doorClosed_mid.png"/>
-  </tile>
-  <tile id="15">
-   <image width="128" height="128" source="../images/tiles/doorClosed_top.png"/>
-  </tile>
-  <tile id="16">
-   <image width="128" height="128" source="../images/tiles/grassCenter.png"/>
-  </tile>
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="200" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="25" nextobjectid="1">
+ <tileset firstgid="1" name="Country_village_props" tilewidth="16" tileheight="16" tilecount="252" columns="21">
+  <image source="../images/Country-village_asset_pack/1_Tileset &amp; props/Country_village_props.png" width="336" height="192"/>
  </tileset>
- <tileset firstgid="18" name="Items" tilewidth="128" tileheight="128" tilecount="5" columns="0">
-  <grid orientation="orthogonal" width="1" height="1"/>
+ <tileset firstgid="253" name="country village tileset" tilewidth="16" tileheight="16" tilecount="330" columns="30">
+  <image source="../images/Country-village_asset_pack/1_Tileset &amp; props/country village tileset.png" width="480" height="176"/>
+ </tileset>
+ <tileset firstgid="583" name="background" tilewidth="16" tileheight="16" tilecount="360" columns="24">
+  <image source="../images/Country-village_asset_pack/2_Parallax background/background.png" width="384" height="240"/>
+ </tileset>
+ <tileset firstgid="943" name="Back_Forest_1" tilewidth="16" tileheight="16" tilecount="360" columns="24">
+  <image source="../images/Country-village_asset_pack/2_Parallax background/Back_Forest_1.png" width="384" height="240"/>
+ </tileset>
+ <tileset firstgid="1303" name="Back_Forest_2" tilewidth="16" tileheight="16" tilecount="360" columns="24">
+  <image source="../images/Country-village_asset_pack/2_Parallax background/Back_Forest_2.png" width="384" height="240"/>
+ </tileset>
+ <tileset firstgid="1663" name="Back_tree_1" tilewidth="16" tileheight="16" tilecount="360" columns="24">
+  <image source="../images/Country-village_asset_pack/2_Parallax background/Back_tree_1.png" width="384" height="240"/>
+ </tileset>
+ <tileset firstgid="2023" name="Back_tree_2" tilewidth="16" tileheight="16" tilecount="360" columns="24">
+  <image source="../images/Country-village_asset_pack/2_Parallax background/Back_tree_2.png" width="384" height="240"/>
+ </tileset>
+ <tileset firstgid="2383" name="Ladder" tilewidth="16" tileheight="16" tilecount="7" columns="1">
+  <image source="../images/EnvironmentPack/Props/Ladder.png" width="23" height="124"/>
+ </tileset>
+ <tileset firstgid="2390" name="gold_coin_strip4" tilewidth="12" tileheight="12" tilecount="4" columns="4">
+  <image source="../images/Kauzz Forest Tiles/Collectables/gold_coin_strip4.png" width="48" height="12"/>
   <tile id="0">
-   <image width="128" height="128" source="../images/tiles/signExit.png"/>
-  </tile>
-  <tile id="3">
-   <image width="128" height="128" source="../images/items/coinGold.png"/>
-  </tile>
-  <tile id="4">
-   <image width="128" height="128" source="../images/items/flagRed1.png"/>
    <animation>
-    <frame tileid="4" duration="100"/>
-    <frame tileid="6" duration="100"/>
+    <frame tileid="0" duration="150"/>
+    <frame tileid="1" duration="150"/>
+    <frame tileid="2" duration="150"/>
+    <frame tileid="3" duration="150"/>
    </animation>
   </tile>
-  <tile id="5">
-   <image width="128" height="128" source="../images/items/keyYellow.png"/>
-  </tile>
-  <tile id="6">
-   <image width="128" height="128" source="../../../Rogue like/Project/images/items/flagRed2.png"/>
-  </tile>
  </tileset>
- <tileset firstgid="25" name="Danger" tilewidth="128" tileheight="128" tilecount="3" columns="0">
-  <grid orientation="orthogonal" width="1" height="1"/>
+ <tileset firstgid="2394" name="Fire_burn_strip104" tilewidth="39" tileheight="75" tilecount="104" columns="104">
+  <image source="../images/Kauzz Forest Tiles/Fire and Smoke/Fire_burn_strip104.png" width="4056" height="75"/>
   <tile id="0">
-   <image width="128" height="128" source="../images/enemies/saw.png"/>
-  </tile>
-  <tile id="1">
-   <image width="128" height="128" source="../images/enemies/slimeGreen.png"/>
-  </tile>
-  <tile id="2">
-   <image width="128" height="128" source="../images/tiles/lava.png"/>
+   <animation>
+    <frame tileid="0" duration="10"/>
+    <frame tileid="1" duration="10"/>
+    <frame tileid="2" duration="10"/>
+    <frame tileid="3" duration="10"/>
+    <frame tileid="4" duration="10"/>
+    <frame tileid="5" duration="10"/>
+    <frame tileid="6" duration="10"/>
+    <frame tileid="7" duration="10"/>
+    <frame tileid="8" duration="10"/>
+    <frame tileid="9" duration="10"/>
+    <frame tileid="10" duration="10"/>
+    <frame tileid="11" duration="10"/>
+    <frame tileid="12" duration="10"/>
+    <frame tileid="13" duration="10"/>
+    <frame tileid="14" duration="10"/>
+    <frame tileid="15" duration="10"/>
+    <frame tileid="16" duration="10"/>
+    <frame tileid="17" duration="10"/>
+    <frame tileid="18" duration="10"/>
+    <frame tileid="19" duration="10"/>
+    <frame tileid="20" duration="10"/>
+    <frame tileid="21" duration="10"/>
+    <frame tileid="22" duration="10"/>
+    <frame tileid="23" duration="10"/>
+    <frame tileid="24" duration="10"/>
+    <frame tileid="25" duration="10"/>
+    <frame tileid="26" duration="10"/>
+    <frame tileid="27" duration="10"/>
+    <frame tileid="28" duration="10"/>
+    <frame tileid="29" duration="10"/>
+    <frame tileid="30" duration="10"/>
+    <frame tileid="31" duration="10"/>
+    <frame tileid="32" duration="10"/>
+    <frame tileid="33" duration="10"/>
+    <frame tileid="34" duration="10"/>
+    <frame tileid="35" duration="10"/>
+    <frame tileid="36" duration="10"/>
+    <frame tileid="37" duration="10"/>
+    <frame tileid="38" duration="10"/>
+    <frame tileid="39" duration="10"/>
+    <frame tileid="40" duration="10"/>
+    <frame tileid="41" duration="10"/>
+    <frame tileid="42" duration="10"/>
+    <frame tileid="43" duration="10"/>
+    <frame tileid="44" duration="10"/>
+    <frame tileid="45" duration="10"/>
+    <frame tileid="46" duration="10"/>
+    <frame tileid="47" duration="10"/>
+    <frame tileid="48" duration="10"/>
+    <frame tileid="49" duration="10"/>
+    <frame tileid="50" duration="10"/>
+    <frame tileid="51" duration="10"/>
+    <frame tileid="52" duration="10"/>
+    <frame tileid="53" duration="10"/>
+    <frame tileid="54" duration="10"/>
+    <frame tileid="55" duration="10"/>
+    <frame tileid="56" duration="10"/>
+    <frame tileid="57" duration="10"/>
+    <frame tileid="58" duration="10"/>
+    <frame tileid="59" duration="10"/>
+    <frame tileid="60" duration="10"/>
+    <frame tileid="61" duration="10"/>
+    <frame tileid="62" duration="10"/>
+    <frame tileid="63" duration="10"/>
+    <frame tileid="64" duration="10"/>
+    <frame tileid="65" duration="10"/>
+    <frame tileid="66" duration="10"/>
+    <frame tileid="67" duration="10"/>
+    <frame tileid="68" duration="10"/>
+    <frame tileid="69" duration="10"/>
+    <frame tileid="70" duration="10"/>
+    <frame tileid="71" duration="10"/>
+    <frame tileid="72" duration="10"/>
+    <frame tileid="73" duration="10"/>
+    <frame tileid="74" duration="10"/>
+    <frame tileid="75" duration="10"/>
+    <frame tileid="76" duration="10"/>
+    <frame tileid="77" duration="10"/>
+    <frame tileid="78" duration="10"/>
+    <frame tileid="79" duration="10"/>
+    <frame tileid="80" duration="10"/>
+    <frame tileid="81" duration="10"/>
+    <frame tileid="82" duration="10"/>
+    <frame tileid="83" duration="10"/>
+    <frame tileid="84" duration="10"/>
+    <frame tileid="85" duration="10"/>
+    <frame tileid="86" duration="10"/>
+    <frame tileid="87" duration="10"/>
+    <frame tileid="88" duration="10"/>
+    <frame tileid="89" duration="10"/>
+    <frame tileid="90" duration="10"/>
+    <frame tileid="91" duration="10"/>
+    <frame tileid="92" duration="10"/>
+    <frame tileid="93" duration="10"/>
+    <frame tileid="94" duration="10"/>
+    <frame tileid="95" duration="10"/>
+    <frame tileid="96" duration="10"/>
+    <frame tileid="97" duration="10"/>
+    <frame tileid="98" duration="10"/>
+    <frame tileid="99" duration="10"/>
+    <frame tileid="100" duration="10"/>
+    <frame tileid="101" duration="10"/>
+    <frame tileid="102" duration="10"/>
+    <frame tileid="103" duration="10"/>
+   </animation>
   </tile>
  </tileset>
- <layer id="1" name="Platforms" width="25" height="10">
+ <layer id="22" name="Background 7" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJxjYEAF3Ay0B/SygxUNs9HADnyAhQQ7QWpBbmQm0Q5BKEb3KzYMU4sOaBkfMP/QI86HKoDFPTaMDIiJY1wYAFiCAV8=
+   eJzt0GWzlmUYRuHt+6iAGIAgIKWklKQBIi2b7u7u7u7u7u42UFBApRSUBgUVlDBQSlBBUEGXf4IP96w1c3w9Z64rPhYXVxblUB4VUBGVUBlVUBXVUB01UBO1UBt1UBf1UB8N0BCN0Bjx7ge9H3pNuLEpmqE5WqAlWqE12qAt2qE9OqAjOqEzuqAruqE7eqAneqF3zP3Q90OvDzf2RT/0xwAMxCAMxhAMxTAMxwiMxCiMxhiMxTiMxwRMxCRMjrkf+n7oTeHGqZiG6ZiBmZiF2ZiDuZiH+ViAhViExViCpViG5ViBlViF1TH3Q98PvTXcuBbrsB4bsBGbsBlv4i28jXewBe/iPWzFNryPD7AdO7ATH+KjmPuh74fex9y4C7uxB3uxD5/gU+zHAXyGz3EQh3AYR3AUx3AcJ3ASX+BLnIq5H/p+6J3mxq/wNb7BGZzFt/gO53AeF3AR3+MH/IifcAk/4xdcxhVcxTVcj7kf+n7o/cqNN3ATv+F3/IFbuI0/cQd38Rf+xj+4h/v49/8fRXFxDyGGCA/jETwauR/6fugl4MaESITHkBiP4wk8iaeQBEmRDE8jOVLgGaREKqTGs0iDtEiH9JH7oe+HXgZufA7PIyMyITOyICuy4QVkRw7kRC7kxovIg7zIh/wogIJ4CS9H7oe+H3qvcOOrKITCeA1F8DqKohiKowRKohRK4w2UQTzKohzKowIqohIqR+6Hvh96VbixKqqhOmqgJmqhNuqgLuqhPhqgIRqhMZqgKZqhOVqgJVqhdeR+6Puh14Yb26Id2qMDOqITOqMLuqIbuqMHeqIXeqMP+qIf+mMABmIQBkfuh74fekO4cSiGYThGYCRGYTTGYCzGYTwmYCImYTKmYCqmYTpmYCZmYXbkfuj7oTeHG+diHuZjARZiERZjCZZiGZZjBVZiFVZjDdZiHdZjAzZiEzZH7oe+b2ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm9qD7D0pUPM8=
   </data>
  </layer>
- <objectgroup id="2" name="Enemies">
-  <object id="3" gid="26" x="1796" y="512" width="128" height="128">
-   <properties>
-    <property name="change_x" type="float" value="10"/>
-   </properties>
-  </object>
-  <object id="5" gid="25" x="1792" y="768" width="128" height="128">
-   <properties>
-    <property name="change_y" type="float" value="-7"/>
-   </properties>
-  </object>
-  <object id="6" gid="25" x="2304" y="1152" width="128" height="128">
-   <properties>
-    <property name="change_y" type="float" value="7"/>
-   </properties>
-  </object>
-  <object id="7" gid="25" x="2816" y="768" width="128" height="128">
-   <properties>
-    <property name="change_y" type="float" value="-7"/>
-   </properties>
-  </object>
-  <object id="8" gid="26" x="2816" y="512" width="128" height="128">
-   <properties>
-    <property name="change_x" type="float" value="-10"/>
-   </properties>
-  </object>
- </objectgroup>
- <layer id="3" name="Checkpoints" width="25" height="10">
+ <layer id="20" name="Background 6" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJxjYBi5QGygHTAKhiygRtqhZ/oDAFyYAEM=
+   eJzt1ufX1gMcx/EL120TKv+mSGREJTOjrOxClMreW2YI2TOUPUMpM94df8PtnN+5Xq9z3k+/jz4PvqMRAADA/+O48Wg0p46vE2punVjz6qQ6uebXKXVqnVan14I6o86shbWoFtdZtaTOrnPGw7/PZDu3DZxX59cFtbQurIvq4rqkltXyurQuq8vrirqyVtRVdXVdU9fWdXV93TAe/n0m28o2sKpurJvq5lpdt9SttabW1m21rtbXhrq97qg76666u+6pe+u+ur8eGA//PpPtwTbwUD1cj9Sj9Vg9Xk/Uk/VUbayn65l6tp6r5+uF2lQv1kv1cm2uV+rV8fDvM9leawNb6vV6o96st+rteqferffq/fqgPqyPamt9XJ/Up7Wtttdn9Xl9UV+Oh3+fyfZVG/i6vqlv67v6vn6oH2tH/VQ/1y+1s3bVr7W79tRv9Xv9UX/WX/V37R0P/z6T7Z99G5gajfar/euAGtdUHVgH1cF1SB1ah9XhdUQdWTPqqDq6jqmZNatm17FTw7/PZJvu/2S69+u/YjoN/f/xXzGdhv7/+K8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/vMvB966+Q==
   </data>
  </layer>
- <layer id="4" name="Ladders" width="25" height="10">
+ <layer id="19" name="Background 5" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFtAAcdLCDfdSOEWcHuQAASRQALA==
+   eJzt0mf7FQIAxuGD/gcpZKbIKCPJToTMkj0qREYL2UJl1NcUGVmhSDJKZfx8C+c6931dv7fPq2cwAAAAAID/r48mBoMd9XF9Ujvr0/qsPq8vald9WV/V1/VNfVu767v6vn6oPbW3fqyfat/E6O8z3n7uA/vrlzpQv9Zv9Xv9UQfrUP1Zh+tIHa2/6u/6578PDQeDY+rYOq4m1UQNh6O/z3g7vg+cUCfW5DqpptTUOrlOqVNrWp1Wp9cZdWadVWfX9DqnZtTMOrfOq1nD0d9nvJ3fBy6oC+uiml1z6uK6pC6ty2puXV7z6oqaX1fWVXV1XVPX1nV1fS2oG4ajv894W9gHbqybalHdXLfUrbW4bqvb6466s+6qu2tJLa17alndW/fV/fVAPVgPDUd/n/H2cB94pB6tx2p5raiV9Xg9UU/Wqnqqnq7V9Uw9W8/V87Wm1ta6Wl8b6oXh6O8z3l7sAy/Vxnq5XqlX67V6vd6oN+ut2lRv1zv1bm2uLbW13qv364P6sLbV9uHo7wMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo+9f6traAg==
   </data>
  </layer>
- <layer id="5" name="Coins" width="25" height="10">
+ <layer id="18" name="Background 4" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJxjYBgYIDpA9o6CUUBPgJ7OCfFpBQBpoABV
+   eJzt0uXWNQQVRtFX4js0UkqHdKgg3Y10t4GUdHd3p3R3twGISikg3d19C3SscxVwxphzjPVzP7/22BgAAADwQ/ti3NjYl/VVfV3f1Lf1XY0NxsZ+UuPV+DVBTVjjalAT1cQ1SU1ak9XkNUV91v3n40Z3H4am6hemrmlq2pquflY/r+lrhpqxZqqZa5aatWar2WuO+kXNWXPV3DVPTVk/HYzuPgzN3y8sUAvWQvXL+lX9uhauReo3tWgtVovXErVkLVVL1zK1bC1Xy9cKNW/NNxjdfRhauV9YpVat1Wr1WqN+W2vWWrV2rVPr1nq1fm1QG9ZGtXFtUpvWZrV5rVgrDUZ3H4a26he2rt/V7+sP9cfapv5U29Z2tX3tUDvWn2un2rl2qV1rt9q99qg9a4vacjC6+zC0T7+wb+1X+9cBdWAdVAfXIXVoHVaH1xF1ZB1VR9cxdWwdV8fXCXVi7VV7D0Z3H4ZO6RdOrdPq9Dqjzqyz6uz6S51T59Z5dX5dUBfWRXVxXVKX1mV1eV1RJ9XJg9Hdh6Gr+4Vr6tq6rq6vG+rGuqlurlvq1rqtbq876s66q/5af6u/1z/q7rqnrqyrBqO7D0P39Qv/qn/Xf+r+eqAerIfq4fpv/a8eqUfrsfp/PV5P1JP1VD1dz9SzdW/9czC6+zD0Qr/wYr1UL9cr9Wq9Vq/XG/VmvVVv1zv1br1X79cH9WF9VB/XJ/VpPVfPD0Z3HwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgB+n7wGbjFsd
   </data>
  </layer>
- <layer id="6" name="Don't Touch" width="25" height="10">
+ <layer id="17" name="Background 3" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUDFYgjYQpAQAZbABS
+   eJzt0eWyBQQZhtFD7wNISind0oJ0d3MLNNKphCIN0qV0d3coCCjdjZJSCojSoQiIPNwEzOy91szz65t5/3xjYwAAAMB3befB2NgutWvtVrvXHvWz+nntWZvWZrV5bVFb1la1dW1TP61ta7vavnaoHWunwWjsM7wO67+/rsPriDqyjqqj65g6tvaqvWuf+kX9svatX9V+tX8dUAfWQXVwHVKHDkZjn+F1dv89p86t8+r8uqAurIvq4jqujq8T6sT6Tf22TqqT65Q6tU6r0+uMOrPOGozGPsPr5v77u/p93VK31h/qtrq97qhL6tK6rC6vK+rKuqqurmvq2rqurq8b6sa6aTAa+wyvx/rv4/VEPVlP1dP1TP25/lJ/rD/VnXVX3V331L11X91fD9SD9VA9XI/Uo4PR2Gd4vdl/36p/1Nv1z/pXvVPv1nv1bD1Xz9cL9WK9VH+tl+uVerVeq9frb/X3emMwGvsMr6/67/+/+fH42NgENWFNVBPXJDVpvd/9g/qwPqqP65P6tP5d/6nP6r/1eX1RX9b/BqOxz/Casf/OVDPXLPWD+mHNWrPV7DVZDWq8Jq8pasr6Xk1VU9c0NW1NV9PX92uG8dHYZ3gt1n8XryXqx7VkLVU/qaVrmZqj5qy5au6ap+at+Wr+WqAWrB/VQrVwLVKLjo/GPsNrnf67bq1X69cGtWFtVBvXJrVsLVfL1wq1Yq1UK9cqtWqtVqvXGrVmrVVrj4/GPgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN+erwHCQbTD
   </data>
  </layer>
- <layer id="7" name="Foreground" width="25" height="10">
+ <layer id="15" name="Background 2" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2B4AIGBdsAgBgAVqAAR
+   eJztzskthgEUheGvFjMNmGnATAP4TQ2YacBMA2Zqk7CgAWdhIfZ/7sLzJO/iJndxmgYAAAAAgP+qI3WmrtSdelJv6kv9aaBuGpQbTENpOI2k0TSWxtNEmqybBuWm0nSaSbNpLs2nhbSYluqmQbnltJJWUyutpfW0kTbTVt00KLeddtJu2kv76SAdpqN0XDcNyp2k03SWztNFukxX6Trd1E2DtvhI77/ut/T509ef39t0l+7TQ3pMT+k5vaTXNm8FAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoGm+ASiHHng=
   </data>
  </layer>
- <layer id="8" name="Background" width="25" height="10">
+ <layer id="7" name="Background 1" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUDHcAAAPoAAE=
+   eJztzsdRFmAAAFFAhA5UlA7E1IGRDgSBDjB2YO7AgBRiogQDlqCiJSjqiT3Yw/cz897M3ndqCgAAAAAOn+maqSM1W0drruZHTsGEOFbH60Qt1Mk6VYsjp2BCnK6lOlNn61ydrwsjp2BCXKxLdbmu1NW6VssDn2BSXK+VWq0btVbrtVGv6029rXf1vnbGbMIQm3WzbtXtulN36159qI/1qT7Xbn0ZswlD3K8H9bAe1eN6Uk/ra32r77VXP+rniEkY5Fk9rxf1srbqVW3Xr/pd+/Wn/ta/MZsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/HcAKdQlNQ==
   </data>
  </layer>
+ <layer id="3" name="Checkpoints" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
+  </data>
+ </layer>
+ <layer id="5" name="Coins" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0zENAAAIwDBeDOJfCgbgJOForxlYBAAAAAAAAAAAAFcq5wZ2XgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4owETAwEe
+  </data>
+ </layer>
+ <layer id="6" name="Don't Touch" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
+  </data>
+ </layer>
+ <layer id="10" name="Golden key" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
+  </data>
+ </layer>
+ <layer id="11" name="Golden door" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
+  </data>
+ </layer>
+ <layer id="13" name="Exit" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
+  </data>
+ </layer>
+ <layer id="23" name="Spawn" width="200" height="100" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7D5V4sEPCwhPK2CJgAAAAAAAAAAAAB35jsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQG0BHkAA8Q==
+  </data>
+ </layer>
+ <objectgroup id="2" name="Enemies"/>
  <objectgroup id="9" name="Moving platforms"/>
- <layer id="10" name="Golden key" width="25" height="10">
-  <data encoding="base64" compression="zlib">
-   eJxjYKA9EKeDHaNgFIwC3AAAVMQAGA==
-  </data>
- </layer>
- <layer id="11" name="Golden door" width="25" height="10">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUEAv4B9oBZAIADrAAEA==
-  </data>
- </layer>
  <objectgroup id="12" name="Moving traps"/>
- <layer id="13" name="Exit" width="25" height="10">
+ <layer id="1" name="Platforms" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFxAChgXbAKBgFFAAANWgAEw==
+   eJztwwEJAAAIA7DbP4Nd30IQNlgCAAAAAAAAAAAAAFzZEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgD8KHoIoHw==
+  </data>
+ </layer>
+ <layer id="4" name="Ladders" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztw6kRwDAQBDDTrS6f038rAQuPB0kzWgsAAAAAAAAAAAAA4D9HGpjONDBdaWC608D0pIFpp4HpTQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9QGIQAT7
+  </data>
+ </layer>
+ <layer id="21" name="Foreground 2" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzsdtAkAARFEaIbVAasEYWiC1ALZbAEwLpB5xA54b4ogE2j28J/3jSNNoAAAAAADAXTO1Ujt1UrfoG6hLL/XTIA3TqOwdqMpHGqfPNEnTsnegKrM0T4u0TKuib6Au67RJX+k7/ZS9A1XZpl3ap990KHsH3uaW/p7cHNMpndMlXV99CgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAH/72uDsA=
+  </data>
+ </layer>
+ <layer id="24" name="Foreground 1" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztxaENAAAIA7D9fy0n4OcRJK1pAgAAAAAAAAAAAPDH1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADcWWZiAeE=
   </data>
  </layer>
 </map>

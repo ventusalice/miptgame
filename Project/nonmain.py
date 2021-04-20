@@ -55,13 +55,13 @@ class GameOverView(arcade.View):
     def on_draw(self):
         """ Draw this view """
         arcade.start_render()
-        arcade.draw_text("You Died", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y +140,
+        arcade.draw_text("You Died", self.game_view.view_left + SCREEN_WIDTH // 2, self.game_view.view_bottom + SCREEN_HEIGHT // 2 + 140,
                          arcade.color.WHITE, font_size=100, anchor_x="center")
-        arcade.draw_text("Press SPACE to suffer again", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 60,
+        arcade.draw_text("Press SPACE to suffer again", self.game_view.view_left + SCREEN_WIDTH // 2, self.game_view.view_bottom + SCREEN_HEIGHT // 2 + 60,
                          arcade.color.WHITE, font_size=30, anchor_x="center")
-        arcade.draw_text("Press ENTER to reset", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 20,
+        arcade.draw_text("Press ENTER to reset", self.game_view.view_left + SCREEN_WIDTH // 2, self.game_view.view_bottom + SCREEN_HEIGHT // 2 + 20,
                          arcade.color.WHITE, font_size=30, anchor_x="center")
-        arcade.draw_text("Press BACKSPACE to exit", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y - 20,
+        arcade.draw_text("Press BACKSPACE to exit", self.game_view.view_left + SCREEN_WIDTH // 2, self.game_view.view_bottom + SCREEN_HEIGHT // 2 - 20,
                          arcade.color.WHITE, font_size=30, anchor_x="center")
 
     def on_key_press(self, key, modifiers):
@@ -91,9 +91,9 @@ class LevelCompletedView(arcade.View):
     def on_draw(self):
         """ Draw this view """
         arcade.start_render()
-        arcade.draw_text(f"Congratulations! You just completed level {self.game_view.level-1}", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y +140,
+        arcade.draw_text(f"Congratulations! You just completed level {self.game_view.level-1}", self.game_view.view_left + SCREEN_WIDTH // 2, self.game_view.view_bottom + SCREEN_HEIGHT // 2 +140,
                          arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text(f"Press SPACE to advance to level {self.game_view.level} or BACKSPACE to exit.", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 70,
+        arcade.draw_text(f"Press SPACE to advance to level {self.game_view.level} or BACKSPACE to exit.", self.game_view.view_left + SCREEN_WIDTH // 2, self.game_view.view_bottom + SCREEN_HEIGHT // 2 + 70,
                          arcade.color.WHITE, font_size=30, anchor_x="center")
 
     def on_key_press(self, key, modifiers):
@@ -118,40 +118,27 @@ class PauseView(arcade.View):
         arcade.set_background_color(arcade.csscolor.GREY)
         arcade.start_render()
 
-        #player_sprite = self.game_view.player_sprite
-        #player_sprite.draw()
-        self.game_view.golden_key_list.draw()
-        self.game_view.golden_door_list.draw()
-        self.game_view.wall_list.draw()
-        self.game_view.moving_traps_list.draw()
-        self.game_view.enemy_list.draw()
-        self.game_view.background_list.draw()
-        self.game_view.wall_list.draw()
-        self.game_view.coin_list.draw()
-        self.game_view.dont_touch_list.draw()
-        self.game_view.player_list.draw()
-        self.game_view.foreground_list.draw()
-        self.game_view.ladder_list.draw()
+        self.game_view.on_draw()
 
-        arcade.draw_text("PAUSED", self.game_view.player_sprite.center_x, self.game_view.player_sprite.center_y + 170,
+        arcade.draw_text("PAUSED", self.game_view.view_left + SCREEN_WIDTH // 2, self.game_view.view_bottom + SCREEN_HEIGHT // 2 + 170,
                          arcade.color.BLACK, font_size=100, anchor_x="center")
 
         # Show tip to return or reset
         arcade.draw_text("Press Esc. to return",
-                         self.game_view.player_sprite.center_x,
-                         self.game_view.player_sprite.center_y + 90,
+                         self.game_view.view_left + SCREEN_WIDTH // 2,
+                         self.game_view.view_bottom + SCREEN_HEIGHT // 2 + 90,
                          arcade.color.BLACK,
                          font_size=30,
                          anchor_x="center")
         arcade.draw_text("Press Enter to reset",
-                         self.game_view.player_sprite.center_x,
-                         self.game_view.player_sprite.center_y + 125,
+                         self.game_view.view_left + SCREEN_WIDTH // 2,
+                         self.game_view.view_bottom + SCREEN_HEIGHT // 2 + 125,
                          arcade.color.BLACK,
                          font_size=30,
                          anchor_x="center")
         arcade.draw_text("Or BACKSPACE to exit",
-                         self.game_view.player_sprite.center_x,
-                         self.game_view.player_sprite.center_y + 60,
+                         self.game_view.view_left + SCREEN_WIDTH // 2,
+                         self.game_view.view_bottom + SCREEN_HEIGHT // 2 + 60,
                          arcade.color.BLACK,
                          font_size=30,
                          anchor_x="center")

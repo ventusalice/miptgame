@@ -19,5 +19,5 @@ if __name__=='__main__':
     for k,piece in enumerate(crop(infile,height,width),start_num):
         img=Image.new('RGBA', (imgheight // height, imgwidth // width), 255)
         img.paste(piece)
-        path=os.path.join('.',f"{infile[:-4]}-{k}.png")
+        path=os.path.join(f"{infile[:-4]}-{k}.png")
         img.save(path)

@@ -681,6 +681,7 @@ class GameView(arcade.View):
             self.player_sprite.dashing = False
 
         self.background[NBG-1].update_animation(delta_time)
+        self.background[NBG - 2].update_animation(delta_time)
         self.coin_list.update_animation(delta_time)
         # self.enemy_list.update_animation(delta_time)
         self.player_list.update_animation(delta_time)
@@ -834,24 +835,32 @@ class GameView(arcade.View):
         if self.player_sprite.left < left_boundary and self.view_left>self.map_left :
             self.view_left -= left_boundary - self.player_sprite.left
             changed_viewport = True
+        elif self.view_left < self.map_left:
+            self.view_left = self.map_left
 
         # Scroll right
         right_boundary = self.view_left + SCREEN_WIDTH - RIGHT_VIEWPORT_MARGIN
         if self.player_sprite.right > right_boundary and self.view_left + SCREEN_WIDTH < self.map_right:
             self.view_left += self.player_sprite.right - right_boundary
             changed_viewport = True
+        elif self.view_left + SCREEN_WIDTH > self.map_right:
+            self.view_left = self.map_right - SCREEN_WIDTH
 
         # Scroll up
         top_boundary = self.view_bottom + SCREEN_HEIGHT - TOP_VIEWPORT_MARGIN
         if self.player_sprite.top > top_boundary and self.view_bottom + SCREEN_HEIGHT < self.map_top:
             self.view_bottom += self.player_sprite.top - top_boundary
             changed_viewport = True
+        elif self.view_bottom + SCREEN_HEIGHT > self.map_top:
+            self.view_bottom = self.map_top - SCREEN_HEIGHT
 
         # Scroll down
         bottom_boundary = self.view_bottom + BOTTOM_VIEWPORT_MARGIN
         if self.player_sprite.bottom < bottom_boundary and self.view_bottom > self.map_bottom:
             self.view_bottom -= bottom_boundary - self.player_sprite.bottom
             changed_viewport = True
+        elif self.view_bottom < self.map_bottom:
+            self.view_bottom = self.map_bottom
 
         if changed_viewport:
             # Only scroll to integers. Otherwise we end up with pixels that

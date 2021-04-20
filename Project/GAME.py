@@ -14,7 +14,8 @@ SCREEN_TITLE = nonmain.SCREEN_TITLE
 # Constants used to scale our sprites from their original size
 CHARACTER_SCALING = 2
 TILE_SCALING = 2
-COIN_SCALING = 0.5
+COIN_SCALING =2
+ENEMIES_SCALING = 1
 SPRITE_PIXEL_SIZE = 16
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
@@ -34,7 +35,7 @@ PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 20
 DASH_BUFF = 5
-DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*3 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
+DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*7 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
 DASH_COOLDOWN = 0
 IMMUNITY_TIME = 0.1
 
@@ -332,11 +333,7 @@ class GameView(arcade.View):
         self.view_bottom = 0
         self.view_left = 0
 
-        # checkpoint data
-        self.current_checkpoint = None
-        self.checkpoint_x = PLAYER_START_X
-        self.checkpoint_y = PLAYER_START_Y
-        #self.not_immune = True
+
 
         # Track the current state of what key is pressed
         self.left_pressed = False
@@ -402,7 +399,7 @@ class GameView(arcade.View):
         #Enemies
         self.enemy_list = arcade.tilemap.process_layer(my_map,
                                                               'Enemies',
-                                                              TILE_SCALING)
+                                                              ENEMIES_SCALING)
 
         # -- Ladder objects
         self.ladder_list = arcade.tilemap.process_layer(my_map,
@@ -456,6 +453,11 @@ class GameView(arcade.View):
                                                       TILE_SCALING)
 
         # --- Other stuff
+        #Края карты
+        self.map_top = (my_map.map_size.height) * GRID_PIXEL_SIZE
+        self.map_right = (my_map.map_size.width) * GRID_PIXEL_SIZE
+        self.map_left = 0
+        self.map_bottom = 0
         # Set the background color
         if my_map.background_color:
             arcade.set_background_color(my_map.background_color)
@@ -463,6 +465,10 @@ class GameView(arcade.View):
         else:
             self.background_color = arcade.csscolor.PURPLE
 
+        # checkpoint data
+        self.current_checkpoint = None
+        self.checkpoint_x = self.spawn_list[0].center_x
+        self.checkpoint_y =self.spawn_list[0].bottom
 
         # Set up the player, specifically placing it at spawn
         self.player_sprite = PlayerCharacter()
@@ -505,8 +511,7 @@ class GameView(arcade.View):
         arcade.draw_text(f'Level {self.level}', 20 + self.view_left, SCREEN_HEIGHT - 50 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
         #player_name
-        arcade.draw_text('Pasha +PLUS+', self.player_sprite.left - 32, self.player_sprite.top, arcade.csscolor.WHITE,
-                         18)
+        #arcade.draw_text('Pasha +PLUS+', self.player_sprite.left - 32, self.player_sprite.top, arcade.csscolor.WHITE, 18)
         arcade.draw_text(f"Lifes: {self.lifes}", 20 + self.view_left, SCREEN_HEIGHT - 70 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
         #keys
@@ -640,11 +645,20 @@ class GameView(arcade.View):
         if (abs(self.player_sprite.center_x - self.dash_start)> DASH_DISTANCE
             or (time.time() - self.dash_start_time > DASH_DISTANCE/(60*PLAYER_MOVEMENT_SPEED * DASH_BUFF)))\
                 and self.dash_pressed:
-            self.score+=1
             if self.physics_engine.can_jump():
                 self.player_sprite.dashing_end = True
             self.dash_pressed = False
             self.process_keychange()
+
+        #Уперся ли персонаж в край карты?
+        if self.player_sprite.left<self.map_left:
+            self.player_sprite.left = self.map_left
+        elif self.player_sprite.right>self.map_right:
+            self.player_sprite.right = self.map_right
+        elif self.player_sprite.top>self.map_top:
+            self.player_sprite.top = self.map_top
+        elif self.player_sprite.bottom<self.map_bottom:
+            self.player_sprite.bottom=self.map_bottom
         # Move the player with the physics engine
         self.physics_engine.update()
 
@@ -666,9 +680,11 @@ class GameView(arcade.View):
         else:
             self.player_sprite.dashing = False
 
+        self.background[NBG-1].update_animation(delta_time)
         self.coin_list.update_animation(delta_time)
-        self.player_list.update_animation(delta_time)
         # self.enemy_list.update_animation(delta_time)
+        self.player_list.update_animation(delta_time)
+
 
         # Update walls, used with moving platforms
         self.wall_list.update()
@@ -710,11 +726,8 @@ class GameView(arcade.View):
             elif enemy.boundary_bottom and enemy.bottom < enemy.boundary_bottom and enemy.change_y < 0:
                 enemy.change_y *= -1
 
-        if arcade.check_for_collision_with_list(self.player_sprite, self.wall_list):
-            self.score+=1
         # See if the wall hit a boundary and needs to reverse direction.
         for wall in self.wall_list:
-
             if wall.boundary_right and wall.right > wall.boundary_right and wall.change_x > 0:
                 wall.change_x *= -1
             if wall.boundary_left and wall.left < wall.boundary_left and wall.change_x < 0:
@@ -765,9 +778,6 @@ class GameView(arcade.View):
                 self.has_golden_key = False
                 # Remove the door
                 door.remove_from_sprite_lists()
-                self.foreground_list.append(door)
-                # Play a sound
-                # arcade.play_sound(self.collect_coin_sound)
             else:
                 if self.player_sprite.change_x<0 and self.player_sprite.left < door.right:
                     self.player_sprite.left=door.right
@@ -821,25 +831,25 @@ class GameView(arcade.View):
 
         # Scroll left
         left_boundary = self.view_left + LEFT_VIEWPORT_MARGIN
-        if self.player_sprite.left < left_boundary:
+        if self.player_sprite.left < left_boundary and self.view_left>self.map_left :
             self.view_left -= left_boundary - self.player_sprite.left
             changed_viewport = True
 
         # Scroll right
         right_boundary = self.view_left + SCREEN_WIDTH - RIGHT_VIEWPORT_MARGIN
-        if self.player_sprite.right > right_boundary:
+        if self.player_sprite.right > right_boundary and self.view_left + SCREEN_WIDTH < self.map_right:
             self.view_left += self.player_sprite.right - right_boundary
             changed_viewport = True
 
         # Scroll up
         top_boundary = self.view_bottom + SCREEN_HEIGHT - TOP_VIEWPORT_MARGIN
-        if self.player_sprite.top > top_boundary:
+        if self.player_sprite.top > top_boundary and self.view_bottom + SCREEN_HEIGHT < self.map_top:
             self.view_bottom += self.player_sprite.top - top_boundary
             changed_viewport = True
 
         # Scroll down
         bottom_boundary = self.view_bottom + BOTTOM_VIEWPORT_MARGIN
-        if self.player_sprite.bottom < bottom_boundary:
+        if self.player_sprite.bottom < bottom_boundary and self.view_bottom > self.map_bottom:
             self.view_bottom -= bottom_boundary - self.player_sprite.bottom
             changed_viewport = True
 

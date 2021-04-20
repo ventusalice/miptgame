@@ -4,41 +4,120 @@
     <list default="true" id="64a8c2a2-8439-44dd-ae6a-c4b6097ac97d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GAME.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAME.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/bee.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/fishGreen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/fishPink.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/fly.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/frog.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/frog_move.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/ladybug.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/mouse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/saw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/sawHalf.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/slimeBlock.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/slimeBlue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/slimeBlue_move.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/slimeGreen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/slimePurple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/wormGreen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/wormGreen_dead.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/wormGreen_move.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/enemies/wormPink.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_1/female_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_1/female_jump.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_1/female_walk1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_1/female_walk2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_1/player_stand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_2/player_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_2/player_idle.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_2/player_jump.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_2/player_stand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_2/player_walk0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_2/player_walk1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/player_2/player_walk2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/1_Tileset &amp; props/Country_village_props.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/1_Tileset &amp; props/country village tileset.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/Back_Forest_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/Back_Forest_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/Back_tree_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/Back_tree_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/Cloud_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/Cloud_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/Cloud_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/Country.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/2_Parallax background/props_clouds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/Contact.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/Lisense.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/Previews/Preview_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Country-village_asset_pack/Previews/Preview_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/#b3b9d1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Fire/Fire_01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Fire/Fire_02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Fire/Fire_03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Fire/Fire_04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Fire/Fire_05.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Fire/Fire_06.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Fire/Fire_07.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Fire/Fire_08.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Moon/Moon_01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Moon/Moon_02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Moon/Moon_03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Moon/Moon_04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Moon/Moon_05.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Moon/Moon_06.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Moon/Moon_07.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Moon/Moon_08.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Platforms/Platform_Center.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Platforms/Platform_Left.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Platforms/Platform_Right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Platforms/Under_Platform_Center.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Platforms/Under_Platform_Left.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Platforms/Under_Platform_Right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Props/BackGround01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Props/BackGround02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Props/Church.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Props/Grave01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Props/Grave02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Props/Grave03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Props/Ladder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Props/Mist.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Props/Tree.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Water/Water_01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Water/Water_02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Water/Water_03.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Water/Water_04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Water/Water_05.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Water/Water_06.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Water/Water_07.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/EnvironmentPack/Water/Water_08.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Backgrounds/Background Extended Green.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Backgrounds/Background Extended.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Backgrounds/Midleground Extended Green.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Backgrounds/Midleground Extended.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Backgrounds/Midleground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Bat/Bat_flying_strip22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Bat/Bat_sleeping_strip31.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Bat/Minibat_strip6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Bushes and Seaweed/Bush_strip60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Bushes and Seaweed/seaweed_strip60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Collectables/Heart_strip2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Collectables/gold_coin_strip4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Collectables/silver_coin_strip4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Enviroment.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Fire and Smoke/Fire_burn_strip104.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Fire and Smoke/Fire_loop_strip190.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Fire and Smoke/smoke_strip110.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Fish/Fish2_strip7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Fish/Fish_strip4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Frog/BROWNFrog_idle_strip26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Frog/BROWNFrog_jumping_strip14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Frog/BROWNfrog_blinking_strip10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Frog/Frog_idle_strip26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Frog/Frog_jumping_strip14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Frog/frog_blinking_strip10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Old versions/bat_flying2_strip8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Old versions/bat_flying3_strip8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Read me.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Snake/BLUESnake_strip7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Snake/GREENSnake_strip7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Snake/REDSnake_strip7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Snake/Snake_strip6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Tree/Tree_strip120.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Water/Water_swamp_strip60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Water/Water_waves_strip60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Kauzz Forest Tiles/Water/bubble_strip6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/!PSD/background.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/!PSD/background_obj.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/!PSD/decorative_obj.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/!PSD/mainlevbuild.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/background_obj.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/bakcground_day1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/bakcground_day2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/bakcground_day3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/bakcground_night1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/bakcground_night2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/bakcground_night3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/decorative_obj.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/mainlevbuild.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/PFantasy_SET1_v1.0/public-license.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/alien/alienBlue_climb1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/alien/alienBlue_climb2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/alien/alienBlue_front.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/alien/alienBlue_jump.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/alien/alienBlue_walk1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/alien/alienBlue_walk2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/maps/map_level_0.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/maps/map_level_0.tmx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maps/map_level_1.tmx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/maps/map_level_2.tmx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/maps/map_level_3.tmx" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

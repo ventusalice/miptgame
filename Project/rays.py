@@ -14,7 +14,7 @@ class RayView(GAME.GameView):
         
     def on_draw(self):
         super.on_draw()
-        arcade.draw_line(self.player_sprite.center_x, 500, 0, 600, arcade.color.BLACK, 2)
+        arcade.draw_line(self.player_sprite.center_x, self.player_sprite.center_y, self.player_sprite.center_x+100, self.player_sprite.center_y, arcade.color.BLACK, 2)
         
         
     def on_update():

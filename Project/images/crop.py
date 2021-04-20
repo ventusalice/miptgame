@@ -19,7 +19,7 @@ if __name__=='__main__':
     basename = os.path.basename(infile)[:-4]
     os.mkdir(os.path.join(os.path.dirname(infile), basename))
     for k,piece in enumerate(crop(infile,height,width),start_num):
-        img=Image.new('RGBA', (imgheight // height, imgwidth // width), 255)
+        img=Image.new('RGBA', (imgwidth // width, imgheight // height), 255)
         img.paste(piece)
         path=os.path.join(os.path.dirname(infile), basename, f"{basename}-{k}.png")
         img.save(path)

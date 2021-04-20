@@ -16,8 +16,10 @@ if __name__=='__main__':
     start_num=int(input(('strart_num ')))
     im = Image.open(infile)
     imgwidth, imgheight = im.size
+    basename = os.path.basename(infile)[:-4]
+    os.mkdir(os.path.join(os.path.dirname(infile), basename))
     for k,piece in enumerate(crop(infile,height,width),start_num):
         img=Image.new('RGBA', (imgheight // height, imgwidth // width), 255)
         img.paste(piece)
-        path=os.path.join(f"{infile[:-4]}-{k}.png")
+        path=os.path.join(os.path.dirname(infile), basename, f"{basename}-{k}.png")
         img.save(path)

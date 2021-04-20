@@ -6,6 +6,7 @@ import nonmain
 import time
 
 
+
 # Constants of the window
 SCREEN_WIDTH = nonmain.SCREEN_WIDTH
 SCREEN_HEIGHT = nonmain.SCREEN_HEIGHT
@@ -14,7 +15,7 @@ SCREEN_TITLE = nonmain.SCREEN_TITLE
 # Constants used to scale our sprites from their original size
 CHARACTER_SCALING = 1.5
 TILE_SCALING = 1.5
-COIN_SCALING = 2
+COIN_SCALING = 1
 ENEMIES_SCALING = 1
 SPRITE_PIXEL_SIZE = 16
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
@@ -36,7 +37,7 @@ GRAVITY = 1
 PLAYER_JUMP_SPEED = 16
 DASH_BUFF = 5
 DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*6 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
-DASH_COOLDOWN = 0
+DASH_COOLDOWN = 0.6
 IMMUNITY_TIME = 0.1
 
 # How many pixels to keep as a minimum margin between the character
@@ -305,7 +306,7 @@ class GameView(arcade.View):
 
         # Keep track of the score AND LIFES
         self.score = 0
-        self.max_lifes=3
+        self.max_lifes=999
         self.lifes = self.max_lifes
 
         # Level
@@ -491,6 +492,7 @@ class GameView(arcade.View):
         # Draw our sprites
         for i in self.background:
             i.draw()
+        self.checkpoint_list.draw()
         self.wall_list.draw()
         self.golden_key_list.draw()
         self.golden_door_list.draw()
@@ -682,8 +684,11 @@ class GameView(arcade.View):
 
         self.background[NBG-1].update_animation(delta_time)
         self.background[NBG - 2].update_animation(delta_time)
+        self.foreground[NFG - 1].update_animation(delta_time)
+        self.foreground[NFG - 2].update_animation(delta_time)
+        self.moving_traps_list.update_animation(delta_time)
         self.coin_list.update_animation(delta_time)
-        # self.enemy_list.update_animation(delta_time)
+        self.enemy_list.update_animation(delta_time)
         self.player_list.update_animation(delta_time)
 
 
@@ -696,11 +701,17 @@ class GameView(arcade.View):
         # Check each moving trap
         for enemy in self.moving_traps_list:
             # If the trap hits a wall, reverse
-            if arcade.check_for_collision_with_list(enemy, self.wall_list):
-                enemy.change_x *= -1
-                enemy.change_y *= -1
+            for wall in arcade.check_for_collision_with_list(enemy, self.wall_list):
+                if wall.collides_with_point([enemy.right,enemy.center_y]) and enemy.change_x > 0:
+                    enemy.change_x *= -1
+                elif wall.collides_with_point([enemy.left,enemy.center_y]) and enemy.change_x < 0:
+                    enemy.change_x *= -1
+                elif wall.collides_with_point([enemy.center_x,enemy.top]) and enemy.change_y > 0:
+                    enemy.change_y *= -1
+                elif wall.collides_with_point([enemy.center_x,enemy.bottom]) and enemy.change_y < 0:
+                    enemy.change_y *= -1
             # If the enemy hit the left boundary, reverse
-            elif enemy.boundary_left and enemy.left < enemy.boundary_left and enemy.change_x < 0:
+            if enemy.boundary_left and enemy.left < enemy.boundary_left and enemy.change_x < 0:
                 enemy.change_x *= -1
             # If the trap hit the right boundary, reverse
             elif enemy.boundary_right and enemy.right > enemy.boundary_right and enemy.change_x > 0:

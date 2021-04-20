@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="64a8c2a2-8439-44dd-ae6a-c4b6097ac97d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAME.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAME.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Environment/Kauzz Forest Tiles/Tree/Animated_tree.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/maps/map_level_0.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/maps/map_level_0.tmx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,7 +40,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.crop">
+  <component name="RunManager" selected="Python.GAME">
     <configuration name="04_add_gravity" type="PythonConfigurationType" factoryName="Python">
       <module name="Project" />
       <option name="INTERPRETER_OPTIONS" value="" />

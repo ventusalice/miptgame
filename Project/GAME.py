@@ -500,6 +500,7 @@ class GameView(arcade.View):
         self.dont_touch_list.draw()
         self.moving_traps_list.draw()
         self.enemy_list.draw()
+        self.exit_list.draw()
         self.ladder_list.draw()
         self.player_list.draw()
         for i in self.foreground:
@@ -612,7 +613,8 @@ class GameView(arcade.View):
         """Called when the user releases a key. """
 
         if key == arcade.key.W or key == arcade.key.SPACE:
-            self.player_sprite.change_y = 0
+            if self.player_sprite.change_y>0:
+                self.player_sprite.change_y = 0
             self.jump_needs_reset = False
             self.up_pressed = False
         elif key == arcade.key.S:
@@ -659,8 +661,8 @@ class GameView(arcade.View):
             self.player_sprite.right = self.map_right
         elif self.player_sprite.top>self.map_top:
             self.player_sprite.top = self.map_top
-        elif self.player_sprite.bottom<self.map_bottom:
-            self.player_sprite.bottom=self.map_bottom
+        # elif self.player_sprite.bottom<self.map_bottom:
+        #     self.player_sprite.bottom=self.map_bottom
         # Move the player with the physics engine
         self.physics_engine.update()
 

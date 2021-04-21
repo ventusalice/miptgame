@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="300" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="27" nextobjectid="14">
+ <tileset firstgid="1" name="Background Extended Green" tilewidth="16" tileheight="16" tilecount="1050" columns="25">
+  <image source="../images/Environment/Kauzz Forest Tiles/Backgrounds/Background Extended Green.png" width="400" height="685"/>
+ </tileset>
+ <tileset firstgid="1051" name="Midleground Extended" tilewidth="16" tileheight="16" tilecount="1050" columns="25">
+  <image source="../images/Environment/Kauzz Forest Tiles/Backgrounds/Midleground Extended.png" width="400" height="685"/>
+ </tileset>
+ <tileset firstgid="2101" name="Enviroment" tilewidth="16" tileheight="16" tilecount="1170" columns="45">
+  <image source="../images/Environment/Kauzz Forest Tiles/Enviroment.png" width="724" height="416"/>
+ </tileset>
+ <tileset firstgid="3271" name="mainlevbuild" tilewidth="16" tileheight="16" tilecount="4096" columns="64">
+  <image source="../images/Environment/PFantasy_SET1_v1.0/mainlevbuild.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="7367" source="../images/Environment/Kauzz Forest Tiles/Bat.tsx"/>
+ <tileset firstgid="7434" source="../images/Environment/Kauzz Forest Tiles/Animated_tree.tsx"/>
+ <tileset firstgid="7676" name="Coin" tilewidth="12" tileheight="12" tilecount="4" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="12" height="12" source="../images/Environment/Kauzz Forest Tiles/Collectables/gold_coin_strip4/gold_coin_strip4-0.png"/>
+   <animation>
+    <frame tileid="0" duration="150"/>
+    <frame tileid="1" duration="150"/>
+    <frame tileid="2" duration="150"/>
+    <frame tileid="3" duration="150"/>
+   </animation>
+  </tile>
+  <tile id="1">
+   <image width="12" height="12" source="../images/Environment/Kauzz Forest Tiles/Collectables/gold_coin_strip4/gold_coin_strip4-1.png"/>
+  </tile>
+  <tile id="2">
+   <image width="12" height="12" source="../images/Environment/Kauzz Forest Tiles/Collectables/gold_coin_strip4/gold_coin_strip4-2.png"/>
+  </tile>
+  <tile id="3">
+   <image width="12" height="12" source="../images/Environment/Kauzz Forest Tiles/Collectables/gold_coin_strip4/gold_coin_strip4-3.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="7680" source="../images/Environment/Kauzz Forest Tiles/Bush.tsx"/>
+ <tileset firstgid="7740" name="Water_swamp" tilewidth="30" tileheight="14" tilecount="60" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-0.png"/>
+   <animation>
+    <frame tileid="0" duration="10"/>
+    <frame tileid="1" duration="10"/>
+    <frame tileid="2" duration="10"/>
+    <frame tileid="3" duration="10"/>
+    <frame tileid="4" duration="10"/>
+    <frame tileid="5" duration="10"/>
+    <frame tileid="6" duration="10"/>
+    <frame tileid="7" duration="10"/>
+    <frame tileid="8" duration="10"/>
+    <frame tileid="9" duration="10"/>
+    <frame tileid="10" duration="10"/>
+    <frame tileid="11" duration="10"/>
+    <frame tileid="12" duration="10"/>
+    <frame tileid="13" duration="10"/>
+    <frame tileid="14" duration="10"/>
+    <frame tileid="15" duration="10"/>
+    <frame tileid="16" duration="10"/>
+    <frame tileid="17" duration="10"/>
+    <frame tileid="18" duration="10"/>
+    <frame tileid="19" duration="10"/>
+    <frame tileid="20" duration="10"/>
+    <frame tileid="21" duration="10"/>
+    <frame tileid="22" duration="10"/>
+    <frame tileid="23" duration="10"/>
+    <frame tileid="24" duration="10"/>
+    <frame tileid="25" duration="10"/>
+    <frame tileid="26" duration="10"/>
+    <frame tileid="27" duration="10"/>
+    <frame tileid="28" duration="10"/>
+    <frame tileid="29" duration="10"/>
+    <frame tileid="30" duration="10"/>
+    <frame tileid="31" duration="10"/>
+    <frame tileid="32" duration="10"/>
+    <frame tileid="33" duration="10"/>
+    <frame tileid="34" duration="10"/>
+    <frame tileid="35" duration="10"/>
+    <frame tileid="36" duration="10"/>
+    <frame tileid="37" duration="10"/>
+    <frame tileid="38" duration="10"/>
+    <frame tileid="39" duration="10"/>
+    <frame tileid="40" duration="10"/>
+    <frame tileid="41" duration="10"/>
+    <frame tileid="42" duration="10"/>
+    <frame tileid="43" duration="10"/>
+    <frame tileid="44" duration="10"/>
+    <frame tileid="45" duration="10"/>
+    <frame tileid="46" duration="10"/>
+    <frame tileid="47" duration="10"/>
+    <frame tileid="48" duration="10"/>
+    <frame tileid="49" duration="10"/>
+    <frame tileid="50" duration="10"/>
+    <frame tileid="51" duration="10"/>
+    <frame tileid="52" duration="10"/>
+    <frame tileid="53" duration="10"/>
+    <frame tileid="54" duration="10"/>
+    <frame tileid="55" duration="10"/>
+    <frame tileid="56" duration="10"/>
+    <frame tileid="57" duration="10"/>
+    <frame tileid="58" duration="10"/>
+    <frame tileid="59" duration="10"/>
+   </animation>
+  </tile>
+  <tile id="1">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-1.png"/>
+  </tile>
+  <tile id="2">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-2.png"/>
+  </tile>
+  <tile id="3">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-3.png"/>
+  </tile>
+  <tile id="4">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-4.png"/>
+  </tile>
+  <tile id="5">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-5.png"/>
+  </tile>
+  <tile id="6">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-6.png"/>
+  </tile>
+  <tile id="7">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-7.png"/>
+  </tile>
+  <tile id="8">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-8.png"/>
+  </tile>
+  <tile id="9">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-9.png"/>
+  </tile>
+  <tile id="10">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-10.png"/>
+  </tile>
+  <tile id="11">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-11.png"/>
+  </tile>
+  <tile id="12">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-12.png"/>
+  </tile>
+  <tile id="13">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-13.png"/>
+  </tile>
+  <tile id="14">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-14.png"/>
+  </tile>
+  <tile id="15">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-15.png"/>
+  </tile>
+  <tile id="16">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-16.png"/>
+  </tile>
+  <tile id="17">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-17.png"/>
+  </tile>
+  <tile id="18">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-18.png"/>
+  </tile>
+  <tile id="19">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-19.png"/>
+  </tile>
+  <tile id="20">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-20.png"/>
+  </tile>
+  <tile id="21">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-21.png"/>
+  </tile>
+  <tile id="22">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-22.png"/>
+  </tile>
+  <tile id="23">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-23.png"/>
+  </tile>
+  <tile id="24">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-24.png"/>
+  </tile>
+  <tile id="25">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-25.png"/>
+  </tile>
+  <tile id="26">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-26.png"/>
+  </tile>
+  <tile id="27">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-27.png"/>
+  </tile>
+  <tile id="28">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-28.png"/>
+  </tile>
+  <tile id="29">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-29.png"/>
+  </tile>
+  <tile id="30">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-30.png"/>
+  </tile>
+  <tile id="31">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-31.png"/>
+  </tile>
+  <tile id="32">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-32.png"/>
+  </tile>
+  <tile id="33">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-33.png"/>
+  </tile>
+  <tile id="34">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-34.png"/>
+  </tile>
+  <tile id="35">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-35.png"/>
+  </tile>
+  <tile id="36">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-36.png"/>
+  </tile>
+  <tile id="37">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-37.png"/>
+  </tile>
+  <tile id="38">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-38.png"/>
+  </tile>
+  <tile id="39">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-39.png"/>
+  </tile>
+  <tile id="40">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-40.png"/>
+  </tile>
+  <tile id="41">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-41.png"/>
+  </tile>
+  <tile id="42">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-42.png"/>
+  </tile>
+  <tile id="43">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-43.png"/>
+  </tile>
+  <tile id="44">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-44.png"/>
+  </tile>
+  <tile id="45">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-45.png"/>
+  </tile>
+  <tile id="46">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-46.png"/>
+  </tile>
+  <tile id="47">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-47.png"/>
+  </tile>
+  <tile id="48">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-48.png"/>
+  </tile>
+  <tile id="49">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-49.png"/>
+  </tile>
+  <tile id="50">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-50.png"/>
+  </tile>
+  <tile id="51">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-51.png"/>
+  </tile>
+  <tile id="52">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-52.png"/>
+  </tile>
+  <tile id="53">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-53.png"/>
+  </tile>
+  <tile id="54">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-54.png"/>
+  </tile>
+  <tile id="55">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-55.png"/>
+  </tile>
+  <tile id="56">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-56.png"/>
+  </tile>
+  <tile id="57">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-57.png"/>
+  </tile>
+  <tile id="58">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-58.png"/>
+  </tile>
+  <tile id="59">
+   <image width="30" height="14" source="../images/Environment/Kauzz Forest Tiles/Water/Water_swamp_strip60/Water_swamp_strip60-59.png"/>
+  </tile>
+ </tileset>
+ <layer id="22" name="Background 7" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer id="20" name="Background 6" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3AOsXWnfhvF2rVPbtm3btm3btm3btm3btm3rvZo1X7725LTpbtfu3qe5r+SXTDsz597PJP3nTDMZHz6UUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppZRSSimllFJKKaWUUkoppbx3PmHAhAd8wTf8wC/8wT8CICACITCCICiCIThCICRCITTCICzCaUMb2tCGTRvhEQEREQmREQVREQ3REQMxEQuxEQdxEQ/xkQAJkQiJkQRJkQzJtaENbWjDpo0USIlUSI00SIt0SI8MyIhMyIwsyIpsyI4cyIlcyI08yIt8yI8C2tCGNrRh00ZBFEJhFEFRFENxlEBJlEJplEFZlEN5VEBFVEJlVEFVVEN11EBNbWhDG9qwaaMWaqMO6qIe6qMBGqIRGqMJmqIZmqMFWqIVWqMN2qId2qMDOqKTNrShDW3YtNEZXdAV3dAdPdATvdAbfdAX/dAfAzAQgzAYQzAUwzAcIzASozBaG9rQhjZs2hiDsRiH8ZiAiZiEyZiCqZiG6ZiBmZiF2ZiDuZiH+ViAhViExViiDW1oQxs2bSzFMizHCqzEKqzGGqzFOqzHBmzEJmzGFmzFNmzHDuzELuzGHuzVhja0oQ2bNvZhPw7gIA7hMI7gKI7hOE7gJE7hNM7gLM7hPC7gIi7hMq7gKq5pQxva0IZNG9dxAzdxC7dxB3dxD/fxAA/xCI/xBE/xDM/xAi/xCq/xBm/xDu+1oQ1taMOmjQ/4iE/4jC/4+h+q+oQBEx7wBd/wA7/wB/8IgIAIhMAIgqAIhuAI4VMb2tCGNuzZCIlQCI0wCItwCI8IiIhIiIwoiIpoiI4YiIlYiI04iIt4iI8ESKgNbWhDGzZtJEJiJEFSJENypEBKpEJqpEFapEN6ZEBGZEJmZEFWZEN25EBO5NKGNrShDZs2ciMP8iIf8qMACqIQCqMIiqIYiqMESqIUSqMMyqIcyqMCKqISKmtDG9rQhk0bVVAV1VAdNVATtVAbdVAX9VAfDdAQjdAYTdAUzdAcLdASrdAabbShDW1ow6aNtmiH9uiAjuiEzuiCruiG7uiBnuiF3uiDvuiH/hiAgRiEwRiCodrQhja0YdPGMAzHCIzEKIzGGIzFOIzHBEzEJEzGFEzFNEzHDMzELMzGHMzFPG1oQxvasGljPhZgIRZhMZZgKZZhOVZgJVZhNdZgLdZhPTZgIzZhM7ZgK7Zhuza0oQ1t2LSxAzuxC7uxB3uxD/txAAdxCIdxBEdxDMdxAidxCqdxBmdxDudxQRva0IY2bNq4iEu4jCu4imu4jhu4iVu4jTu4i3u4jwd4iEd4jCd4imd4jhd4qQ1taEMbNm28wmu8wVu8w3t8wEd8wmd8wdf/ObNPGDDhAV/wDT/wC3/wjwAIiECGNrShDW3YsxEYQRAUwRAcIRASoRAaYRAW4RAeERARkRAZURAV0RAdMRATsRBbG9rQhjZs2oiDuIiH+EiAhEiExEiCpEiG5EiBlEiF1EiDtEiH9MiAjMiEzMiiDW1oQxs2bWRFNmRHDuRELuRGHuRFPuRHARREIRRGERRFMRRHCZREKZRGGZTVhja0oQ2bNsqhPCqgIiqhMqqgKqqhOmqgJmqhNuqgLuqhPhqgIRqhMZqgKZp9/fv8Wpy58TfeoQ1taMO1G/93S5ylv6eNVl5stufnOqAjOqEzuqAruqH7f3/PS/P/9eHn+qKfYW00t/ktvQ2vN1qgpWG9ozXaoC3aGb/2jh7oiV6GNrShDUc3nH2vZnjaGOzF5oi/8DkcNYXPNBXTMN2w3jEAAzHIsN4xBEMxDMMN6x0jMQqjMQZjMQ7jMQETMQmTDW1oQxuObjj71/1GTxtzvNhc+Bc+h6PW8pnWYT02GNY7ZmIWZhvWO+ZiHuZjgWG9YxEWYwmWYhmWYwVWYhVWY42hDW1ow9ENZ/+6P+VpY6sXm7v+wudw1DE+03GcwEnDescmbMYWw3rHNmzHDuw0rHfsxh7sxT7sxwEcxCEcxhEcNbShDW04uuHsX/ePPW2c82Lz8l/4HI66z2d6gId4ZFjvOI0zOGtY7ziPC7iIS4b1jiu4imu4jhu4iVu4jTu4i3uGNrShDUc3nP3r3o/5/Y+fe7H55r+fe/CHW09tfI/J5/aAL/g2rXc8MayNZ4b1jhd4iVd4bVjveIt3eI8P+IhP+Iwv8MHX8QnD1IY2tOHohrPvVVTz+1sUwIvNoJ7+Gs9362c/fvANfza+JyJfKxIiI4ppvcOvaW34N613BEQgBEYQ03pHMARHCIREKIRGGIRFOIRHBFMb2tCGoxvOvlfpzO9vSkzz+7v0VTxPf82P7pFXP/et6D/5Oo5KxddKjTRIa1rviGZaGzFM6x2xEBtxENe03hEfCZAQiZAYSZAUyZAcKZDS1IY2tOHohh03yfP9+fbHxc0f35e/wavvz35FYT53ERRFMdN6R3pkQEZkQmZkQVZkQ3bkQE7kQm7kQV7kQ34UQEEUMrWhDW04umHX91E/uhcNTO95r+rwueuiHuqb1jtKoCRKoTTKoCzKoTwqoCIqoTKqoCqqoTpqfP3njVqobWpDG9pwdMMZ31t9q6fpPe9VVz53N3RHD9N6R0M0QmM0QVM0Q3O0QEu0Qmu0QVu0Q3t0QEd0Qmd0MbWhDW04uuHsezXJ9J73ahyfezwmYKJpvaMXeqMP+qIf+mMABmIQBmMIhmIYhmMERmIURmMMxpra0IY2HN1wxr8Dfmu16T3v1XI+9wqsxCrTesdkTMFUTMN0zMBMzMJszMFczMN8LMBCLMJiLMFSLDO1oQ1tOLrh7Ht1xHTtvfr2bjniAJ/7IA7hsGm9Yw3WYh3WYwM2YhM2Ywu2Yhu2Ywd2Yhd2Yw/2Yh/2m9rQhjYc3XD2vbpruv5W/c7NusnnvoXbuGNa7ziKYziOEziJUziNMziLcziPC7iIS7iMK7iKa7iOG6Y2tKENRzecfa98erj+Tv3O91ef+GfzGV/gw8N6xz3++D4e4CEe4TGe4Cme4TlemNb/8+YVXuMN3uId3uMDPpra0IY2HN34k3v1KzcrvDe9V6H53GEQFuE8rHcYMOEBX/ANP/ALf/CPAAiIQAiMIAiKYAiOEAiJUB7a0IY2HN34kzv1K/fqa97tVtX873Mrpdwr3SvdK6W8S//6vfrd9yml3C9n/t6VO9C9Uurf6V+8V56//9O9Uurf6F++V3/yPZZSyv3603v1K/fM0d/z+tld/NnX/9U/p3ullPfMjnvl+Q796I9/9D2QVzfpd2+XHb93pXullHv2J7+m3cmf3ifdK6XcP1ffGXellHK/XH0X3JVSyv1y9V1wV0op98vVd8FdKaXcL1ffBXellHK/XH0X3JVSyv1y9V1wV0op98vVd8FdKaXcL1ffBXellHK/XH0X3JVSyv1y9V1wV0op9+t/h+NkBg==
+  </data>
+ </layer>
+ <layer id="19" name="Background 5" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1LdNRAEARMGfcxm+G3w3+DbwIb4NfDf4IngpCemdxIz08o12GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+djA1DId1VMd1Uqd1NjXuZQC/3fVL9/VQj/VUz/Xir4AJ89ovvdV7fdRnfdW3vwImzPRoGGZqtuZqvhZqcTTuZQC/LfVLy7VSq7VW67Xhr4AJs9kvbdV27dRu7dW+vwImzHm/dFGXdVXXdVO3/goAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPjnfgBBChtu
+  </data>
+ </layer>
+ <layer id="18" name="Background 4" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2EmOllUAhtFftECqagkKiqwARDSCIo4Q6VYgKhIaEUa2wCoUBWQEKM0q6AQdgdIU/Q4URGEE+DhiRMVBJfyJ5yTP6OZL7uhN7jcYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwH83MToYXK4rdbWu1fW6UTdHn/TtAB4ZGRsMpteMerZm1miN1fjY4797vS1bVIvrjXqzltRbtbTetnXAFJvXJs2vl2tBvVIL69V6bZK92tAebaxNtbk+ri31SW2tbfYKmGLvtUlr6/36oD6sdfVRrX/MXn3dFn1Tu+rb+q52157aW9/XPnsFDIFjbdHxOlEn61T9VKfrTP1cv9grYAj83hb9Ubfqdv1Zd+qv+rvu1j17BQyJ53orPl+zana9UC/WnHqp5k7y7wtgKt2fOfn5svbonVpe79aKWlmranWtsVfAkPi0PfqsPq8v6sv6qrbXjtppr4Ahsb89OlAH64f6sQ7V4TpSR+0VMCTOtkfn6tf6rc7XhbpYl2rCXgFD4n579KAe/rtL44PBUzWtnq5namT8Sd8QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/n/+AW9vSBo=
+  </data>
+ </layer>
+ <layer id="17" name="Background 3" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="15" name="Background 2" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1LENgDAMRUEPkBkYK7APYh+SCXFBTRWERO6kX9vViwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP6olog1t5WvPwF4tt+dOvQKxlsmu/uyMzvVcl2vAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgShch7wS9
+  </data>
+ </layer>
+ <layer id="7" name="Background 1" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1LEJgEAQRNEt4GqwEhtR+zns57Q/NzA+BBEF34PJJ/oRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAFVOJmHNLefsJQF89O7XqFfBxLTu15Xa9AgAAAODnxuH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHjeAQ0WCpM=
+  </data>
+ </layer>
+ <layer id="5" name="Coins" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3EkRAAAIAzGM4N8kD2RwTKJgDbQRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAVpXTBQAAAAAAAAAAAAAAAAAAAAAAbOWjBgAAAAAAAAAAAAAAAAD+sBsEAAAAAAAAAAAAAAAAAAAAAAAAAACAGxrC3ANM
+  </data>
+ </layer>
+ <layer id="6" name="Don't Touch" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3DsKwzAQBFDZSRvfKZ+TOTeTL5YtEjCkSReNeQ8WpE7VMAih1gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPKtl3+fAOA3/Z1XT7kFDO7TrzZ5BQxu1a+AEPIKSOH+Ckjh/gpIoV8BKfQrIIV+BaTQr4AU+hWQQr8CUnR5BYTwvh1Isf9P5lrrW8295rFbA4ygyyMghP/6gBT6FZBiWlqba0415+V7DwAAAAAAAAAAAAAAAAAAAAAAAAAAABzbC+wsGF8=
+  </data>
+ </layer>
+ <layer id="10" name="Golden key" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="11" name="Golden door" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="13" name="Exit" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBAAAIA6AFMLbBbeC7BxKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHTttAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvwOD6gCR
+  </data>
+ </layer>
+ <layer id="23" name="Spawn" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7C9SMY9MkiWVkETAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKDFzvcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACg0wGnuQCD
+  </data>
+ </layer>
+ <layer id="26" name="Checkpoints" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIA6AHsLe1jeH2QQISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoM3O9wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgywEXVwCU
+  </data>
+ </layer>
+ <objectgroup id="2" name="Enemies"/>
+ <objectgroup id="9" name="Moving platforms"/>
+ <objectgroup id="12" name="Moving traps">
+  <object id="10" gid="7412" x="708" y="1287" width="35" height="20">
+   <properties>
+    <property name="boundary_left" type="float" value="792"/>
+    <property name="boundary_top" type="float" value="840"/>
+    <property name="change_x" type="float" value="4"/>
+    <property name="change_y" type="float" value="3"/>
+   </properties>
+  </object>
+  <object id="11" gid="7412" x="601" y="1124" width="35" height="20">
+   <properties>
+    <property name="boundary_left" type="float" value="792"/>
+    <property name="boundary_top" type="float" value="840"/>
+    <property name="change_x" type="float" value="4"/>
+    <property name="change_y" type="float" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="1" name="Platforms" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3EFOg0AYgFGW9ATqRVp36llal97FRFcexgNZDyEkEhEHpDPQMuG95N8QCnTBF4akLQoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAeNuyKG7LS18FwP/2Vase9QrIgF4BOTiUegXko+7VazW77/EuC1iquleH1njWApZKr4AUu3Leaa/5nju9qteGLyceo7Gd+brb576r5iEw9z3bh2ar0bBY3WeofeB+PVbbrjf9c7P5+5mrwH7nuP62p4j2hL4/sAxjevU50T38MUML9ArWI/deNWvXkLeI8/UdC7i8KXv1Xv5MyJy9mnKAZcr9+QpYD70CcqFXQC7O0avmnZZeASmm6tXQe/aGXgEpui0KNaXZZ0yThugVkOKUXqXSKyCFXgG50CsgF90WhX6nHPo9cwy9AlLEPDvFvnfXKyDFVGu9MfQKSKFXQC70CsiFXgG5OJa//7dqzgEAAAAAAAAAAAAAAAAAAAAAAAAAgLX5Am0ogN0=
+  </data>
+ </layer>
+ <layer id="4" name="Ladders" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1rEJwDAQwEC3zijZfz1DVnAReAR3E6jUWgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMCUs6cLAO68z3QBwB1/BVT4K6DCXwEV/gqo8FdAhb8CKvwVUOGvgAp/BVT4K6DCXwEV/gqo8FdAhb8CKvwVUOGvgAp/BVT4KwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgH98E9gMRQ==
+  </data>
+ </layer>
+ <layer id="24" name="Foreground 2" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIA6AXMa3FjeH2QQISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADa7HwPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgywE8aACh
+  </data>
+ </layer>
+ <layer id="8" name="Foreground 1" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+</map>

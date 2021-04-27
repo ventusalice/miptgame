@@ -4,8 +4,9 @@
     <list default="true" id="64a8c2a2-8439-44dd-ae6a-c4b6097ac97d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GAME.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAME.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/Environment/Kauzz Forest Tiles/Bat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/images/Environment/Kauzz Forest Tiles/Bat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maps/initial.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/maps/initial.tmx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maps/map_level_0.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/maps/map_level_0.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maps/map_level_1.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/maps/map_level_1.tmx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

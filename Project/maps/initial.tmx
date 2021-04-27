@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="25" nextobjectid="1">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="1">
  <layer id="22" name="Background 7" width="40" height="30">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
@@ -83,12 +83,17 @@
    eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
   </data>
  </layer>
+ <layer id="25" name="Foreground 3" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+  </data>
+ </layer>
  <layer id="24" name="Foreground 2" width="40" height="30">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
   </data>
  </layer>
- <layer id="8" name="Foreground 1" width="40" height="30">
+ <layer id="8" name="Foreground 1" width="40" height="30" opacity="0.65">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
   </data>

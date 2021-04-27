@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="300" height="100" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#aaffff" nextlayerid="26" nextobjectid="3">
+ <tileset firstgid="1" name="Enviroment" tilewidth="16" tileheight="16" tilecount="1170" columns="45">
+  <image source="../images/Environment/Kauzz Forest Tiles/Enviroment.png" width="724" height="416"/>
+ </tileset>
+ <tileset firstgid="1171" name="Enemy" tilewidth="32" tileheight="32" tilecount="7" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="7">
+   <image width="32" height="32" source="../images/Environment/RockyWorld_v1.1/Sprites/Enemy01/fly01.png"/>
+   <animation>
+    <frame tileid="7" duration="50"/>
+    <frame tileid="8" duration="50"/>
+    <frame tileid="9" duration="50"/>
+    <frame tileid="10" duration="50"/>
+    <frame tileid="11" duration="50"/>
+    <frame tileid="12" duration="50"/>
+    <frame tileid="13" duration="50"/>
+   </animation>
+  </tile>
+  <tile id="8">
+   <image width="32" height="32" source="../images/Environment/RockyWorld_v1.1/Sprites/Enemy01/fly02.png"/>
+  </tile>
+  <tile id="9">
+   <image width="32" height="32" source="../images/Environment/RockyWorld_v1.1/Sprites/Enemy01/fly03.png"/>
+  </tile>
+  <tile id="10">
+   <image width="32" height="32" source="../images/Environment/RockyWorld_v1.1/Sprites/Enemy01/fly04.png"/>
+  </tile>
+  <tile id="11">
+   <image width="32" height="32" source="../images/Environment/RockyWorld_v1.1/Sprites/Enemy01/fly05.png"/>
+  </tile>
+  <tile id="12">
+   <image width="32" height="32" source="../images/Environment/RockyWorld_v1.1/Sprites/Enemy01/fly06.png"/>
+  </tile>
+  <tile id="13">
+   <image width="32" height="32" source="../images/Environment/RockyWorld_v1.1/Sprites/Enemy01/fly07.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="1185" source="../images/Environment/Kauzz Forest Tiles/Bat.tsx"/>
+ <layer id="22" name="Background 7" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="20" name="Background 6" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="19" name="Background 5" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="18" name="Background 4" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="17" name="Background 3" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="15" name="Background 2" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="7" name="Background 1" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="3" name="Checkpoints" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="5" name="Coins" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="6" name="Don't Touch" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="10" name="Golden key" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="11" name="Golden door" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="13" name="Exit" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="23" name="Spawn" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzkENAAAIBKAzsP2/xnBOSEACAAAAAAAAAAAAwAdd2wMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4awAmBgBv
+  </data>
+ </layer>
+ <objectgroup id="2" name="Enemies">
+  <object id="1" gid="1178" x="320" y="156.5" width="32" height="32">
+   <properties>
+    <property name="change_x" type="float" value="5"/>
+   </properties>
+  </object>
+  <object id="2" gid="1230" x="346" y="130" width="35" height="20">
+   <properties>
+    <property name="change_x" type="float" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="9" name="Moving platforms"/>
+ <layer id="1" name="Platforms" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1LEJADAMA0GPlC77b5Y+ZSDGgjtQpf6rAAAAAACAKfbjB9BNr4AUegWk0CsghV4Bv61BAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA2wFacwi3
+  </data>
+ </layer>
+ <layer id="4" name="Ladders" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="25" name="Foreground 3" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="24" name="Foreground 2" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+ <layer id="8" name="Foreground 1" width="300" height="100" opacity="0.65">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U9/gBFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAM1M8AAQ==
+  </data>
+ </layer>
+</map>

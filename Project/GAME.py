@@ -21,7 +21,7 @@ SPRITE_PIXEL_SIZE = 16
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
 NBG=7 #Число слоёв бэк и форграунда
-NFG = 2
+NFG = 3
 # Constants used to track if the player is facing left or right
 RIGHT_FACING = 0
 LEFT_FACING = 1
@@ -274,7 +274,6 @@ class GameView(arcade.View):
             self.foreground.append(list)
         self.dont_touch_list = None
         self.ladder_list = None
-        self.moving_traps_list = None
         self.enemy_list = None
         self.checkpoint_list = None
         self.spawn_list = None
@@ -310,7 +309,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 0
+        self.level = 1000
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -354,7 +353,6 @@ class GameView(arcade.View):
         self.golden_key_list = arcade.SpriteList(use_spatial_hash=True)
         self.exit_list = arcade.SpriteList(use_spatial_hash=True)
         self.checkpoint_list = arcade.SpriteList(use_spatial_hash=True)
-        self.moving_traps_list = arcade.SpriteList()
         self.enemy_list = arcade.SpriteList()
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList(use_spatial_hash=True)
@@ -393,14 +391,10 @@ class GameView(arcade.View):
                                                       'Exit',
                                                       TILE_SCALING)
 
-        # moving_traps
-        self.moving_traps_list = arcade.tilemap.process_layer(my_map,
-                                                              'Moving traps',
-                                                              TILE_SCALING)
         #Enemies
         self.enemy_list = arcade.tilemap.process_layer(my_map,
                                                               'Enemies',
-                                                              ENEMIES_SCALING)
+                                                              TILE_SCALING)
 
         # -- Ladder objects
         self.ladder_list = arcade.tilemap.process_layer(my_map,
@@ -498,7 +492,6 @@ class GameView(arcade.View):
         self.golden_door_list.draw()
         self.coin_list.draw()
         self.dont_touch_list.draw()
-        self.moving_traps_list.draw()
         self.enemy_list.draw()
         self.exit_list.draw()
         self.ladder_list.draw()
@@ -685,10 +678,8 @@ class GameView(arcade.View):
             self.player_sprite.dashing = False
 
         self.background[NBG-1].update_animation(delta_time)
-        self.background[NBG - 2].update_animation(delta_time)
+        #self.background[NBG - 2].update_animation(delta_time)
         self.foreground[NFG - 1].update_animation(delta_time)
-        self.foreground[NFG - 2].update_animation(delta_time)
-        self.moving_traps_list.update_animation(delta_time)
         self.coin_list.update_animation(delta_time)
         self.enemy_list.update_animation(delta_time)
         self.player_list.update_animation(delta_time)
@@ -697,12 +688,11 @@ class GameView(arcade.View):
         # Update walls, used with moving platforms
         self.wall_list.update()
         # update enemies
-        self.moving_traps_list.update()
         self.enemy_list.update()
 
-        # Check each moving trap
-        for enemy in self.moving_traps_list:
-            # If the trap hits a wall, reverse
+        # Check each enemy trap
+        for enemy in self.enemy_list:
+            # If the enemy hits a wall, reverse
             for wall in arcade.check_for_collision_with_list(enemy, self.wall_list):
                 if wall.collides_with_point([enemy.right,enemy.center_y]) and enemy.change_x > 0:
                     enemy.change_x *= -1
@@ -723,22 +713,7 @@ class GameView(arcade.View):
             elif enemy.boundary_bottom and enemy.bottom < enemy.boundary_bottom and enemy.change_y < 0:
                 enemy.change_y *= -1
 
-        # Check each enemy
-        for enemy in self.enemy_list:
-            # If the enemy hits a wall, reverse
-            if arcade.check_for_collision_with_list(enemy, self.wall_list):
-                enemy.change_x *= -1
-                enemy.change_y *= -1
-            # If the enemy hit the left boundary, reverse
-            elif enemy.boundary_left and enemy.left < enemy.boundary_left and enemy.change_x < 0:
-                enemy.change_x *= -1
-            # If the enemy hit the right boundary, reverse
-            elif enemy.boundary_right and enemy.right > enemy.boundary_right and enemy.change_x > 0:
-                enemy.change_x *= -1
-            elif enemy.boundary_top and enemy.top > enemy.boundary_top and enemy.change_y > 0:
-                enemy.change_y *= -1
-            elif enemy.boundary_bottom and enemy.bottom < enemy.boundary_bottom and enemy.change_y < 0:
-                enemy.change_y *= -1
+
 
         # See if the wall hit a boundary and needs to reverse direction.
         for wall in self.wall_list:
@@ -752,11 +727,9 @@ class GameView(arcade.View):
                 wall.change_y *= -1
 
         # See if we hit any coins
-        coin_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
-                                                             self.coin_list)
-
         # Loop through each coin we hit (if any) and remove it
-        for coin in coin_hit_list:
+        for coin in arcade.check_for_collision_with_list(self.player_sprite,
+                                                             self.coin_list):
             # Remove the coin
             coin.remove_from_sprite_lists()
             # Play a sound
@@ -807,9 +780,6 @@ class GameView(arcade.View):
         # Track if we need to change the viewport
         changed_viewport = False
 
-        # See if the player hit an trap. If so, game over.
-        if arcade.check_for_collision_with_list(self.player_sprite, self.moving_traps_list):
-            death()
         # See if the player hit an enemy. If so, game over.
         if arcade.check_for_collision_with_list(self.player_sprite, self.enemy_list):
             death()

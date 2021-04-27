@@ -16,16 +16,20 @@ class RayView(GAME.GameView):
         super.on_draw()
         arcade.draw_line(self.player_sprite.center_x, self.player_sprite.center_y, self.player_sprite.center_x+100, self.player_sprite.center_y, arcade.color.BLACK, 2)
         
-        
     def on_update():
         super.on_update()
+        
+    def setup(self, level=0):
+        super(GAME.GameView).setup(self, level)
         
 
 
 def main():
     """ Main method """
     window = GAME.GameWindow()
-    view = GAME.MenuView(RayView())
+    view = RayView()
+    view.__init__()
+    view.setup()
     window.show_view(view)
     arcade.run()
 

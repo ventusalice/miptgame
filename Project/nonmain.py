@@ -86,7 +86,7 @@ class LevelCompletedView(arcade.View):
         self.color = color
         arcade.set_background_color(color)
         # ниже для отмены результатов скроллинга
-        arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
+        #arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
 
     def on_draw(self):
         """ Draw this view """

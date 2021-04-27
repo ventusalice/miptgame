@@ -81,7 +81,11 @@
  </layer>
  <layer id="23" name="Spawn" width="300" height="100">
   <data encoding="base64" compression="zlib">
+<<<<<<< HEAD
    eJztzjENAAAIA7B9+HdMMhNwtAqaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPDVXAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAWjCZAAg=
+=======
+   eJztziEBAAAIA7A7+jcmwxWCLcESAAAAGnMdAHhmATkIAAg=
+>>>>>>> e6d90a34b7702fbde56ad8f71f081d8c1c64f5ae
   </data>
  </layer>
  <objectgroup id="2" name="Enemies"/>

@@ -55,7 +55,7 @@ GameWindow = nonmain.GameWindow
 LevelCompletedView = nonmain.LevelCompletedView
 
 #Список с противниками
-All_enemies = [[]]
+All_enemies = [None, [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()]]
 #All_enemies[1000]=[Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]
 
 def load_texture_pair(filename):

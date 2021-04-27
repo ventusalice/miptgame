@@ -89,7 +89,7 @@ class Skeleton_Lighter(Enemy):
         super().__init__(scale=scale)
 
         # Used for flipping between image sequences
-        self.change_x = 4
+        self.change_x = 1
         # --- Load Textures ---
 
         main_path = "images/enemies/Skeleton_Lighter/SL_walk/"
@@ -116,4 +116,37 @@ class Skeleton_Lighter(Enemy):
         if self.cur_texture > 47:
             self.cur_texture = 0
         self.texture = self.run_textures[self.cur_texture // 6][self.enemy_face_direction]
+        return
+
+class Skeleton_Seeker(Enemy):
+
+    def __init__(self, scale=1.5):
+
+        # Set up parent class
+        super().__init__(scale=scale)
+
+        # Used for flipping between image sequences
+        self.change_x = 4
+        # --- Load Textures ---
+
+        main_path = "images/enemies/Skeleton_Seeker/Skeleton_seeker_walk/"
+
+        # Текстуры бега
+        self.run_textures = []
+        for i in range(6):
+            texture = load_texture_pair(f"{main_path}skeleton_seeker_walk-{i}.png")
+            self.run_textures.append(texture)
+
+        # Set the initial texture
+        self.texture = self.run_textures[0][0]
+
+        # Hit box will be set based on the first image used
+        self.set_hit_box(self.texture.hit_box_points)
+
+    def run(self):
+        # Анимация бега
+        self.cur_texture += 1
+        if self.cur_texture > 29:
+            self.cur_texture = 0
+        self.texture = self.run_textures[self.cur_texture // 5][self.enemy_face_direction]
         return

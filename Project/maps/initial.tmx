@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="1">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="40" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="28" nextobjectid="1">
  <layer id="22" name="Background 7" width="40" height="30">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
@@ -65,14 +65,23 @@
    eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
   </data>
  </layer>
+ <layer id="26" name="Enemy 0" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+  </data>
+ </layer>
+ <layer id="27" name="Enemy 1" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+  </data>
+ </layer>
  <layer id="23" name="Spawn" width="40" height="30">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
   </data>
  </layer>
  <objectgroup id="2" name="Enemies"/>
- <objectgroup id="9" name="Moving platforms"/>
- <objectgroup id="12" name="Moving traps"/>
+ <objectgroup id="12" name="Moving platforms"/>
  <layer id="1" name="Platforms" width="40" height="30">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==

@@ -129,7 +129,7 @@ class Skeleton_Seeker(Enemy):
         self.change_x = 4
         # --- Load Textures ---
 
-        main_path = "images/enemies/Skeleton_Seeker/Skeleton_seeker_walk/"
+        main_path = "images/enemies/Skeleton_Seeker/skeleton_seeker_walk/"
 
         # Текстуры бега
         self.run_textures = []

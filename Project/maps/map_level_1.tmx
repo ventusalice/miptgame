@@ -80,7 +80,7 @@
  </layer>
  <layer id="23" name="Spawn" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJztzkEJAAAIBLD72b+xKQ4RtgRLAAAAAP6b6wA1Cx/EAAg=
+   eJztziEBAAAIA7A7+jcmwxWCLcESAAAAGnMdAHhmATkIAAg=
   </data>
  </layer>
  <objectgroup id="2" name="Enemies"/>

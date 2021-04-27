@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="300" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="27" nextobjectid="14">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="300" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="27" nextobjectid="15">
  <tileset firstgid="1" name="Background Extended Green" tilewidth="16" tileheight="16" tilecount="1050" columns="25">
   <image source="../images/Environment/Kauzz Forest Tiles/Backgrounds/Background Extended Green.png" width="400" height="685"/>
  </tileset>
@@ -351,26 +351,15 @@
    eJztzgENAAAIA6AHsLe1jeH2QQISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoM3O9wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgywEXVwCU
   </data>
  </layer>
- <objectgroup id="2" name="Enemies"/>
- <objectgroup id="9" name="Moving platforms"/>
- <objectgroup id="12" name="Moving traps">
-  <object id="10" gid="7412" x="708" y="1287" width="35" height="20">
+ <objectgroup id="2" name="Enemies">
+  <object id="14" gid="7412" x="676.333" y="1210" width="35" height="20">
    <properties>
-    <property name="boundary_left" type="float" value="792"/>
-    <property name="boundary_top" type="float" value="840"/>
-    <property name="change_x" type="float" value="4"/>
-    <property name="change_y" type="float" value="3"/>
-   </properties>
-  </object>
-  <object id="11" gid="7412" x="601" y="1124" width="35" height="20">
-   <properties>
-    <property name="boundary_left" type="float" value="792"/>
-    <property name="boundary_top" type="float" value="840"/>
-    <property name="change_x" type="float" value="4"/>
-    <property name="change_y" type="float" value="3"/>
+    <property name="change_x" type="float" value="5"/>
+    <property name="change_y" type="float" value="5"/>
    </properties>
   </object>
  </objectgroup>
+ <objectgroup id="9" name="Moving platforms"/>
  <layer id="1" name="Platforms" width="300" height="100">
   <data encoding="base64" compression="zlib">
    eJzt3EFOg0AYgFGW9ATqRVp36llal97FRFcexgNZDyEkEhEHpDPQMuG95N8QCnTBF4akLQoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAeNuyKG7LS18FwP/2Vase9QrIgF4BOTiUegXko+7VazW77/EuC1iquleH1njWApZKr4AUu3Leaa/5nju9qteGLyceo7Gd+brb576r5iEw9z3bh2ar0bBY3WeofeB+PVbbrjf9c7P5+5mrwH7nuP62p4j2hL4/sAxjevU50T38MUML9ArWI/deNWvXkLeI8/UdC7i8KXv1Xv5MyJy9mnKAZcr9+QpYD70CcqFXQC7O0avmnZZeASmm6tXQe/aGXgEpui0KNaXZZ0yThugVkOKUXqXSKyCFXgG50CsgF90WhX6nHPo9cwy9AlLEPDvFvnfXKyDFVGu9MfQKSKFXQC70CsiFXgG5OJa//7dqzgEAAAAAAAAAAAAAAAAAAAAAAAAAgLX5Am0ogN0=

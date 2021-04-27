@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="200" height="70" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="2">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="200" height="70" tilewidth="16" tileheight="16" infinite="0" nextlayerid="28" nextobjectid="2">
  <tileset firstgid="1" name="country village tileset" tilewidth="16" tileheight="16" tilecount="330" columns="30">
   <image source="../images/Environment/Country-village_asset_pack/1_Tileset &amp; props/country village tileset.png" width="480" height="176"/>
  </tileset>
@@ -134,6 +134,16 @@
    eJztzjENADAIADAs7MAJjubfwwzwEna0ChoBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzKrcHAAAAAAAAAAAAAAAAAAAAAAAAAABA557tAfzvATXTAL4=
   </data>
  </layer>
+ <layer id="27" name="Enemy 1" width="200" height="70">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1rCKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4A9rAAAE=
+  </data>
+ </layer>
+ <layer id="26" name="Enemy 0" width="200" height="70">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1rCKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4A9rAAAE=
+  </data>
+ </layer>
  <layer id="23" name="Spawn" width="200" height="70">
   <data encoding="base64" compression="zlib">
    eJztzkENAAAIBKCbL/snNobTQQISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPqreHgAAAAAAAAAAAAAAAAAAAAAAwF0DqLUACw==
@@ -141,7 +151,6 @@
  </layer>
  <objectgroup id="2" name="Enemies"/>
  <objectgroup id="9" name="Moving platforms"/>
- <objectgroup id="12" name="Moving traps"/>
  <layer id="1" name="Platforms" width="200" height="70">
   <data encoding="base64" compression="zlib">
    eJzt3Elu1EAUgOG6ABukwMHgdOyRAheAkH3gAExiDTeAPbaE1S3Dw1N5qPL3SW+b7o76l4cuV0oAAACwj1fBvG7myeN9Z203G78eZXrY+w3AgekDYvqAmD4gpg+IldJHe7/pqftMbKyUPmAP+oCYPiCmD4jpA2L6gFgJfdy4r0vPbYrX116vs12qhD6gr/3evm3mLph3zXzI9DpQmvZ7+7mZL8F8TfrgvIb6aKc9hrz/M3Nb0QclGtNHO0vPtfRBicb2sfRcq5Q+PANLp7s2H9PGWfqA1tQ29MGZTDmv6l+rz2lEH5Rkbh9zjyH6oCT6gJg+IDa3j+4aZOr6LH1QkiV9dL8XXq/R6jdyu/onWE9/T9ChsZ9DfZb2MXTO5XhByfQBMX1ATB8Q0wdn9SINPzPbrr1au4/2eZEcz+ZCLm/S/5+X7SZHF2P6yPHsYSnc5z22j818SvmOCzn62GLvBxgr53XFVtcf99M+IszWfi9/pm37WOpM52Dsb4tGctIHW1v7PCuH7u/og611x5BfvTlKGynV04d9ScvzvZkf/5gjqaUPWEPXR649TKE2ZzuGvDR/zbdF/9G6na2PM7jb+w1URB/1yX3//8yur0H8jl4HfeRVwzHEc+gX+sirhj64mLJur7/Px9B61rkz575B/28MrYm/nrnvc8oaR+BCHxDTB8T0ATF9QEwfENMHxPQBsZL76PZ8h7WU3AesTR8Q0wfE9AExfUBMHxDTB8SO3MezRyk9zzC/ATd0g80=

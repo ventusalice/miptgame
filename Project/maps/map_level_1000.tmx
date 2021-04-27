@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="300" height="100" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#aaffff" nextlayerid="26" nextobjectid="3">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="300" height="100" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#aaffff" nextlayerid="28" nextobjectid="6">
  <tileset firstgid="1" name="Enviroment" tilewidth="16" tileheight="16" tilecount="1170" columns="45">
   <image source="../images/Environment/Kauzz Forest Tiles/Enviroment.png" width="724" height="416"/>
  </tileset>
@@ -107,22 +107,21 @@
    eJztzkENAAAIBKAzsP2/xnBOSEACAAAAAAAAAAAAwAdd2wMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4awAmBgBv
   </data>
  </layer>
- <objectgroup id="2" name="Enemies">
-  <object id="1" gid="1178" x="320" y="156.5" width="32" height="32">
-   <properties>
-    <property name="change_x" type="float" value="5"/>
-   </properties>
-  </object>
-  <object id="2" gid="1230" x="346" y="130" width="35" height="20">
-   <properties>
-    <property name="change_x" type="float" value="5"/>
-   </properties>
-  </object>
- </objectgroup>
+ <layer id="27" name="Enemy 1" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzkERAAAIA6C1sn8zS8zzAwlIAAAAAAAAAAAAAODGfAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgZAFkfwA4
+  </data>
+ </layer>
+ <layer id="26" name="Enemy 0" width="300" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBAAAMAiBbrX+zVfDzgQQkAAAAAAAAAAAAANC7dQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGHm3zADg=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Enemies"/>
  <objectgroup id="9" name="Moving platforms"/>
  <layer id="1" name="Platforms" width="300" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1LEJADAMA0GPlC77b5Y+ZSDGgjtQpf6rAAAAAACAKfbjB9BNr4AUegWk0CsghV4Bv61BAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA2wFacwi3
+   eJzt1LEJACAMRcGMZOfuTmdvqYIJ3kHKwK9eBAAAAAAAkEU//B9XVgC/2WmPXgEv6BVQhV4BVegVkFFLdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsJofcAwi
   </data>
  </layer>
  <layer id="4" name="Ladders" width="300" height="100">

@@ -3,6 +3,7 @@ Platformer Game
 """
 import arcade
 import nonmain
+import Enemies
 import time
 
 
@@ -15,13 +16,12 @@ SCREEN_TITLE = nonmain.SCREEN_TITLE
 # Constants used to scale our sprites from their original size
 CHARACTER_SCALING = 1.5
 TILE_SCALING = 1.5
-COIN_SCALING = 1
-ENEMIES_SCALING = 1
 SPRITE_PIXEL_SIZE = 16
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
 NBG=7 #Число слоёв бэк и форграунда
 NFG = 3
+NEN = 2 #Число врагов на уровне, не считая двигающихся ловушек
 # Constants used to track if the player is facing left or right
 RIGHT_FACING = 0
 LEFT_FACING = 1
@@ -54,6 +54,9 @@ MenuView = nonmain.MenuView
 GameWindow = nonmain.GameWindow
 LevelCompletedView = nonmain.LevelCompletedView
 
+#Список с противниками
+All_enemies = [[]]
+#All_enemies[1000]=[Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]
 
 def load_texture_pair(filename):
     """
@@ -158,8 +161,10 @@ class PlayerCharacter(arcade.Sprite):
         # Figure out if we need to flip face left or right
         if self.change_x < 0 and self.character_face_direction == RIGHT_FACING:
             self.character_face_direction = LEFT_FACING
+            self.set_hit_box(self.idle_textures[0][1].hit_box_points)
         elif self.change_x > 0 and self.character_face_direction == LEFT_FACING:
             self.character_face_direction = RIGHT_FACING
+            self.set_hit_box(self.idle_textures[0][0].hit_box_points)
 
         # Смэрть
         if self.dead:
@@ -309,7 +314,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 1000
+        self.level = 0
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -392,9 +397,20 @@ class GameView(arcade.View):
                                                       TILE_SCALING)
 
         #Enemies
-        self.enemy_list = arcade.tilemap.process_layer(my_map,
+        #Враги как движущиеся ловушки
+        self.enemy_list=arcade.tilemap.process_layer(my_map,
                                                               'Enemies',
                                                               TILE_SCALING)
+        # Нормальные враги
+        for i in range(NEN):
+            temporary_enemy_list = arcade.tilemap.process_layer(my_map,
+                                                              f"Enemy {i}", TILE_SCALING)
+
+            for enemy in temporary_enemy_list:
+                this_enemy = All_enemies[self.level][i]
+                this_enemy.center_x = enemy.center_x
+                this_enemy.bottom = enemy.bottom
+                self.enemy_list.append(this_enemy)
 
         # -- Ladder objects
         self.ladder_list = arcade.tilemap.process_layer(my_map,

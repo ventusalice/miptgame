@@ -131,7 +131,7 @@
  </layer>
  <layer id="13" name="Exit" width="200" height="70">
   <data encoding="base64" compression="zlib">
-   eJztzjENADAIADAs7MAJjubfwwzwEna0ChoBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzKrcHAAAAAAAAAAAAAAAAAAAAAAAAAABA557tAfzvATXTAL4=
+   eJztzgENAAAIA6BXMKP9OxhDNyEBCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAn3RtD+C+AUjtAHU=
   </data>
  </layer>
  <layer id="27" name="Enemy 1" width="200" height="70">

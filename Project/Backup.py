@@ -3,7 +3,9 @@ Platformer Game
 """
 import arcade
 import nonmain
+import Enemies
 import time
+
 
 
 # Constants of the window
@@ -12,35 +14,38 @@ SCREEN_HEIGHT = nonmain.SCREEN_HEIGHT
 SCREEN_TITLE = nonmain.SCREEN_TITLE
 
 # Constants used to scale our sprites from their original size
-CHARACTER_SCALING = 0.9
-TILE_SCALING = 0.5
-COIN_SCALING = 0.5
-SPRITE_PIXEL_SIZE = 128
+CHARACTER_SCALING = 1.5
+TILE_SCALING = 1.5
+SPRITE_PIXEL_SIZE = 16
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 
+NBG=7 #Число слоёв бэк и форграунда
+NFG = 3
+NEN = 2 #Число врагов на уровне, не считая двигающихся ловушек
 # Constants used to track if the player is facing left or right
 RIGHT_FACING = 0
 LEFT_FACING = 1
 
 # Movement speed of player, in pixels per frame
-PLAYER_MOVEMENT_SPEED = 10
+PLAYER_MOVEMENT_SPEED = 7
+PLAYER_LADDER_MOVEMENT_SPEED = 4
 # PLAYER_START_X = 768
 # PLAYER_START_Y = 1216
 PLAYER_START_X = 32  # center of player
 PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
-PLAYER_JUMP_SPEED = 20
+PLAYER_JUMP_SPEED = 16
 DASH_BUFF = 5
-DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*3 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
-DASH_COOLDOWN = 5
+DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*6 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
+DASH_COOLDOWN = 0.6
 IMMUNITY_TIME = 0.1
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
 LEFT_VIEWPORT_MARGIN = int(SCREEN_WIDTH / 2)
 RIGHT_VIEWPORT_MARGIN = int(SCREEN_WIDTH / 2)
-BOTTOM_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
-TOP_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 2)
+BOTTOM_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 5)
+TOP_VIEWPORT_MARGIN = int(SCREEN_HEIGHT / 5*4)
 
 #Classes from nonmain
 GameOverView = nonmain.GameOverView
@@ -49,7 +54,11 @@ MenuView = nonmain.MenuView
 GameWindow = nonmain.GameWindow
 LevelCompletedView = nonmain.LevelCompletedView
 
-
+#Список с противниками
+All_enemies = [None,
+               [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()],
+               [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()] ]
+#All_enemies[1000]=[Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]
 
 def load_texture_pair(filename):
     """
@@ -63,6 +72,7 @@ def load_texture_pair(filename):
 
 class PlayerCharacter(arcade.Sprite):
     """ Player Sprite"""
+
     def __init__(self):
 
         # Set up parent class
@@ -76,75 +86,174 @@ class PlayerCharacter(arcade.Sprite):
         self.scale = CHARACTER_SCALING
 
         # Track our state
-        self.jumping = False
+        self.can_jump = False
         self.climbing = False
         self.is_on_ladder = False
         self.dashing = False
+        self.dashing_end = False
+        self.attack = False
+        self.hurt = False
+        self.dead = False
         # --- Load Textures ---
 
+        main_path = "images/Warrior/Individual Sprite/"
 
-        main_path = "images/player_2/player"
+        # Текстуры для стойки
+        self.idle_textures = []
+        for i in range(1, 7):
+            texture = load_texture_pair(f"{main_path}idle/Warrior_Idle_{i}.png")
+            self.idle_textures.append(texture)
 
-        # Load textures for idle standing
-        self.idle_texture_pair = load_texture_pair(f"{main_path}_idle.png")
-        self.jump_texture_pair = load_texture_pair(f"{main_path}_jump.png")
-        self.fall_texture_pair = load_texture_pair(f"{main_path}_jump.png")
+        # Текстуры для прыжка
+        self.jump_textures = []
+        for i in range(1, 4):
+            texture = load_texture_pair(f"{main_path}Jump/Warrior_Jump_{i}.png")
+            self.jump_textures.append(texture)
 
-        # Load textures for walking
-        self.walk_textures = []
-        for i in range(2):
-            texture = load_texture_pair(f"{main_path}_walk{i}.png")
-            self.walk_textures.append(texture)
+        # Текстуры перехода в верхней точке
+        self.up_to_fall_textures = []
+        for i in range(1, 3):
+            texture = load_texture_pair(f"{main_path}UptoFall/Warrior_UptoFall_{i}.png")
+            self.up_to_fall_textures.append(texture)
 
-        # Load textures for climbing
-        self.climbing_texture = arcade.load_texture(f"{main_path}_back.png")
+        # Текстуры падения
+        self.fall_textures = []
+        for i in range(1, 4):
+            texture = load_texture_pair(f"{main_path}Fall/Warrior_Fall_{i}.png")
+            self.fall_textures.append(texture)
+
+        # Текстуры бега
+        self.run_textures = []
+        for i in range(1, 9):
+            texture = load_texture_pair(f"{main_path}Run/Warrior_Run_{i}.png")
+            self.run_textures.append(texture)
+
+        # Текстуры для лестницы
+        self.ladder_grab_textures = []
+        for i in range(1, 9):
+            texture = arcade.load_texture(f"{main_path}Ladder-Grab/Warrior-Ladder-Grab_{i}.png")
+            self.ladder_grab_textures.append(texture)
+
+        # Текстуры дэша
+        self.dash_textures = []
+        for i in range(1, 8):
+            texture = load_texture_pair(f"{main_path}Dash/Warrior_Dash_{i}.png")
+            self.dash_textures.append(texture)
+
+        # Текстуры получения урона
+        self.hurt_textures = []
+        for i in range(1, 5):
+            texture = load_texture_pair(f"{main_path}Hurt-Effect/Warrior_hurt_{i}.png")
+            self.hurt_textures.append(texture)
+
+        # Текстуры смерти
+        self.death_textures = []
+        for i in range(1, 12):
+            texture = load_texture_pair(f"{main_path}Death-Effect/Warrior_Death_{i}.png")
+            self.death_textures.append(texture)
 
         # Set the initial texture
-        self.texture = self.idle_texture_pair[0]
+        self.texture = self.idle_textures[0][0]
 
         # Hit box will be set based on the first image used
         self.set_hit_box(self.texture.hit_box_points)
 
-    def update_animation(self, delta_time: float = 1/60):
+    def update_animation(self, delta_time: float = 1 / 60):
 
         # Figure out if we need to flip face left or right
         if self.change_x < 0 and self.character_face_direction == RIGHT_FACING:
             self.character_face_direction = LEFT_FACING
+            self.set_hit_box(self.idle_textures[0][1].hit_box_points)
         elif self.change_x > 0 and self.character_face_direction == LEFT_FACING:
             self.character_face_direction = RIGHT_FACING
+            self.set_hit_box(self.idle_textures[0][0].hit_box_points)
 
-        # Climbing animation
+        # Смэрть
+        if self.dead:
+            self.cur_texture += 1
+            if self.cur_texture > 32:
+                self.dead = False
+                return
+            self.texture = self.death_textures[self.cur_texture // 3][self.character_face_direction]
+            return
+
+        # Получение урона
+        if self.hurt:
+            self.cur_texture += 1
+            if self.cur_texture > 19:
+                self.hurt = False
+                return
+            self.texture = self.hurt_textures[self.cur_texture // 5][self.character_face_direction]
+            return
+
+        # Анимация на лестнице
         if self.is_on_ladder:
             self.climbing = True
         else:
             self.climbing = False
         if self.climbing:
-            self.texture = self.climbing_texture
+            if (abs(self.change_y) > 0 or abs(self.change_x) > 0):
+                self.cur_texture += 1
+                if self.cur_texture > 63:
+                    self.cur_texture = 0
+                self.texture = self.ladder_grab_textures[self.cur_texture // 8]
+                return
+
+
+        # Dash animation. перед падением, чтобы срабатывать раньше
+        if self.dashing:
+            self.cur_texture += 1
+            if self.cur_texture > 11:
+                self.cur_texture = 0
+            self.texture = self.dash_textures[self.cur_texture // 3][self.character_face_direction]
             return
 
         # Jumping animation
         if self.change_y > 0 and not self.is_on_ladder:
-            self.texture = self.jump_texture_pair[self.character_face_direction]
+            self.cur_texture += 1
+            if self.cur_texture > 20:
+                self.cur_texture = 0
+            self.texture = self.jump_textures[self.cur_texture // 7][self.character_face_direction]
             return
         elif self.change_y < 0 and not self.is_on_ladder:
-            self.texture = self.fall_texture_pair[self.character_face_direction]
+            self.cur_texture += 1
+            if self.cur_texture > 20:
+                self.cur_texture = 0
+            self.texture = self.fall_textures[self.cur_texture // 7][self.character_face_direction]
+            return
+        elif self.change_y == 0 and not self.can_jump and not self.is_on_ladder:
+            self.cur_texture += 1
+            if self.cur_texture > 9:
+                self.cur_texture = 0
+            self.texture = self.up_to_fall_textures[self.cur_texture // 5][self.character_face_direction]
+            return
+
+        # Окончание дэша
+        # Должно быть перед Idle и бегом, чтобы срабатывать раньше
+        if self.dashing_end:
+            self.cur_texture += 1
+            if self.cur_texture > 17:
+                self.cur_texture = 0
+                self.dashing_end = False
+                return
+            self.texture = self.dash_textures[4 + self.cur_texture // 6][self.character_face_direction]
             return
 
         # Idle animation
-        if self.change_x == 0:
-            self.texture = self.idle_texture_pair[self.character_face_direction]
+        if self.change_x == 0 and self.can_jump:
+            self.cur_texture += 1
+            if self.cur_texture > 41:
+                self.cur_texture = 0
+            self.texture = self.idle_textures[self.cur_texture // 7][self.character_face_direction]
             return
 
-        # Walking animation
-        if abs(self.change_x)>0 and not self.dashing:
+        # Анимация бега
+        if abs(self.change_x) > 0 and self.can_jump and not self.dashing:
             self.cur_texture += 1
-            if self.cur_texture > 13:
+            if self.cur_texture > 31:
                 self.cur_texture = 0
-            self.texture = self.walk_textures[self.cur_texture//7][self.character_face_direction]
-
-        #Dash animation
-        if self.dashing:
-            self.texture = self.jump_texture_pair[self.character_face_direction]
+            self.texture = self.run_textures[self.cur_texture // 4][self.character_face_direction]
+            return
 
 class GameView(arcade.View):
     """
@@ -162,13 +271,19 @@ class GameView(arcade.View):
         self.coin_list = None
         self.wall_list = None
         self.player_list = None
-        self.foreground_list = None
-        self.background_list = None
+        self.background=[]
+        for i in range(NBG):
+            list = None
+            self.background.append(list)
+        self.foreground=[]
+        for i in range(NFG):
+            list = None
+            self.foreground.append(list)
         self.dont_touch_list = None
         self.ladder_list = None
-        self.moving_traps_list = None
         self.enemy_list = None
         self.checkpoint_list = None
+        self.spawn_list = None
 
         # Separate variable that holds the player sprite
         self.player_sprite = None
@@ -197,7 +312,7 @@ class GameView(arcade.View):
 
         # Keep track of the score AND LIFES
         self.score = 0
-        self.max_lifes=3
+        self.max_lifes=999
         self.lifes = self.max_lifes
 
         # Level
@@ -225,11 +340,7 @@ class GameView(arcade.View):
         self.view_bottom = 0
         self.view_left = 0
 
-        # checkpoint data
-        self.current_checkpoint = None
-        self.checkpoint_x = PLAYER_START_X
-        self.checkpoint_y = PLAYER_START_Y
-        #self.not_immune = True
+
 
         # Track the current state of what key is pressed
         self.left_pressed = False
@@ -249,30 +360,16 @@ class GameView(arcade.View):
         self.golden_key_list = arcade.SpriteList(use_spatial_hash=True)
         self.exit_list = arcade.SpriteList(use_spatial_hash=True)
         self.checkpoint_list = arcade.SpriteList(use_spatial_hash=True)
-        self.moving_traps_list = arcade.SpriteList()
         self.enemy_list = arcade.SpriteList()
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList(use_spatial_hash=True)
         self.coin_list = arcade.SpriteList(use_spatial_hash=True)
-        self.foreground_list = arcade.SpriteList()
-        self.background_list = arcade.SpriteList()
+        for i in range(NBG):
+            self.background[i] = arcade.SpriteList()
+        for i in range(NFG):
+            self.foreground[i] = arcade.SpriteList()
+        self.spawn_list = arcade.SpriteList()
 
-        # Set up the player, specifically placing it at these coordinates.
-        self.player_sprite = PlayerCharacter()
-        self.player_sprite.center_x = PLAYER_START_X
-        self.player_sprite.center_y = PLAYER_START_Y
-        self.player_list.append(self.player_sprite)
-        self.player_face_right = True
-        self.player_face_left = False
-
-        # Set up the player, specifically placing it at these coordinates.
-        self.player_sprite_1 = PlayerCharacter()
-        self.player_sprite_1.center_x = PLAYER_START_X
-        self.player_sprite_1.center_y = PLAYER_START_Y
-        self.player_list.append(self.player_sprite_1)
-        self.player_face_right = True
-        self.player_face_left = False
-        #self.timing_of_death = time.time()
 
         # Dash info
         self.dash_start = 0
@@ -280,31 +377,6 @@ class GameView(arcade.View):
 
         # --- Load in a map from the tiled editor ---
 
-        # Name of the layer in the file that has our platforms/walls
-        platforms_layer_name = 'Platforms'
-        moving_platforms_layer_name = 'Moving platforms'
-        ladders_layer_name = 'Ladders'
-        # Name of the layer that has items for pick-up
-        coins_layer_name = 'Coins'
-        # Name of the layer that has items for foreground
-        foreground_layer_name = 'Foreground'
-        # Name of the layer that has items for background
-        background_layer_name = 'Background'
-        # Name of the layer that has items we shouldn't touch
-        dont_touch_layer_name = "Don't Touch"
-        # moving_traps
-        moving_traps_layer_name = 'Moving traps'
-
-        #Enemies
-        enemy_layer_name = 'Enemies'
-
-        # checkpoints
-        checkpoints_layer_name = 'Checkpoints'
-        # exit
-        exit_layer_name = 'Exit'
-        # keys and doors
-        golden_key_layer_name = 'Golden key'
-        golden_door_layer_name = 'Golden door'
         # Map name
         map_name = f"maps/map_level_{level}.tmx"
 
@@ -315,80 +387,107 @@ class GameView(arcade.View):
         except:
             self.window.show_view(MenuView())
             return
-        # -- Background
-        self.background_list = arcade.tilemap.process_layer(my_map,
-                                                            background_layer_name,
-                                                            TILE_SCALING)
+
+        # # -- Background
+
+        for i in range(NBG):
+            self.background[i] =arcade.tilemap.process_layer(my_map, f"Background {NBG-i}", TILE_SCALING)
+
         # exit
         self.exit_list = arcade.tilemap.process_layer(my_map,
-                                                      exit_layer_name,
+                                                      'Exit',
                                                       TILE_SCALING)
-        for sprite in self.exit_list:
-            self.background_list.append(sprite)
-        # moving_traps
-        self.moving_traps_list = arcade.tilemap.process_layer(my_map,
-                                                              moving_traps_layer_name,
-                                                              TILE_SCALING)
+
         #Enemies
-        self.enemy_list = arcade.tilemap.process_layer(my_map,
-                                                              enemy_layer_name,
+        #Враги как движущиеся ловушки
+        self.enemy_list=arcade.tilemap.process_layer(my_map,
+                                                              'Enemies',
                                                               TILE_SCALING)
+        # Нормальные враги
+        for i in range(NEN):
+            temporary_enemy_list = arcade.tilemap.process_layer(my_map,
+                                                              f"Enemy {i}", TILE_SCALING)
+
+            for enemy in temporary_enemy_list:
+                this_enemy = All_enemies[self.level][i]
+                this_enemy.center_x = enemy.center_x
+                this_enemy.bottom = enemy.bottom
+                self.enemy_list.append(this_enemy)
 
         # -- Ladder objects
         self.ladder_list = arcade.tilemap.process_layer(my_map,
-                                                        ladders_layer_name,
+                                                        'Ladders',
                                                         scaling=TILE_SCALING,
                                                         use_spatial_hash=True)
 
         # -- Foreground
-        self.foreground_list = arcade.tilemap.process_layer(my_map,
-                                                            foreground_layer_name,
-                                                            TILE_SCALING)
+        for i in range(NFG):
+            self.foreground[i] = arcade.tilemap.process_layer(my_map, f"Foreground {NFG - i}", TILE_SCALING)
 
         # -- Platforms
         self.wall_list = arcade.tilemap.process_layer(map_object=my_map,
-                                                      layer_name=platforms_layer_name,
+                                                      layer_name='Platforms',
                                                       scaling=TILE_SCALING,
                                                       use_spatial_hash=True)
         # -- Moving Platforms
-        moving_platforms_list = arcade.tilemap.process_layer(my_map, moving_platforms_layer_name, TILE_SCALING)
+        moving_platforms_list = arcade.tilemap.process_layer(my_map, 'Moving platforms', TILE_SCALING)
         for sprite in moving_platforms_list:
             self.wall_list.append(sprite)
         # checkpoints
-        self.checkpoint_list = arcade.tilemap.process_layer(my_map, checkpoints_layer_name, TILE_SCALING,
+        self.checkpoint_list = arcade.tilemap.process_layer(my_map, 'Checkpoints', TILE_SCALING,
                                                             use_spatial_hash=True)
-        for sprite in self.checkpoint_list:
-            self.background_list.append(sprite)
+
 
         # -- Coins
         self.coin_list = arcade.tilemap.process_layer(my_map,
-                                                      coins_layer_name,
+                                                      'Coins',
                                                       TILE_SCALING,
                                                       use_spatial_hash=True)
 
         # -- Don't Touch Layer
         self.dont_touch_list = arcade.tilemap.process_layer(my_map,
-                                                            dont_touch_layer_name,
+                                                            "Don't Touch",
                                                             TILE_SCALING,
                                                             use_spatial_hash=True)
 
         # doors and keys
         self.golden_key_list = arcade.tilemap.process_layer(my_map,
-                                                            golden_key_layer_name,
+                                                            'Golden key',
                                                             TILE_SCALING,
                                                             use_spatial_hash=True)
         self.golden_door_list = arcade.tilemap.process_layer(my_map,
-                                                             golden_door_layer_name,
+                                                             'Golden door',
                                                              TILE_SCALING,
                                                              use_spatial_hash=True)
 
+        #Спавн
+        self.spawn_list=arcade.tilemap.process_layer(my_map,
+                                                      'Spawn',
+                                                      TILE_SCALING)
+
         # --- Other stuff
+        #Края карты
+        self.map_top = (my_map.map_size.height) * GRID_PIXEL_SIZE
+        self.map_right = (my_map.map_size.width) * GRID_PIXEL_SIZE
+        self.map_left = 0
+        self.map_bottom = 0
         # Set the background color
         if my_map.background_color:
             arcade.set_background_color(my_map.background_color)
             self.background_color = my_map.background_color
         else:
             self.background_color = arcade.csscolor.PURPLE
+
+        # checkpoint data
+        self.current_checkpoint = None
+        self.checkpoint_x = self.spawn_list[0].center_x
+        self.checkpoint_y =self.spawn_list[0].bottom
+
+        # Set up the player, specifically placing it at spawn
+        self.player_sprite = PlayerCharacter()
+        self.player_sprite.center_x = self.spawn_list[0].center_x
+        self.player_sprite.bottom = self.spawn_list[0].bottom
+        self.player_list.append(self.player_sprite)
 
         # Create the 'physics engine'
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
@@ -403,18 +502,20 @@ class GameView(arcade.View):
         arcade.start_render()
 
         # Draw our sprites
+        for i in self.background:
+            i.draw()
+        self.checkpoint_list.draw()
+        self.wall_list.draw()
         self.golden_key_list.draw()
         self.golden_door_list.draw()
-        self.wall_list.draw()
-        self.moving_traps_list.draw()
-        self.enemy_list.draw()
-        self.background_list.draw()
-        self.wall_list.draw()
         self.coin_list.draw()
         self.dont_touch_list.draw()
-        self.player_list.draw()
-        self.foreground_list.draw()
+        self.enemy_list.draw()
+        self.exit_list.draw()
         self.ladder_list.draw()
+        self.player_list.draw()
+        for i in self.foreground:
+            i.draw()
 
         # Draw our score on the screen, scrolling it with the viewport
 
@@ -424,8 +525,7 @@ class GameView(arcade.View):
         arcade.draw_text(f'Level {self.level}', 20 + self.view_left, SCREEN_HEIGHT - 50 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
         #player_name
-        arcade.draw_text('Pasha +PLUS+', self.player_sprite.left - 32, self.player_sprite.top, arcade.csscolor.WHITE,
-                         18)
+        #arcade.draw_text('Pasha +PLUS+', self.player_sprite.left - 32, self.player_sprite.top, arcade.csscolor.WHITE, 18)
         arcade.draw_text(f"Lifes: {self.lifes}", 20 + self.view_left, SCREEN_HEIGHT - 70 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
         #keys
@@ -447,14 +547,14 @@ class GameView(arcade.View):
         # Process up/down
         if self.up_pressed and not self.down_pressed:
             if self.physics_engine.is_on_ladder():
-                self.player_sprite.change_y = PLAYER_MOVEMENT_SPEED
+                self.player_sprite.change_y = PLAYER_LADDER_MOVEMENT_SPEED
             elif self.physics_engine.can_jump() and not self.jump_needs_reset:
                 self.player_sprite.change_y = PLAYER_JUMP_SPEED
                 self.jump_needs_reset = True
                 arcade.play_sound(self.jump_sound)
         elif self.down_pressed and not self.up_pressed:
             if self.physics_engine.is_on_ladder():
-                self.player_sprite.change_y = -PLAYER_MOVEMENT_SPEED
+                self.player_sprite.change_y = -PLAYER_LADDER_MOVEMENT_SPEED
 
 
         # Process up/down when on a ladder and no movement
@@ -466,6 +566,8 @@ class GameView(arcade.View):
 
         # Process left/right
         if self.dash_pressed:
+            self.player_sprite.dashing = True
+            self.player_sprite.change_y = 0
             if self.player_sprite.character_face_direction == RIGHT_FACING:
                 self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED * DASH_BUFF
             elif self.player_sprite.character_face_direction == LEFT_FACING:
@@ -475,7 +577,6 @@ class GameView(arcade.View):
         elif self.right_pressed and not self.left_pressed:
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
         else:
-            self.dash_pressed = False
             self.player_sprite.change_x = 0
 
     def key_discard(self):#просто функция для сброса любого движения
@@ -499,7 +600,7 @@ class GameView(arcade.View):
             self.left_pressed = True
         elif key == arcade.key.D:
             self.right_pressed = True
-        if (key == arcade.key.L) and (time.time() - self.dash_start_time >= DASH_COOLDOWN):
+        if (key == arcade.key.LSHIFT) and (time.time() - self.dash_start_time >= DASH_COOLDOWN):
             arcade.play_sound(self.dash_sound)
             self.dash_start_time = time.time()
             self.dash_pressed = True
@@ -523,7 +624,8 @@ class GameView(arcade.View):
         """Called when the user releases a key. """
 
         if key == arcade.key.W or key == arcade.key.SPACE:
-            self.player_sprite.change_y = 0
+            if self.player_sprite.change_y>0:
+                self.player_sprite.change_y = 0
             self.jump_needs_reset = False
             self.up_pressed = False
         elif key == arcade.key.S:
@@ -534,100 +636,6 @@ class GameView(arcade.View):
             self.right_pressed = False
 
         self.process_keychange()
-
-        def process_keychange(self):
-            """
-            Called when we change a key up/down or we move on/off a ladder.
-            """
-            # Process up/down
-            if self.up_pressed and not self.down_pressed:
-                if self.physics_engine.is_on_ladder():
-                    self.player_sprite_1.change_y = PLAYER_MOVEMENT_SPEED
-                elif self.physics_engine.can_jump() and not self.jump_needs_reset:
-                    self.player_sprite_1.change_y = PLAYER_JUMP_SPEED
-                    self.jump_needs_reset = True
-                    arcade.play_sound(self.jump_sound)
-            elif self.down_pressed and not self.up_pressed:
-                if self.physics_engine.is_on_ladder():
-                    self.player_sprite_1.change_y = -PLAYER_MOVEMENT_SPEED
-
-            # Process up/down when on a ladder and no movement
-            if self.physics_engine.is_on_ladder():
-                if not self.up_pressed and not self.down_pressed:
-                    self.player_sprite_1.change_y = 0
-                elif self.up_pressed and self.down_pressed:
-                    self.player_sprite_1.change_y = 0
-
-            # Process left/right
-            if self.dash_pressed:
-                if self.player_sprite_1.character_face_direction == RIGHT_FACING:
-                    self.player_sprite_1.change_x = PLAYER_MOVEMENT_SPEED * DASH_BUFF
-                elif self.player_sprite_1.character_face_direction == LEFT_FACING:
-                    self.player_sprite_1.change_x = -PLAYER_MOVEMENT_SPEED * DASH_BUFF
-            elif self.left_pressed and not self.right_pressed:
-                self.player_sprite_1.change_x = -PLAYER_MOVEMENT_SPEED
-            elif self.right_pressed and not self.left_pressed:
-                self.player_sprite_1.change_x = PLAYER_MOVEMENT_SPEED
-            else:
-                self.dash_pressed = False
-                self.player_sprite_1.change_x = 0
-
-        def key_discard(self):  # просто функция для сброса любого движения
-            self.left_pressed = False
-            self.right_pressed = False
-            self.up_pressed = False
-            self.down_pressed = False
-            self.jump_needs_reset = False
-            self.dash_pressed = False
-            self.player_sprite_1.change_y = 0
-            self.process_keychange()
-
-        def on_key_press(self, key, modifiers):
-            """Called whenever a key is pressed. """
-
-            if key == arcade.key.W or key == arcade.key.SPACE:
-                self.up_pressed = True
-            elif key == arcade.key.S:
-                self.down_pressed = True
-            elif key == arcade.key.A:
-                self.left_pressed = True
-            elif key == arcade.key.D:
-                self.right_pressed = True
-            if (key == arcade.key.L) and (time.time() - self.dash_start_time >= DASH_COOLDOWN):
-                arcade.play_sound(self.dash_sound)
-                self.dash_start_time = time.time()
-                self.dash_pressed = True
-                self.dash_start = self.player_sprite_1.center_x
-
-            self.process_keychange()
-
-            if key == arcade.key.ESCAPE:
-                gpause = PauseView(self, self.background_color)
-                self.window.show_view(gpause)
-            # if key == arcade.key.F:
-            # User hits f. Flip between full and not full screen.
-            #    self.window.set_fullscreen(not self.window.fullscreen)
-
-            # Get the window coordinates. Match viewport to window coordinates
-            # so there is a one-to-one mapping.
-            #    width, height = self.window.get_size()
-            #    arcade.set_viewport(0, width, 0, height)
-
-        def on_key_release(self, key, modifiers):
-            """Called when the user releases a key. """
-
-            if key == arcade.key.UP:
-                self.player_sprite_1.change_y = 0
-                self.jump_needs_reset = False
-                self.up_pressed = False
-            elif key == arcade.key.S:
-                self.down_pressed = False
-            elif key == arcade.key.A:
-                self.left_pressed = False
-            elif key == arcade.key.D:
-                self.right_pressed = False
-
-            self.process_keychange()
 
     def on_update(self, delta_time):
         def death():
@@ -649,17 +657,31 @@ class GameView(arcade.View):
 
         """ Movement and game logic """
         # Dashing
-        if abs(self.player_sprite.center_x - self.dash_start) > DASH_DISTANCE or self.player_sprite.change_x == 0:
+        if (abs(self.player_sprite.center_x - self.dash_start)> DASH_DISTANCE
+            or (time.time() - self.dash_start_time > DASH_DISTANCE/(60*PLAYER_MOVEMENT_SPEED * DASH_BUFF)))\
+                and self.dash_pressed:
+            if self.physics_engine.can_jump():
+                self.player_sprite.dashing_end = True
             self.dash_pressed = False
             self.process_keychange()
+
+        #Уперся ли персонаж в край карты?
+        if self.player_sprite.left<self.map_left:
+            self.player_sprite.left = self.map_left
+        elif self.player_sprite.right>self.map_right:
+            self.player_sprite.right = self.map_right
+        elif self.player_sprite.top>self.map_top:
+            self.player_sprite.top = self.map_top
+        # elif self.player_sprite.bottom<self.map_bottom:
+        #     self.player_sprite.bottom=self.map_bottom
         # Move the player with the physics engine
         self.physics_engine.update()
 
         # Update animations
         if self.physics_engine.can_jump():
-            self.player_sprite.can_jump = False
-        else:
             self.player_sprite.can_jump = True
+        else:
+            self.player_sprite.can_jump = False
 
         if self.physics_engine.is_on_ladder() and not self.physics_engine.can_jump():
             self.player_sprite.is_on_ladder = True
@@ -673,22 +695,33 @@ class GameView(arcade.View):
         else:
             self.player_sprite.dashing = False
 
+        self.background[NBG-1].update_animation(delta_time)
+        #self.background[NBG - 2].update_animation(delta_time)
+        self.foreground[NFG - 1].update_animation(delta_time)
+        self.coin_list.update_animation(delta_time)
+        self.enemy_list.update_animation(delta_time)
         self.player_list.update_animation(delta_time)
+
 
         # Update walls, used with moving platforms
         self.wall_list.update()
         # update enemies
-        self.moving_traps_list.update()
         self.enemy_list.update()
 
-        # Check each moving trap
-        for enemy in self.moving_traps_list:
-            # If the trap hits a wall, reverse
-            if arcade.check_for_collision_with_list(enemy, self.wall_list):
-                enemy.change_x *= -1
-                enemy.change_y *= -1
+        # Check each enemy trap
+        for enemy in self.enemy_list:
+            # If the enemy hits a wall, reverse
+            for wall in arcade.check_for_collision_with_list(enemy, self.wall_list):
+                if wall.collides_with_point([enemy.right,enemy.center_y]) and enemy.change_x > 0:
+                    enemy.change_x *= -1
+                elif wall.collides_with_point([enemy.left,enemy.center_y]) and enemy.change_x < 0:
+                    enemy.change_x *= -1
+                elif wall.collides_with_point([enemy.center_x,enemy.top]) and enemy.change_y > 0:
+                    enemy.change_y *= -1
+                elif wall.collides_with_point([enemy.center_x,enemy.bottom]) and enemy.change_y < 0:
+                    enemy.change_y *= -1
             # If the enemy hit the left boundary, reverse
-            elif enemy.boundary_left and enemy.left < enemy.boundary_left and enemy.change_x < 0:
+            if enemy.boundary_left and enemy.left < enemy.boundary_left and enemy.change_x < 0:
                 enemy.change_x *= -1
             # If the trap hit the right boundary, reverse
             elif enemy.boundary_right and enemy.right > enemy.boundary_right and enemy.change_x > 0:
@@ -698,27 +731,10 @@ class GameView(arcade.View):
             elif enemy.boundary_bottom and enemy.bottom < enemy.boundary_bottom and enemy.change_y < 0:
                 enemy.change_y *= -1
 
-        # Check each enemy
-        for enemy in self.enemy_list:
-            # If the enemy hits a wall, reverse
-            if arcade.check_for_collision_with_list(enemy, self.wall_list):
-                enemy.change_x *= -1
-                enemy.change_y *= -1
-            # If the enemy hit the left boundary, reverse
-            elif enemy.boundary_left and enemy.left < enemy.boundary_left and enemy.change_x < 0:
-                enemy.change_x *= -1
-            # If the enemy hit the right boundary, reverse
-            elif enemy.boundary_right and enemy.right > enemy.boundary_right and enemy.change_x > 0:
-                enemy.change_x *= -1
-            elif enemy.boundary_top and enemy.top > enemy.boundary_top and enemy.change_y > 0:
-                enemy.change_y *= -1
-            elif enemy.boundary_bottom and enemy.bottom < enemy.boundary_bottom and enemy.change_y < 0:
-                enemy.change_y *= -1
 
 
         # See if the wall hit a boundary and needs to reverse direction.
         for wall in self.wall_list:
-
             if wall.boundary_right and wall.right > wall.boundary_right and wall.change_x > 0:
                 wall.change_x *= -1
             if wall.boundary_left and wall.left < wall.boundary_left and wall.change_x < 0:
@@ -729,11 +745,9 @@ class GameView(arcade.View):
                 wall.change_y *= -1
 
         # See if we hit any coins
-        coin_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
-                                                             self.coin_list)
-
         # Loop through each coin we hit (if any) and remove it
-        for coin in coin_hit_list:
+        for coin in arcade.check_for_collision_with_list(self.player_sprite,
+                                                             self.coin_list):
             # Remove the coin
             coin.remove_from_sprite_lists()
             # Play a sound
@@ -769,9 +783,6 @@ class GameView(arcade.View):
                 self.has_golden_key = False
                 # Remove the door
                 door.remove_from_sprite_lists()
-                self.foreground_list.append(door)
-                # Play a sound
-                # arcade.play_sound(self.collect_coin_sound)
             else:
                 if self.player_sprite.change_x<0 and self.player_sprite.left < door.right:
                     self.player_sprite.left=door.right
@@ -787,9 +798,6 @@ class GameView(arcade.View):
         # Track if we need to change the viewport
         changed_viewport = False
 
-        # See if the player hit an trap. If so, game over.
-        if arcade.check_for_collision_with_list(self.player_sprite, self.moving_traps_list):
-            death()
         # See if the player hit an enemy. If so, game over.
         if arcade.check_for_collision_with_list(self.player_sprite, self.enemy_list):
             death()
@@ -825,27 +833,35 @@ class GameView(arcade.View):
 
         # Scroll left
         left_boundary = self.view_left + LEFT_VIEWPORT_MARGIN
-        if self.player_sprite.left < left_boundary:
+        if self.player_sprite.left < left_boundary and self.view_left>self.map_left :
             self.view_left -= left_boundary - self.player_sprite.left
             changed_viewport = True
+        elif self.view_left < self.map_left:
+            self.view_left = self.map_left
 
         # Scroll right
         right_boundary = self.view_left + SCREEN_WIDTH - RIGHT_VIEWPORT_MARGIN
-        if self.player_sprite.right > right_boundary:
+        if self.player_sprite.right > right_boundary and self.view_left + SCREEN_WIDTH < self.map_right:
             self.view_left += self.player_sprite.right - right_boundary
             changed_viewport = True
+        elif self.view_left + SCREEN_WIDTH > self.map_right:
+            self.view_left = self.map_right - SCREEN_WIDTH
 
         # Scroll up
         top_boundary = self.view_bottom + SCREEN_HEIGHT - TOP_VIEWPORT_MARGIN
-        if self.player_sprite.top > top_boundary:
+        if self.player_sprite.top > top_boundary and self.view_bottom + SCREEN_HEIGHT < self.map_top:
             self.view_bottom += self.player_sprite.top - top_boundary
             changed_viewport = True
+        elif self.view_bottom + SCREEN_HEIGHT > self.map_top:
+            self.view_bottom = self.map_top - SCREEN_HEIGHT
 
         # Scroll down
         bottom_boundary = self.view_bottom + BOTTOM_VIEWPORT_MARGIN
-        if self.player_sprite.bottom < bottom_boundary:
+        if self.player_sprite.bottom < bottom_boundary and self.view_bottom > self.map_bottom:
             self.view_bottom -= bottom_boundary - self.player_sprite.bottom
             changed_viewport = True
+        elif self.view_bottom < self.map_bottom:
+            self.view_bottom = self.map_bottom
 
         if changed_viewport:
             # Only scroll to integers. Otherwise we end up with pixels that

@@ -36,7 +36,8 @@ PLAYER_START_Y = 64  # bottom of the player
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 16
 DASH_BUFF = 5
-DASH_DISTANCE = SPRITE_PIXEL_SIZE*TILE_SCALING*6 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
+DASH_DISTANCE = GRID_PIXEL_SIZE*6 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
+SLIDE_DISTANCE = GRID_PIXEL_SIZE*4
 DASH_COOLDOWN = 0.6
 IMMUNITY_TIME = 0.1
 
@@ -55,7 +56,9 @@ GameWindow = nonmain.GameWindow
 LevelCompletedView = nonmain.LevelCompletedView
 
 #Список с противниками
-All_enemies = [[Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()], [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()],[Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()] ]
+All_enemies = [None,
+               [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()],
+               [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()] ]
 #All_enemies[1000]=[Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]
 
 def load_texture_pair(filename):
@@ -89,7 +92,8 @@ class PlayerCharacter(arcade.Sprite):
         self.is_on_ladder = False
         self.dashing = False
         self.dashing_end = False
-        self.attack = False
+        self.sliding = False
+        self.sliding_end = False
         self.hurt = False
         self.dead = False
         # --- Load Textures ---
@@ -137,6 +141,12 @@ class PlayerCharacter(arcade.Sprite):
         for i in range(1, 8):
             texture = load_texture_pair(f"{main_path}Dash/Warrior_Dash_{i}.png")
             self.dash_textures.append(texture)
+
+        # Текстуры слайда
+        self.slide_textures = []
+        for i in range(1, 6):
+            texture = load_texture_pair(f"{main_path}Slide/Warrior-Slide_{i}.png")
+            self.slide_textures.append(texture)
 
         # Текстуры получения урона
         self.hurt_textures = []
@@ -206,6 +216,12 @@ class PlayerCharacter(arcade.Sprite):
             self.texture = self.dash_textures[self.cur_texture // 3][self.character_face_direction]
             return
 
+        # Slide animation
+        if self.sliding:
+            self.texture = self.slide_textures[0][self.character_face_direction]
+            self.set_hit_box(self.texture.hit_box_points)
+            return
+
         # Jumping animation
         if self.change_y > 0 and not self.is_on_ladder:
             self.cur_texture += 1
@@ -237,6 +253,19 @@ class PlayerCharacter(arcade.Sprite):
             self.texture = self.dash_textures[4 + self.cur_texture // 6][self.character_face_direction]
             return
 
+        # Окончание слайда
+        # Должно быть перед Idle и бегом, чтобы срабатывать раньше
+        if self.sliding_end:
+            self.cur_texture += 1
+            if self.cur_texture > 23:
+                self.cur_texture = 0
+                self.sliding_end = False
+                self.set_hit_box(self.idle_textures[0][self.character_face_direction].hit_box_points)
+                return
+            self.texture = self.slide_textures[1 + self.cur_texture // 6][self.character_face_direction]
+            return
+
+
         # Idle animation
         if self.change_x == 0 and self.can_jump:
             self.cur_texture += 1
@@ -246,7 +275,7 @@ class PlayerCharacter(arcade.Sprite):
             return
 
         # Анимация бега
-        if abs(self.change_x) > 0 and self.can_jump and not self.dashing:
+        if abs(self.change_x) > 0 and self.can_jump and not self.dashing and not self.sliding:
             self.cur_texture += 1
             if self.cur_texture > 31:
                 self.cur_texture = 0
@@ -292,6 +321,10 @@ class GameView(arcade.View):
         self.dash_start = 0
         self.dash_start_time = 0
 
+        # Slide info
+        self.slide_start = 0
+        self.slide_start_time = 0
+
         # Our physics engine
         self.physics_engine = None
 
@@ -314,7 +347,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 0
+        self.level = 1
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -351,7 +384,6 @@ class GameView(arcade.View):
 
         # Keep track of the score
         self.score = 0
-        self.lifes = self.max_lifes
 
         # Create the Sprite lists
         self.golden_door_list = arcade.SpriteList(use_spatial_hash=True)
@@ -372,6 +404,10 @@ class GameView(arcade.View):
         # Dash info
         self.dash_start = 0
         self.dash_start_time = 0
+
+        # Slide info
+        self.slide_start = 0
+        self.slide_start_time = 0
 
         # --- Load in a map from the tiled editor ---
 
@@ -570,9 +606,17 @@ class GameView(arcade.View):
                 self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED * DASH_BUFF
             elif self.player_sprite.character_face_direction == LEFT_FACING:
                 self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED * DASH_BUFF
-        elif self.left_pressed and not self.right_pressed:
-                self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
-        elif self.right_pressed and not self.left_pressed:
+        elif self.left_pressed and not self.right_pressed and not self.player_sprite.sliding_end:
+            if self.down_pressed and not self.player_sprite.sliding and self.physics_engine.can_jump():
+                self.slide_start_time = time.time()
+                self.slide_start = self.player_sprite.center_x
+                self.player_sprite.sliding = True
+            self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+        elif self.right_pressed and not self.left_pressed and not self.player_sprite.sliding_end:
+            if self.down_pressed and not self.player_sprite.sliding and self.physics_engine.can_jump():
+                self.slide_start_time = time.time()
+                self.slide_start = self.player_sprite.center_x
+                self.player_sprite.sliding = True
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
         else:
             self.player_sprite.change_x = 0
@@ -598,7 +642,8 @@ class GameView(arcade.View):
             self.left_pressed = True
         elif key == arcade.key.D:
             self.right_pressed = True
-        if (key == arcade.key.LSHIFT) and (time.time() - self.dash_start_time >= DASH_COOLDOWN):
+        if (key == arcade.key.LSHIFT) and (time.time() - self.dash_start_time >= DASH_COOLDOWN) and (not self.player_sprite.sliding
+                or self.player_sprite.sliding_end):
             arcade.play_sound(self.dash_sound)
             self.dash_start_time = time.time()
             self.dash_pressed = True
@@ -660,8 +705,19 @@ class GameView(arcade.View):
                 and self.dash_pressed:
             if self.physics_engine.can_jump():
                 self.player_sprite.dashing_end = True
+                self.player_sprite.cur_texture = 0
             self.dash_pressed = False
             self.process_keychange()
+
+        # Sliding
+        if (abs(self.player_sprite.center_x - self.slide_start)> SLIDE_DISTANCE
+            or (time.time() - self.slide_start_time > SLIDE_DISTANCE/(60*PLAYER_MOVEMENT_SPEED)))\
+                and self.player_sprite.sliding:
+            self.player_sprite.cur_texture = 0
+            self.player_sprite.sliding_end = True
+            self.player_sprite.sliding = False
+            self.process_keychange()
+
 
         #Уперся ли персонаж в край карты?
         if self.player_sprite.left<self.map_left:
@@ -759,7 +815,6 @@ class GameView(arcade.View):
             if self.current_checkpoint != save:
                 arcade.play_sound(self.checkpoint_sound)
                 self.current_checkpoint = save
-                self.lifes = self.max_lifes #Чекпоинт восполняет жизни
                 self.checkpoint_x = save.center_x
                 self.checkpoint_y = save.bottom
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="200" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="28" nextobjectid="1">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="200" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="30" nextobjectid="2">
  <tileset firstgid="1" source="../images/Environment/Cemetery/Mist.tsx"/>
  <tileset firstgid="31" name="main_lev_build" tilewidth="16" tileheight="16" tilecount="4096" columns="64">
   <image source="../images/Environment/RockyWorld_v1.1/01. Rocky Level/main_lev_build.png" width="1024" height="1024"/>
@@ -69,31 +69,29 @@
    eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
   </data>
  </layer>
- <layer id="26" name="Enemy 0" width="200" height="100">
-  <data encoding="base64" compression="zlib">
-   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
-  </data>
- </layer>
- <layer id="27" name="Enemy 1" width="200" height="100">
-  <data encoding="base64" compression="zlib">
-   eJztzkENAAAIBKCzf10D2MHN+YEEJAAAAAAAAAAAAAAAAAAAAAAAAAAAADtd3wMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4NHXQA9g==
-  </data>
- </layer>
  <layer id="23" name="Spawn" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJztzgENAAAIA6Bb1v4RjOF0kIAEAAAAAAAAAAAAAAAAAAAAAAAAAAC4rmt7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADARwMDmgBo
+   eJztzgENAAAIA6Dbv6gxjOF0kIAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAfuraHgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAbQMJ7QDq
   </data>
  </layer>
+ <objectgroup id="28" name="Enemy 1">
+  <object id="1" gid="358" x="528" y="464" width="16" height="16">
+   <properties>
+    <property name="boundary_left" type="float" value="696"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="29" name="Enemy 0"/>
  <objectgroup id="2" name="Enemies"/>
  <objectgroup id="12" name="Moving platforms"/>
  <layer id="1" name="Platforms" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt07ENACAMA0GyLPsXGYAJUiEEQXeSS5c/BgAAAAAAAAAAAAAAAAAAAAAAAPwl484XOtAH1PQBNX1ATR90NeP8cnMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAGxbWIyLy
+   eJzt2rEJwDAMBEAnu8b7Fx4gZADhQgmWyR18aVDzILBaAwAAAAAAAAC+0o/VE0Bd+gGx61w9AQAVPftTNgAAAAAAAADwJyPxV555CzvQD4jpB8T0A2L6wa7euFOfZSQDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1HADexIq/g==
   </data>
  </layer>
  <layer id="4" name="Ladders" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
+   eJzt0zENACAAwDAwi38JHJxkCCBtMgkbAwAAAACAX615Am7+gOYPaP6A5g9o/oDmD2j+gOYPaP6A5g9o/oDmD2j+gOYPaP6A5g9o/oDmD2j+gOYPaP4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgLcNuTkRtQ==
   </data>
  </layer>
  <layer id="25" name="Foreground 3" width="200" height="100">

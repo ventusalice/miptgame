@@ -178,6 +178,8 @@ class PlayerCharacter(arcade.Sprite):
 
         # Смэрть
         if self.dead:
+            self.change_x = 0
+            self.change_y = 0
             self.cur_texture += 1
             if self.cur_texture > 32:
                 self.dead = False
@@ -187,6 +189,7 @@ class PlayerCharacter(arcade.Sprite):
 
         # Получение урона
         if self.hurt:
+            self.change_x=0
             self.cur_texture += 1
             if self.cur_texture > 19:
                 self.hurt = False
@@ -355,7 +358,7 @@ class GameView(arcade.View):
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
         self.jump_sound = arcade.load_sound("sounds/jump2.wav")
-        self.game_over_sound = arcade.load_sound("sounds/gameover1.wav")
+        self.hurt_sound = arcade.load_sound("sounds/hit2.wav")
         self.dash_sound = arcade.load_sound("sounds/dash_1.mp3")
         self.death_sound = arcade.load_sound("sounds/death_1.mp3")
         self.error_sound = arcade.load_sound("sounds/error2.wav")
@@ -453,6 +456,18 @@ class GameView(arcade.View):
                 this_enemy = All_enemies[self.level][i]
                 this_enemy.center_x = enemy.center_x
                 this_enemy.bottom = enemy.bottom
+                if enemy.boundary_right:
+                    this_enemy.boundary_right=enemy.boundary_right
+                if enemy.boundary_left:
+                    this_enemy.boundary_left = enemy.boundary_left
+                if enemy.boundary_top:
+                    this_enemy.boundary_top = enemy.boundary_top
+                if enemy.boundary_bottom:
+                    this_enemy.boundary_bottom = enemy.boundary_bottom
+                if enemy.change_x:
+                    this_enemy.change_x = enemy.change_x
+                if enemy.change_y:
+                    this_enemy.change_y = enemy.change_y
                 self.enemy_list.append(this_enemy)
 
         # -- Ladder objects
@@ -714,6 +729,7 @@ class GameView(arcade.View):
                 self.player_sprite.cur_texture = 0
                 self.lifes -= 1
                 self.time_of_being_hurted=time.time()
+                arcade.play_sound(self.hurt_sound)
                 if self.player_sprite.center_x - enemy.center_x>0:
                     self.player_sprite.character_face_direction = LEFT_FACING
                     #self.player_sprite.center_x += GRID_PIXEL_SIZE
@@ -796,7 +812,7 @@ class GameView(arcade.View):
         # update enemies
         self.enemy_list.update()
 
-        # Check each enemy trap
+        # Check each enemy
         for enemy in self.enemy_list:
             # If the enemy hits a wall, reverse
             for wall in arcade.check_for_collision_with_list(enemy, self.wall_list):

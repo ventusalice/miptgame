@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="200" height="70" tilewidth="16" tileheight="16" infinite="0" nextlayerid="28" nextobjectid="2">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="200" height="70" tilewidth="16" tileheight="16" infinite="0" nextlayerid="29" nextobjectid="2">
  <tileset firstgid="1" name="country village tileset" tilewidth="16" tileheight="16" tilecount="330" columns="30">
   <image source="../images/Environment/Country-village_asset_pack/1_Tileset &amp; props/country village tileset.png" width="480" height="176"/>
  </tileset>
@@ -69,6 +69,7 @@
   <image source="../images/Environment/Prison/Assets/New tiles.png" width="576" height="400"/>
  </tileset>
  <tileset firstgid="5383" source="../images/Environment/Kauzz Forest Tiles/Bat.tsx"/>
+ <tileset firstgid="5450" source="../images/Animated Tiles/Heart.tsx"/>
  <layer id="22" name="Background 7" width="200" height="70">
   <data encoding="base64" compression="zlib">
    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
@@ -112,6 +113,11 @@
  <layer id="5" name="Coins" width="200" height="70">
   <data encoding="base64" compression="zlib">
    eJzt3LEJAAAIAzB3/7/Nd8QXHHRJLuhYKDQCAAAAAAAAAAAAAAAAAG5UficAAAAAAAAAAAAAAAAAAAAAANjxnwIAAAAAAAC/bHYAwDX9AwAAAAAAAAAAAAAAAACA0fWBA4k=
+  </data>
+ </layer>
+ <layer id="28" name="Hearts" width="200" height="70">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1rCKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4A9rAAAE=
   </data>
  </layer>
  <layer id="6" name="Don't Touch" width="200" height="70">

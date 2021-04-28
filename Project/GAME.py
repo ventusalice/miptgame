@@ -296,6 +296,7 @@ class GameView(arcade.View):
         self.golden_key_list = None
         self.exit_list = None
         self.coin_list = None
+        self.heart_list = None
         self.wall_list = None
         self.player_list = None
         self.background=[]
@@ -347,7 +348,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 1
+        self.level = 0
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -394,6 +395,7 @@ class GameView(arcade.View):
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList(use_spatial_hash=True)
         self.coin_list = arcade.SpriteList(use_spatial_hash=True)
+        self.heart_list = arcade.SpriteList(use_spatial_hash=True)
         for i in range(NBG):
             self.background[i] = arcade.SpriteList()
         for i in range(NFG):
@@ -477,6 +479,11 @@ class GameView(arcade.View):
                                                       'Coins',
                                                       TILE_SCALING,
                                                       use_spatial_hash=True)
+        # -- Hearts
+        self.heart_list = arcade.tilemap.process_layer(my_map,
+                                                      'Hearts',
+                                                      TILE_SCALING,
+                                                      use_spatial_hash=True)
 
         # -- Don't Touch Layer
         self.dont_touch_list = arcade.tilemap.process_layer(my_map,
@@ -543,6 +550,7 @@ class GameView(arcade.View):
         self.golden_key_list.draw()
         self.golden_door_list.draw()
         self.coin_list.draw()
+        self.heart_list.draw()
         self.dont_touch_list.draw()
         self.enemy_list.draw()
         self.exit_list.draw()
@@ -753,6 +761,8 @@ class GameView(arcade.View):
         #self.background[NBG - 2].update_animation(delta_time)
         self.foreground[NFG - 1].update_animation(delta_time)
         self.coin_list.update_animation(delta_time)
+        self.dont_touch_list.update_animation(delta_time)
+        self.heart_list.update_animation(delta_time)
         self.enemy_list.update_animation(delta_time)
         self.player_list.update_animation(delta_time)
 
@@ -809,6 +819,16 @@ class GameView(arcade.View):
             # Add one to the score
             self.score += 10
 
+        # See if we hit any hearts
+        # Loop through each heart we hit (if any) and remove it
+        for heart in arcade.check_for_collision_with_list(self.player_sprite,
+                                                             self.heart_list):
+            # Remove the heart
+            heart.remove_from_sprite_lists()
+            # Play a sound
+            arcade.play_sound(self.collect_coin_sound)
+            # Add one to the score
+            self.lifes += 1
         # checkpoints
         for save in arcade.check_for_collision_with_list(self.player_sprite,
                                                          self.checkpoint_list):
@@ -819,7 +839,7 @@ class GameView(arcade.View):
                 self.checkpoint_y = save.bottom
 
         # See if we hit any keys
-        # Loop through each coin we hit (if any) and remove it
+        # Loop through each key we hit (if any) and remove it
         for key in arcade.check_for_collision_with_list(self.player_sprite,
                                                         self.golden_key_list):
             # Remove the key

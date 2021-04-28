@@ -39,7 +39,7 @@ DASH_BUFF = 5
 DASH_DISTANCE = GRID_PIXEL_SIZE*6 #ЦИФЕРКА - КОЛВО БЛОКОВ НА ДАШ
 SLIDE_DISTANCE = GRID_PIXEL_SIZE*4
 DASH_COOLDOWN = 0.6
-IMMUNITY_TIME = 0.1
+IMMUNITY_TIME = 1
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
@@ -317,7 +317,9 @@ class GameView(arcade.View):
         self.player_sprite = None
         self.player_face_right = True
         self.player_face_right = False
+
         #self.timing_of_death = time.time()
+
         #Dash info
         self.dash_start = 0
         self.dash_start_time = 0
@@ -344,11 +346,11 @@ class GameView(arcade.View):
 
         # Keep track of the score AND LIFES
         self.score = 0
-        self.max_lifes=999
+        self.max_lifes=3
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 0
+        self.level = 1
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -410,6 +412,9 @@ class GameView(arcade.View):
         # Slide info
         self.slide_start = 0
         self.slide_start_time = 0
+
+        #Knockback
+        self.time_of_being_hurted = 0
 
         # --- Load in a map from the tiled editor ---
 
@@ -690,21 +695,40 @@ class GameView(arcade.View):
 
     def on_update(self, delta_time):
         def death():
-            if self.lifes>1:
-                arcade.play_sound(self.death_sound)
-                self.lifes -= 1
-            else:
-                arcade.play_sound(self.game_over_sound)
-                over_view = GameOverView(self, self.background_color)
-                self.window.show_view(over_view)
+            self.player_sprite.dead = True
+            self.player_sprite.cur_texture = 0
+            arcade.play_sound(self.death_sound)
             self.player_sprite.center_x = self.checkpoint_x
             self.player_sprite.bottom = self.checkpoint_y
-
+            self.lifes = self.max_lifes
             self.key_discard()
 
             # Set the camera to the start
             self.view_left = 0
             self.view_bottom = 0
+            # over_view = GameOverView(self, self.background_color)
+            # self.window.show_view(over_view)
+        def hurt(enemy):
+            if self.lifes>1:
+                self.player_sprite.hurt = True
+                self.player_sprite.cur_texture = 0
+                self.lifes -= 1
+                self.time_of_being_hurted=time.time()
+                if self.player_sprite.center_x - enemy.center_x>0:
+                    self.player_sprite.character_face_direction = LEFT_FACING
+                    #self.player_sprite.center_x += GRID_PIXEL_SIZE
+                elif self.player_sprite.center_x - enemy.center_x<0:
+                    self.player_sprite.character_face_direction = RIGHT_FACING
+                    #self.player_sprite.center_x -= GRID_PIXEL_SIZE
+                # if self.player_sprite.center_y - enemy.center_y>0:
+                #     self.player_sprite.center_y += GRID_PIXEL_SIZE
+                # elif self.player_sprite.center_y - enemy.center_y<0:
+                #     self.player_sprite.center_y -= GRID_PIXEL_SIZE
+
+            else:
+                death()
+
+
 
         """ Movement and game logic """
         # Dashing
@@ -871,16 +895,19 @@ class GameView(arcade.View):
         # Track if we need to change the viewport
         changed_viewport = False
 
-        # See if the player hit an enemy. If so, game over.
-        if arcade.check_for_collision_with_list(self.player_sprite, self.enemy_list):
-            death()
+        if time.time()-self.time_of_being_hurted>IMMUNITY_TIME:
+            # See if the player hit an enemy.
+            if arcade.check_for_collision_with_list(self.player_sprite, self.enemy_list):
+                hurt(arcade.check_for_collision_with_list(self.player_sprite, self.enemy_list)[0])
+
+
+            # Did the player touch something they should not?
+            if arcade.check_for_collision_with_list(self.player_sprite,
+                                                    self.dont_touch_list):
+                hurt(arcade.check_for_collision_with_list(self.player_sprite, self.dont_touch_list)[0])
+
         # Did the player fall off the map?
         if self.player_sprite.center_y < -100:
-            death()
-
-        # Did the player touch something they should not?
-        if arcade.check_for_collision_with_list(self.player_sprite,
-                                                self.dont_touch_list):
             death()
 
         # See if the user got to the end of the level

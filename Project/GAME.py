@@ -360,7 +360,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 12
+        self.level = 0
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")

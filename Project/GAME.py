@@ -55,11 +55,18 @@ MenuView = nonmain.MenuView
 GameWindow = nonmain.GameWindow
 LevelCompletedView = nonmain.LevelCompletedView
 
-#Список с противниками
-All_enemies = [None,
-               [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()],
-               [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()] ]
+#Список с противниками для основной игры
+# All_enemies = [None,
+#                [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()],
+#                [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()] ]
 #All_enemies[1000]=[Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]
+#Список с противниками для обучения
+All_enemies = [None, None, None, None, None, None, None, None, None,
+               [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
+               [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
+               [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
+               [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]]
+
 
 def load_texture_pair(filename):
     """
@@ -353,7 +360,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 1
+        self.level = 12
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -422,7 +429,7 @@ class GameView(arcade.View):
         # --- Load in a map from the tiled editor ---
 
         # Map name
-        map_name = f"maps/map_level_{level}.tmx"
+        map_name = f"maps/neuron/map_level_{level}.tmx" #убрать neuron для нормальных карт
         
             
         # Read in the tiled map
@@ -520,6 +527,9 @@ class GameView(arcade.View):
                                                              'Golden door',
                                                              TILE_SCALING,
                                                              use_spatial_hash=True)
+
+        # for sprite in self.golden_door_list:
+        #     self.wall_list.append(sprite)
 
         #Спавн
         self.spawn_list=arcade.tilemap.process_layer(my_map,
@@ -896,18 +906,13 @@ class GameView(arcade.View):
                 self.has_golden_key = False
                 # Remove the door
                 door.remove_from_sprite_lists()
+                self.foreground[0].append(door)
             else:
-                if self.player_sprite.change_x<0 and self.player_sprite.left < door.right:
+                if self.player_sprite.change_x<0 and self.player_sprite.left < door.right and self.player_sprite.left > door.left:
                     self.player_sprite.left=door.right
-                    arcade.play_sound(self.error_sound)
-                elif self.player_sprite.change_x>0 and self.player_sprite.right > door.left:
+                elif self.player_sprite.change_x>0 and self.player_sprite.right > door.left and self.player_sprite.right < door.right:
                     self.player_sprite.right=door.left
-                    arcade.play_sound(self.error_sound)
-                # if self.player_sprite.change_y<0 and self.player_sprite.bottom < door.top:
-                #     self.player_sprite.bottom=door.top
-                # elif self.player_sprite.change_y>0 and self.player_sprite.top > door.bottom:
-                #     self.player_sprite.top=door.bottom
-                self.key_discard()
+
         # Track if we need to change the viewport
         changed_viewport = False
 

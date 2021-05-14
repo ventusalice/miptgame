@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="left-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="5">
+ <tileset firstgid="1" name="Enviroment" tilewidth="16" tileheight="16" tilecount="1170" columns="45">
+  <image source="../../images/Environment/Kauzz Forest Tiles/Enviroment.png" width="724" height="416"/>
+ </tileset>
+ <tileset firstgid="1171" source="../../images/Animated Tiles/Diamond.tsx"/>
+ <tileset firstgid="1184" name="Country_village_props" tilewidth="16" tileheight="16" tilecount="252" columns="21">
+  <image source="../../images/Environment/Country-village_asset_pack/1_Tileset &amp; props/Country_village_props.png" width="336" height="192"/>
+ </tileset>
+ <tileset firstgid="1436" name="Door and key" tilewidth="32" tileheight="48" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="2">
+   <image width="32" height="48" source="../../images/Environment/doorClosed_mid.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="1439" name="tiny_consumables" tilewidth="16" tileheight="16" tilecount="18" columns="6">
+  <image source="../../images/Environment/tiny_consumables.png" width="96" height="48"/>
+ </tileset>
+ <tileset firstgid="1457" name="mainlevbuild" tilewidth="16" tileheight="16" tilecount="4096" columns="64">
+  <image source="../../images/Environment/PFantasy_SET1_v1.0/mainlevbuild.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="5553" source="../../images/Animated Tiles/Heart.tsx"/>
+ <tileset firstgid="5559" source="../../images/Animated Tiles/Bat.tsx"/>
+ <layer id="4" name="Checkpoints" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer id="5" name="Coins" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt17ENADAIwDAG/t/5ti90QCAk+4KsiQAAAAAAAAAAJlVuFwAAAAA/PDwAAMAdHg4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgG4PFLoB2A==
+  </data>
+ </layer>
+ <layer id="6" name="Hearts" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIA6CXsH8GGxrDOSEBCQAAAAAAAPzQtT0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4Yg98Axw==
+  </data>
+ </layer>
+ <layer id="7" name="Don't Touch" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2TEKgDAMBdBMOW1vXu0ZdCk4FLoIEXwPMmT7kOmTCAAAAAAAAAAAAOANPSOOe86sTgIAAAD/MHv4s5OPxc43NbcBAAA2/GABAAAAAAAAAAAAAAAAAAAAAAAAAACodAFvGg+Y
+  </data>
+ </layer>
+ <layer id="8" name="Golden key" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzkENAAAIBKD72L+GMY2hm5CABAAAAAAAAAAAAAAAAAAAAADgn67tAQAAAAAAAAAAAAAAAAAAAAAAAAAAAFcNQiQArg==
+  </data>
+ </layer>
+ <layer id="9" name="Golden door" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztziEBAAAIA7AbepOErFgaYLYESwAAAAAAAAAAAAAAAAAAALim0t8HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+LEw3ASQ=
+  </data>
+ </layer>
+ <layer id="10" name="Exit" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIA6AHs38uY3w6SEACAAAAAAAAfDPtAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAActqsiAD0=
+  </data>
+ </layer>
+ <layer id="11" name="Enemy 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBAAAMAiAjrX+6fVbwgQQkAAAAAAAAAACs3ToAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAPZTZADE=
+  </data>
+ </layer>
+ <layer id="12" name="Enemy 0" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7BJwr86PCwkPK2CJgAAAAAAAAAAXJvvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALUFndkAMQ==
+  </data>
+ </layer>
+ <layer id="13" name="Spawn" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBAAAMAiCLrX+tvTbwgQQkAAAAAAAAAAAAAAAAAAAAAABbtw4AAAAAAAAAAAAAAAAAAAAAAAAAAABAeWXTAD4=
+  </data>
+ </layer>
+ <objectgroup id="14" name="Enemies">
+  <object id="3" gid="5581" x="1166" y="283" width="35" height="20">
+   <properties>
+    <property name="change_y" type="float" value="2"/>
+   </properties>
+  </object>
+  <object id="4" gid="5581" x="1377.5" y="258.5" width="35" height="20">
+   <properties>
+    <property name="change_y" type="float" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="Moving platforms">
+  <object id="1" gid="3" x="624" y="432" width="16" height="16">
+   <properties>
+    <property name="boundary_bottom" type="float" value="1752"/>
+    <property name="boundary_top" type="float" value="1992"/>
+    <property name="change_y" type="float" value="1"/>
+   </properties>
+  </object>
+  <object id="2" gid="3" x="640" y="432" width="16" height="16">
+   <properties>
+    <property name="boundary_bottom" type="float" value="1752"/>
+    <property name="boundary_top" type="float" value="1992"/>
+    <property name="change_y" type="float" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="2" name="Platforms" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2kEKgCAQBVChC3Wl7n+JaNdCaDPmL98DtyJ+EMexNQAAAOBuKxwAAAD0PdVPo2urytpvpXpx/9i8fyePLPLIcu3biPNbHgC5VrmTAwAAUMubX42qvpk8ssgjizyyyOM9eni57HsWeWQ5Zi8ACs3+a6m3CwAAAAAAAAAAAAAAAAAAAAAAAAAAJDgBM7oFHg==
+  </data>
+ </layer>
+ <layer id="1" name="Ladders" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0TENACAAwDDw75ebFwUwklbBko0BAAAAAAAAAAAA8J81Xxdw8qPFjxY/Wvxo8aPFjxY/Wvxo8QMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC4YQPXGgmn
+  </data>
+ </layer>
+ <layer id="15" name="Foreground 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+</map>

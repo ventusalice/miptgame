@@ -1,6 +1,8 @@
 import arcade
 import tkinter
 import sys
+import pickle
+from copy import copy
 
 # Constants of the window
 SCREEN_WIDTH = tkinter.Tk().winfo_screenwidth()
@@ -85,6 +87,31 @@ class LevelCompletedView(arcade.View):
         self.game_view = game_view
         self.color = color
         arcade.set_background_color(color)
+        #print(type(neuron_saving.NeuronSave))
+        if str(type(game_view))[17:27] == 'NeuronSave':
+            data = {'X' : [copy(game_view.exit_list_list),
+        copy(game_view.dont_touch_list_list),
+        copy(game_view.enemy_list_list),
+        copy(game_view.wall_list_list),
+        copy(game_view.coin_list_list),
+        copy(game_view.heart_list_list),
+        copy(game_view.golden_key_list_list),
+        copy(game_view.golden_door_list_list),
+        copy(game_view.player_list_list)], 
+                'y' : [copy(game_view.player_list_list),
+        copy(game_view.left_pressed_list),
+        copy(game_view.right_pressed_list),
+        copy(game_view.up_pressed_list),
+        copy(game_view.down_pressed_list),
+        copy(game_view.dash_pressed_list)]}
+            with open('./bank/0_number', 'rb') as f:
+                number = pickle.load(f)
+            with open(f'./bank/{number}', 'wb') as f:
+                pickle.dump(data, f)
+            with open('./bank/0_number', 'wb') as f:
+                number = pickle.dump(number+1, f)
+            self.game_view.setup(level=self.game_view.level)
+            self.window.show_view(self.game_view)
         # ниже для отмены результатов скроллинга
         #arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
 

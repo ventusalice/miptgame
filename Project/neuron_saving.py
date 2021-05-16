@@ -1,11 +1,7 @@
 import GAME
 import arcade
-import pickle
-import copy
+from copy import copy
 
-f = open('./bank/0_number', 'r')
-bank_number=int(f.read())
-f.close()
 
 class NeuronSave(GAME.GameView):
     def __init__(self):
@@ -28,24 +24,22 @@ class NeuronSave(GAME.GameView):
     
     def on_update(self, delta_time):
         GAME.GameView.on_update(self, delta_time)
-        self.exit_list_list.append(copy.copy(self.exit_list))
-        self.dont_touch_list_list.append(copy.copy(self.dont_touch_list))
-        self.enemy_list_list.append(copy.copy(self.enemy_list))
-        self.wall_list_list.append(copy.copy(self.wall_list))
-        self.coin_list_list.append(copy.copy(self.coin_list))
-        self.heart_list_list.append(copy.copy(self.heart_list))
-        self.golden_key_list_list.append(copy.copy(self.golden_key_list))
-        self.golden_door_list_list.append(copy.copy(self.golden_door_list))
-        self.player_list_list.append(copy.copy(self.player_list))
-        self.left_pressed_list.append(copy.copy(self.left_pressed))
-        self.right_pressed_list.append(copy.copy(self.right_pressed))
-        self.up_pressed_list.append(copy.copy(self.up_pressed))
-        self.down_pressed_list.append(copy.copy(self.down_pressed))
-        self.dash_pressed_list.append(copy.copy(self.dash_pressed))
+        self.exit_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.exit_list]))
+        self.dont_touch_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.dont_touch_list]))
+        self.enemy_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.enemy_list]))
+        self.wall_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.wall_list]))
+        self.coin_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.coin_list]))
+        self.heart_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.heart_list]))
+        self.golden_key_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.golden_key_list]))
+        self.golden_door_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.golden_door_list]))
+        self.player_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.player_list]))
+        self.left_pressed_list.append(copy(self.left_pressed))
+        self.right_pressed_list.append(copy(self.right_pressed))
+        self.up_pressed_list.append(copy(self.up_pressed))
+        self.down_pressed_list.append(copy(self.down_pressed))
+        self.dash_pressed_list.append(copy(self.dash_pressed))
     
-    def setup(level=0):
-        GAME.GameView.setup(level)
-        
+    
                 
                                       
         

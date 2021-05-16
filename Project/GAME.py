@@ -939,7 +939,7 @@ class GameView(arcade.View):
 
             # Advance to the next level
             # Load the next level
-            self.window.show_view(LevelCompletedView(self, self.background_color))
+            #self.window.show_view(LevelCompletedView(self, self.background_color))
             self.level += 1
 
             # Load the next level

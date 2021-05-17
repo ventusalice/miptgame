@@ -120,7 +120,7 @@ class Skeleton_Lighter(Enemy):
 
 class Skeleton_Seeker(Enemy):
 
-    def __init__(self, scale=1.5):
+    def __init__(self, scale=1.25):
 
         # Set up parent class
         super().__init__(scale=scale)

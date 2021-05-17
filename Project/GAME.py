@@ -56,16 +56,14 @@ GameWindow = nonmain.GameWindow
 LevelCompletedView = nonmain.LevelCompletedView
 
 #Список с противниками для основной игры
-# All_enemies = [None,
-#                [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()],
-#                [Enemies.Skeleton_Seeker(), Enemies.Skeleton_Lighter()] ]
-#All_enemies[1000]=[Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]
+All_enemies = [None,
+               [[Enemies.Skeleton_Lighter() for i in range(6)],[Enemies.Skeleton_Seeker() for i in range(2)]]] #level 1
 #Список с противниками для обучения
-All_enemies = [None, None, None, None, None, None, None, None, None,
-               [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
-               [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
-               [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
-               [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]]
+# All_enemies = [None, None, None, None, None, None, None, None, None,
+#                [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
+#                [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
+#                [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
+#                [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]]
 
 
 def load_texture_pair(filename):
@@ -239,7 +237,7 @@ class PlayerCharacter(arcade.Sprite):
                 self.cur_texture = 0
             self.texture = self.jump_textures[self.cur_texture // 7][self.character_face_direction]
             return
-        elif self.change_y < 0 and not self.is_on_ladder:
+        elif self.change_y < 0 and not self.is_on_ladder and not self.can_jump:
             self.cur_texture += 1
             if self.cur_texture > 20:
                 self.cur_texture = 0
@@ -360,7 +358,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 0
+        self.level = 1
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -429,9 +427,9 @@ class GameView(arcade.View):
         # --- Load in a map from the tiled editor ---
 
         # Map name
-        map_name = f"maps/neuron/map_level_{level}.tmx" #убрать neuron для нормальных карт
-        
-            
+        map_name = f"maps/map_level_{level}.tmx" #убрать neuron для нормальных карт
+
+
         # Read in the tiled map
         try:
             my_map = arcade.tilemap.read_tmx(map_name)
@@ -458,9 +456,10 @@ class GameView(arcade.View):
         for i in range(NEN):
             temporary_enemy_list = arcade.tilemap.process_layer(my_map,
                                                               f"Enemy {i}", TILE_SCALING)
+            number = 0
 
-            for enemy in temporary_enemy_list:
-                this_enemy = All_enemies[self.level][i]
+            for enemy in temporary_enemy_list :
+                this_enemy =All_enemies[self.level][i][number]
                 this_enemy.center_x = enemy.center_x
                 this_enemy.bottom = enemy.bottom
                 if enemy.boundary_right:
@@ -476,6 +475,7 @@ class GameView(arcade.View):
                 if enemy.change_y:
                     this_enemy.change_y = enemy.change_y
                 self.enemy_list.append(this_enemy)
+                number+=1
 
         # -- Ladder objects
         self.ladder_list = arcade.tilemap.process_layer(my_map,
@@ -602,7 +602,7 @@ class GameView(arcade.View):
                          arcade.csscolor.BLACK, 18)
         #keys
         if self.has_golden_key:
-            arcade.draw_text('Золотой ключ', 20 + self.view_left, SCREEN_HEIGHT - 90 + self.view_bottom,
+            arcade.draw_text('Ключ', 20 + self.view_left, SCREEN_HEIGHT - 90 + self.view_bottom,
                              arcade.csscolor.BLACK, 18)
         #dash_cooldown
         if time.time() - self.dash_start_time >= DASH_COOLDOWN:
@@ -892,12 +892,13 @@ class GameView(arcade.View):
         # Loop through each key we hit (if any) and remove it
         for key in arcade.check_for_collision_with_list(self.player_sprite,
                                                         self.golden_key_list):
-            # Remove the key
-            key.remove_from_sprite_lists()
-            # Play a sound
-            arcade.play_sound(self.key_sound)
-            # Add one to the score
-            self.has_golden_key = True
+            if not self.has_golden_key:
+                # Remove the key
+                key.remove_from_sprite_lists()
+                # Play a sound
+                arcade.play_sound(self.key_sound)
+                # Add one to the score
+                self.has_golden_key = True
         # check door
         for door in arcade.check_for_collision_with_list(self.player_sprite,
                                                          self.golden_door_list):
@@ -939,7 +940,7 @@ class GameView(arcade.View):
 
             # Advance to the next level
             # Load the next level
-            #self.window.show_view(LevelCompletedView(self, self.background_color))
+            self.window.show_view(LevelCompletedView(self, self.background_color))
             self.level += 1
 
             # Load the next level

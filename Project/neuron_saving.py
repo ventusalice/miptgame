@@ -14,6 +14,7 @@ class NeuronSave(GAME.GameView):
         self.heart_list_list = []
         self.golden_key_list_list = []
         self.golden_door_list_list = []
+        self.ladder_list_list = []
         self.player_list_list = []
         self.left_pressed_list = []
         self.right_pressed_list = []
@@ -32,6 +33,7 @@ class NeuronSave(GAME.GameView):
         self.heart_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.heart_list]))
         self.golden_key_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.golden_key_list]))
         self.golden_door_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.golden_door_list]))
+        self.ladder_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.ladder_list]))
         self.player_list_list.append(copy([[i.position, i.collision_radius, i.velocity] for i in self.player_list]))
         self.left_pressed_list.append(copy(self.left_pressed))
         self.right_pressed_list.append(copy(self.right_pressed))

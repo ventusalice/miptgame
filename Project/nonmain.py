@@ -90,6 +90,7 @@ class LevelCompletedView(arcade.View):
         #print(type(neuron_saving.NeuronSave))
         if str(type(game_view))[17:27] == 'NeuronSave':
             data = {'X' : [copy(game_view.exit_list_list),
+        copy(game_view.player_list_list),
         copy(game_view.dont_touch_list_list),
         copy(game_view.enemy_list_list),
         copy(game_view.wall_list_list),
@@ -97,7 +98,7 @@ class LevelCompletedView(arcade.View):
         copy(game_view.heart_list_list),
         copy(game_view.golden_key_list_list),
         copy(game_view.golden_door_list_list),
-        copy(game_view.player_list_list)], 
+        copy(game_view.ladder_list_list)], 
                 'y' : [copy(game_view.left_pressed_list),
         copy(game_view.right_pressed_list),
         copy(game_view.up_pressed_list),

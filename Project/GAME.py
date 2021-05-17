@@ -720,8 +720,10 @@ class GameView(arcade.View):
 
     def on_update(self, delta_time):
         def death():
-            self.player_sprite.dead = True
-            self.player_sprite.cur_texture = 0
+            #self.player_sprite.dead = True
+            #self.player_sprite.cur_texture = 0
+            if self.score>=10:
+                self.score-=10
             arcade.play_sound(self.death_sound)
             self.player_sprite.center_x = self.checkpoint_x
             self.player_sprite.bottom = self.checkpoint_y

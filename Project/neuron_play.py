@@ -24,6 +24,7 @@ class NeuronPlay(GAME.GameView):
         
     def on_update(self, delta_time):
         X = [elongate(flatten2list([[[i.position, i.collision_radius, i.velocity] for i in (lambda x: [] if x == None else x)(lists)] for lists in [self.exit_list,
+                                                                                                      self.player_list,                                                              
                                                                                                       self.dont_touch_list,
                                                                                                       self.enemy_list,
                                                                                                       self.wall_list,
@@ -31,12 +32,11 @@ class NeuronPlay(GAME.GameView):
                                                                                                       self.heart_list,
                                                                                                       self.golden_key_list,
                                                                                                       self.golden_door_list,
-                                                                                                      self.ladder_list,
-                                                                                                      self.player_list]]))]
+                                                                                                      self.ladder_list]]))]
         
         #print(X)
         result = self.net.predict(X)
-        print(result)
+        #print(result)
         self.left_pressed, self.right_pressed, self.up_pressed, self.down_pressed, self.dash_pressed = [i == 'True' for i in str(result[0]).split(',')]
         #print([self.left_pressed, self.right_pressed, self.up_pressed, self.down_pressed, self.dash_pressed])
         GAME.GameView.on_update(self, delta_time)
@@ -55,7 +55,7 @@ def main():
     window = GAME.GameWindow()
     # game = GameView()
     view = NeuronPlay()
-    view.setup(level=5)
+    view.setup(level=8)
     # game.setup(game.level)
     window.show_view(view)
     arcade.run()

@@ -182,4 +182,12 @@ class PauseView(arcade.View):
         elif key == arcade.key.BACKSPACE:
             self.window.close()
             sys.exit()
+        elif key == arcade.key.RIGHT:
+            self.game_view.level += 1
+            self.game_view.setup(self.game_view.level)
+            self.window.show_view(self.game_view)
+        elif key == arcade.key.LEFT:
+            self.game_view.level -= 1
+            self.game_view.setup(self.game_view.level)
+            self.window.show_view(self.game_view)
 

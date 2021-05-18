@@ -57,7 +57,7 @@
  <objectgroup id="3" name="Moving platforms"/>
  <layer id="2" name="Platforms" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJztw7EJAAAIA7CC///s0BdchASSAAAAAAAAAAAAAAAAAAAAAABAzUEAAAAAAAAAAAAAAAAAAAAAAAAAAIDvFqgjADQ=
+   eJzt0cEJAAAIAsCg/XduByEiuAP/olUAAAAAAAAAAAAAAAAAAAAAQKqvCzy1tZs/Mr0YAAAAAAAAAAAAAAAAAAAAAAAAAACAjwbAqgBP
   </data>
  </layer>
  <layer id="1" name="Ladders" width="100" height="100">

@@ -76,13 +76,3 @@ def main():
 if __name__ == "__main__":
     main()
     
-"""   
-f = open(f'./bank/{bank_number}', 'w')
-        self.left_pressed = False
-        self.right_pressed = False
-        self.up_pressed = False
-        self.down_pressed = False
-        self.jump_needs_reset = False
-        self.dash_pressed = False
-        self.dash_is_ready =True
-"""

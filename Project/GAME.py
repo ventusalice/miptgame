@@ -427,7 +427,7 @@ class GameView(arcade.View):
         # --- Load in a map from the tiled editor ---
 
         # Map name
-        map_name = f"maps/map_level_{level}.tmx" #убрать neuron для нормальных карт
+        map_name = f"maps/neuron/map_level_{level}.tmx" #убрать neuron для нормальных карт
 
 
         # Read in the tiled map
@@ -942,7 +942,7 @@ class GameView(arcade.View):
 
             # Advance to the next level
             # Load the next level
-            self.window.show_view(LevelCompletedView(self, self.background_color))
+            #self.window.show_view(LevelCompletedView(self, self.background_color))
             self.level += 1
 
             # Load the next level

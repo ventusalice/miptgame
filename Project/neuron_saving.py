@@ -41,7 +41,24 @@ class NeuronSave(GAME.GameView):
         self.down_pressed_list.append(copy(self.down_pressed))
         self.dash_pressed_list.append(copy(self.dash_pressed))
     
-    
+    def setup(self, level=0):
+        GAME.GameView.setup(self, level)
+        self.exit_list_list = []
+        self.dont_touch_list_list = []
+        self.enemy_list_list = []
+        self.wall_list_list = []
+        self.coin_list_list = []
+        self.heart_list_list = []
+        self.golden_key_list_list = []
+        self.golden_door_list_list = []
+        self.ladder_list_list = []
+        self.player_list_list = []
+        self.left_pressed_list = []
+        self.right_pressed_list = []
+        self.up_pressed_list = []
+        self.down_pressed_list = []
+        self.dash_pressed_list = []
+        
                 
                                       
         
@@ -50,7 +67,7 @@ def main():
     window = GAME.GameWindow()
     # game = GameView()
     view = NeuronSave()
-    view.setup(level=0)
+    view.setup(view.level)
     # game.setup(game.level)
     window.show_view(view)
     arcade.run()

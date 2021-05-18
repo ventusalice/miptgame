@@ -358,7 +358,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 1
+        self.level = 0
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -381,8 +381,6 @@ class GameView(arcade.View):
         # Used to keep track of our scrolling
         self.view_bottom = 0
         self.view_left = 0
-
-
 
         # Track the current state of what key is pressed
         self.left_pressed = False
@@ -427,7 +425,8 @@ class GameView(arcade.View):
         # --- Load in a map from the tiled editor ---
 
         # Map name
-        map_name = f"maps/neuron/map_level_{level}.tmx" #убрать neuron для нормальных карт
+       #map_name = f"maps/neuron/map_level_{level}.tmx" #Карты для нейронки
+        map_name = f"maps/map_level_{level}.tmx" #карты для основной игры
 
 
         # Read in the tiled map
@@ -596,8 +595,6 @@ class GameView(arcade.View):
                          arcade.csscolor.BLACK, 18)
         arcade.draw_text(f'Level {self.level}', 20 + self.view_left, SCREEN_HEIGHT - 50 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
-        #player_name
-        #arcade.draw_text('Pasha +PLUS+', self.player_sprite.left - 32, self.player_sprite.top, arcade.csscolor.WHITE, 18)
         arcade.draw_text(f"Lifes: {self.lifes}", 20 + self.view_left, SCREEN_HEIGHT - 70 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
         #keys
@@ -605,12 +602,12 @@ class GameView(arcade.View):
             arcade.draw_text('Ключ', 20 + self.view_left, SCREEN_HEIGHT - 90 + self.view_bottom,
                              arcade.csscolor.BLACK, 18)
         #dash_cooldown
-        if time.time() - self.dash_start_time >= DASH_COOLDOWN:
-            arcade.draw_text('Dash: ready', 130 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
-                             arcade.csscolor.BLACK, 18)
-        else:
-            arcade.draw_text(f"Dash: {round(DASH_COOLDOWN-time.time() + self.dash_start_time)}", 130 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
-                             arcade.csscolor.BLACK, 18)
+        # if time.time() - self.dash_start_time >= DASH_COOLDOWN:
+        #     arcade.draw_text('Dash: ready', 130 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
+        #                      arcade.csscolor.BLACK, 18)
+        # else:
+        #     arcade.draw_text(f"Dash: {round(DASH_COOLDOWN-time.time() + self.dash_start_time)}", 130 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
+        #                      arcade.csscolor.BLACK, 18)
 
     def process_keychange(self):
         """
@@ -942,10 +939,7 @@ class GameView(arcade.View):
 
             # Advance to the next level
             # Load the next level
-            #self.window.show_view(LevelCompletedView(self, self.background_color))
             self.level += 1
-
-            # Load the next level
             self.window.show_view(LevelCompletedView(self, self.background_color))
 
             # Set the camera to the start

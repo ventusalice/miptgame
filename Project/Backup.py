@@ -58,13 +58,6 @@ LevelCompletedView = nonmain.LevelCompletedView
 #Список с противниками для основной игры
 All_enemies = [None,
                [[Enemies.Skeleton_Lighter() for i in range(6)],[Enemies.Skeleton_Seeker() for i in range(2)]]] #level 1
-#Список с противниками для обучения
-# All_enemies = [None, None, None, None, None, None, None, None, None,
-#                [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
-#                [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
-#                [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()],
-#                [Enemies.Old_Guardian(), Enemies.Skeleton_Lighter()]]
-
 
 def load_texture_pair(filename):
     """
@@ -295,11 +288,6 @@ class GameView(arcade.View):
     Main application class.
     """
 
-    def optimize(self, list_of_sprites, right_edge,left_edge, top_edge, bottom_edge):  #функция применяется в draw для оптимизации
-        for sprite in list_of_sprites:
-            if sprite.left<right_edge or sprite.right>left_edge or  sprite.bottom<top_edge or sprite.top>bottom_edge:
-                sprite.draw()
-
     def __init__(self):
 
         super().__init__()
@@ -331,8 +319,6 @@ class GameView(arcade.View):
         self.player_face_right = True
         self.player_face_right = False
 
-        #self.timing_of_death = time.time()
-
         #Dash info
         self.dash_start = 0
         self.dash_start_time = 0
@@ -363,7 +349,7 @@ class GameView(arcade.View):
         self.lifes = self.max_lifes
 
         # Level
-        self.level = 1
+        self.level = 0
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound("sounds/coin2.wav")
@@ -387,6 +373,8 @@ class GameView(arcade.View):
         self.view_bottom = 0
         self.view_left = 0
 
+        #Саундтрэк
+        self.level_sound = arcade.load_sound(f"sounds/soundtrack_level_{level}.mp3")
 
 
         # Track the current state of what key is pressed
@@ -432,8 +420,8 @@ class GameView(arcade.View):
         # --- Load in a map from the tiled editor ---
 
         # Map name
-        map_name = f"maps/map_level_{level}.tmx" #убрать neuron для нормальных карт
-
+        #map_name = f"maps/neuron/map_level_{level}.tmx" #Карты для нейронки
+        map_name = f"maps/map_level_{level}.tmx" #карты для основной игры
 
         # Read in the tiled map
         try:
@@ -533,8 +521,6 @@ class GameView(arcade.View):
                                                              TILE_SCALING,
                                                              use_spatial_hash=True)
 
-        # for sprite in self.golden_door_list:
-        #     self.wall_list.append(sprite)
 
         #Спавн
         self.spawn_list=arcade.tilemap.process_layer(my_map,
@@ -576,10 +562,7 @@ class GameView(arcade.View):
 
         # Clear the screen to the background color
         arcade.start_render()
-        right_edge = self.view_left + SCREEN_WIDTH + GRID_PIXEL_SIZE*2
-        left_edge = self.view_left - GRID_PIXEL_SIZE*2
-        top_edge = self.view_bottom + SCREEN_HEIGHT + GRID_PIXEL_SIZE*2
-        bottom_edge = self.view_bottom - GRID_PIXEL_SIZE*2
+
         # Draw our sprites
         for i in self.background:
             i.draw()
@@ -602,23 +585,23 @@ class GameView(arcade.View):
         score_text = f"Score: {self.score}"
         arcade.draw_text(score_text, 20 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
+        # Level info
         arcade.draw_text(f'Level {self.level}', 20 + self.view_left, SCREEN_HEIGHT - 50 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
-        #player_name
-        #arcade.draw_text('Pasha +PLUS+', self.player_sprite.left - 32, self.player_sprite.top, arcade.csscolor.WHITE, 18)
+        # Lifes
         arcade.draw_text(f"Lifes: {self.lifes}", 20 + self.view_left, SCREEN_HEIGHT - 70 + self.view_bottom,
                          arcade.csscolor.BLACK, 18)
         #keys
         if self.has_golden_key:
             arcade.draw_text('Ключ', 20 + self.view_left, SCREEN_HEIGHT - 90 + self.view_bottom,
                              arcade.csscolor.BLACK, 18)
-        #dash_cooldown
-        if time.time() - self.dash_start_time >= DASH_COOLDOWN:
-            arcade.draw_text('Dash: ready', 130 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
-                             arcade.csscolor.BLACK, 18)
-        else:
-            arcade.draw_text(f"Dash: {round(DASH_COOLDOWN-time.time() + self.dash_start_time)}", 130 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
-                             arcade.csscolor.BLACK, 18)
+        #dash_cooldown слишком низкий кулдаун, чтобы его прописывать
+        # if time.time() - self.dash_start_time >= DASH_COOLDOWN:
+        #     arcade.draw_text('Dash: ready', 130 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
+        #                      arcade.csscolor.BLACK, 18)
+        # else:
+        #     arcade.draw_text(f"Dash: {round(DASH_COOLDOWN-time.time() + self.dash_start_time)}", 130 + self.view_left, SCREEN_HEIGHT - 30 + self.view_bottom,
+        #                      arcade.csscolor.BLACK, 18)
 
     def process_keychange(self):
         """
@@ -667,7 +650,7 @@ class GameView(arcade.View):
         else:
             self.player_sprite.change_x = 0
 
-    def key_discard(self):#просто функция для сброса любого движения
+    def key_discard(self):  #просто функция для сброса любого движения
         self.left_pressed = False
         self.right_pressed = False
         self.up_pressed = False
@@ -727,6 +710,10 @@ class GameView(arcade.View):
         self.process_keychange()
 
     def on_update(self, delta_time):
+
+        #Саунд
+        if not self.level_sound.is_playing:
+            self.level_sound.play()
         def death():
             #self.player_sprite.dead = True
             #self.player_sprite.cur_texture = 0
@@ -818,7 +805,6 @@ class GameView(arcade.View):
             self.player_sprite.dashing = False
 
         self.background[NBG-1].update_animation(delta_time)
-        #self.background[NBG - 2].update_animation(delta_time)
         self.foreground[NFG - 1].update_animation(delta_time)
         self.coin_list.update_animation(delta_time)
         self.dont_touch_list.update_animation(delta_time)
@@ -950,7 +936,7 @@ class GameView(arcade.View):
 
             # Advance to the next level
             # Load the next level
-            self.window.show_view(LevelCompletedView(self, self.background_color))
+            #self.window.show_view(LevelCompletedView(self, self.background_color))
             self.level += 1
 
             # Load the next level
